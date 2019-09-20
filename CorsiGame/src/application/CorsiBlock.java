@@ -19,6 +19,11 @@ public class CorsiBlock extends Rectangle
 		blinkStopwatch = new Stopwatch();
 	}
 	
+	public void blink(int numSeconds)
+	{
+		
+	}
+	
 	public void setLit(boolean lit)
 	{
 		isLit = lit;
