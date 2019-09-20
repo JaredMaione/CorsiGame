@@ -5,23 +5,26 @@ public class Stopwatch
 	boolean isRunning;
 	
 	// In MS
-	int startTime;
-	int endTime;
+	long startTime;
 	
 	ElapsedTime elapsedTime;
 	
 	public Stopwatch()
 	{
-		
+		startTime = -1;
+		isRunning = false;
 	}
 	
 	public void start()
 	{
-		
+		startTime = System.currentTimeMillis();
+		isRunning = true;
 	}
 
 	public ElapsedTime stop()
 	{
+		isRunning = false;
+		elapsedTime = new ElapsedTime(System.currentTimeMillis() - startTime);
 		return elapsedTime;
 	}
 	
@@ -30,8 +33,16 @@ public class Stopwatch
 		return elapsedTime;
 	}
 	
+	// Returns the number of ms since this stopwatch was started
+	public long getMSFromStart()
+	{
+		return System.currentTimeMillis() - startTime;
+	}
+	
 	public void reset()
 	{
-		
+		startTime = -1;
+		elapsedTime = null;
+		isRunning = false;
 	}
 }
