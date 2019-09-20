@@ -2,12 +2,12 @@ package application;
 
 public class Stopwatch 
 {
-	boolean isRunning;
+	private boolean isRunning;
 	
 	// In MS
-	long startTime;
+	private long startTime;
 	
-	ElapsedTime elapsedTime;
+	private ElapsedTime elapsedTime;
 	
 	public Stopwatch()
 	{
