@@ -15,6 +15,15 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.start();
+			stopwatch.stop();
+			
+			ElapsedTime time = new ElapsedTime(1002);
+			System.out.println(time.getMinutes());
+			System.out.println(time.getSeconds());
+			System.out.println(time.getMS());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
