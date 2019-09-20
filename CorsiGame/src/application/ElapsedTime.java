@@ -14,7 +14,12 @@ public class ElapsedTime
 		
 		if (seconds > 59)
 		{
-			minutes = (seconds / 60);
+			minutes = seconds / 60;
+			seconds = seconds % 60;
+		}
+		else
+		{
+			minutes = 0;
 		}
 	}
 	
