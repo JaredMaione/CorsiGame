@@ -8,6 +8,7 @@ public class ElapsedTime
 	
 	public ElapsedTime(long timeInMS)
 	{
+		// THIS NEEDS TESTING
 		seconds = (int) (timeInMS / 1000);
 		ms = (int) (timeInMS % 1000);
 		
