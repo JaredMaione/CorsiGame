@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class CorsiBlockGenerator 
 {
-	private final int BLOCK_SIDE_LENGTH = 100;
+	private static final int BLOCK_SIDE_LENGTH = 100;
 	
 	public static ArrayList<CorsiBlock> generateBlocks(int numBlocks, int maxX, int maxY)
 	{
