@@ -2,7 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
-public class CorsiBlockGenerator 
+public abstract class CorsiBlockGenerator 
 {
 	private final int BLOCK_SIDE_LENGTH = 100;
 	
