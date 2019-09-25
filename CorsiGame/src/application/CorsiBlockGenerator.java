@@ -6,7 +6,7 @@ public abstract class CorsiBlockGenerator
 {
 	private final int BLOCK_SIDE_LENGTH = 100;
 	
-	public ArrayList<CorsiBlock> generateBlocks(int numBlocks, int maxX, int maxY)
+	public static ArrayList<CorsiBlock> generateBlocks(int numBlocks, int maxX, int maxY)
 	{
 		ArrayList<CorsiBlock> blocks = new ArrayList<CorsiBlock>();
 		
