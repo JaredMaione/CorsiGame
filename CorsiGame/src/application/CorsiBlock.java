@@ -13,10 +13,20 @@ public class CorsiBlock extends Rectangle
 	
 	public CorsiBlock()
 	{
+		super();
 		isLit = false;
 		setFill(UNLIT_COLOR);
 		
 		blinkStopwatch = new Stopwatch();
+	}
+	
+	public CorsiBlock(double x, double y,  double sideLength)
+	{
+		this();
+		this.setX(x);
+		this.setY(y);
+		this.setWidth(sideLength);
+		this.setHeight(sideLength);
 	}
 	
 	public void blink(int numSeconds)
