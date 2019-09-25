@@ -20,13 +20,12 @@ public class Main extends Application {
 			primaryStage.show();
 			
 			Stopwatch stopwatch = new Stopwatch();
-			CorsiBlock testBlock = new CorsiBlock();
-			testBlock.setHeight(100);
-			testBlock.setWidth(100);
-			testBlock.setX(50);
-			testBlock.setY(50);
-			root.getChildren().add(testBlock);
-			AnimationTimer animTimer = new AnimationTimer()
+			CorsiBlock testBlock = new CorsiBlock(2, 2, 50);
+			for (CorsiBlock block : CorsiBlockGenerator.generateBlocks(4, (int) scene.getWidth(), (int) scene.getHeight()))
+			{
+				root.getChildren().add(block);
+			}
+			/*AnimationTimer animTimer = new AnimationTimer()
 					{
 						@Override
 						public void handle(long arg0) 
@@ -35,17 +34,8 @@ public class Main extends Application {
 						}
 
 					};
-			animTimer.start();
-			testBlock.setFill(Color.RED);
-			testBlock.setFill(Color.GREEN);
-			testBlock.blink(3);
-			stopwatch.start();
-			stopwatch.stop();
-			
-			ElapsedTime time = new ElapsedTime(1002);
-			System.out.println(time.getMinutes());
-			System.out.println(time.getSeconds());
-			System.out.println(time.getMS());
+			animTimer.start();*/
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
