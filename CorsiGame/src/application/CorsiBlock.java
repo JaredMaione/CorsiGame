@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 public class CorsiBlock extends Rectangle
 {
-	private final Color LIT_COLOR = Color.YELLOW;
+	private final Color LIT_COLOR = Color.RED;
 	private final Color UNLIT_COLOR = Color.BLUE;
 	
 	private boolean isLit;
