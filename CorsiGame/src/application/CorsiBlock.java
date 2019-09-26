@@ -1,5 +1,6 @@
 package application;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -31,7 +32,26 @@ public class CorsiBlock extends Rectangle
 	
 	public void blink(int numSeconds)
 	{
+		setLit(true);
+		blinkStopwatch.start();
 		
+		AnimationTimer blinkTimer = new AnimationTimer()
+		{
+			@Override
+			public void handle(long arg0) 
+			{
+				System.out.println(blinkStopwatch.getMSFromStart());
+				if ((blinkStopwatch.getMSFromStart() / 1000) >= numSeconds)
+				{
+					setLit(false);
+					blinkStopwatch.reset();
+					this.stop();
+				}
+			}
+
+		};
+		
+		blinkTimer.start();
 	}
 	
 	public void setLit(boolean lit)
