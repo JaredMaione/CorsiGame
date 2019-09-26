@@ -1,5 +1,7 @@
 package application;
 	
+import java.util.ArrayList;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,7 +24,8 @@ public class Main extends Application {
 			
 			Stopwatch stopwatch = new Stopwatch();
 			CorsiBlock testBlock = new CorsiBlock(2, 2, 50);
-			for (CorsiBlock block : CorsiBlockGenerator.generateBlocks(4, (int) scene.getWidth(), (int) scene.getHeight()))
+			ArrayList<CorsiBlock> blocks = CorsiBlockGenerator.generateBlocks(4, (int) scene.getWidth(), (int) scene.getHeight());
+			for (CorsiBlock block : blocks)
 			{
 				root.getChildren().add(block);
 			}
@@ -36,13 +39,8 @@ public class Main extends Application {
 
 					};
 			animTimer.start();*/
-			for (Node n : root.getChildren())
-			{
-				if (n instanceof CorsiBlock)
-				{
-					((CorsiBlock) n).blink(3);
-				}
-			}
+			CorsiSequencePlayer player = new CorsiSequencePlayer();
+			player.playSequence(blocks, 1, 1);
 			
 
 		} catch(Exception e) {
