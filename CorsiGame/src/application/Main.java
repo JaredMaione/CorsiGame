@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -35,6 +36,14 @@ public class Main extends Application {
 
 					};
 			animTimer.start();*/
+			for (Node n : root.getChildren())
+			{
+				if (n instanceof CorsiBlock)
+				{
+					((CorsiBlock) n).blink(3);
+				}
+			}
+			
 
 		} catch(Exception e) {
 			e.printStackTrace();
