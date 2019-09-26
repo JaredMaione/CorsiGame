@@ -36,11 +36,17 @@ public class Stopwatch
 	// Returns the number of ms since this stopwatch was started
 	public long getMSFromStart()
 	{
+		if (startTime == -1)
+		{
+			return 0;
+		}
+		
 		return System.currentTimeMillis() - startTime;
 	}
 	
 	public void reset()
 	{
+		stop();
 		startTime = -1;
 		elapsedTime = null;
 		isRunning = false;
