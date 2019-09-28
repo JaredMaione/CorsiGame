@@ -25,6 +25,19 @@ public class GameScore
 		{
 			return new ElapsedTime(0);
 		}
+		else
+		{
+			long timeInMS = 0;
+			
+			for (ElapsedTime time : sequenceTimes)
+			{
+				timeInMS += time.toMS();
+			}
+			
+			timeInMS /= sequenceTimes.size();
+			
+			return new ElapsedTime(timeInMS);
+		}
 	}
 	
 	public int getCorsiSpan() 
