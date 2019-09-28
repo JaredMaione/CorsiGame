@@ -12,16 +12,25 @@ public class GameScore
 	public GameScore()
 	{
 		corsiSpan = 0;
+		sequenceTimes = new ArrayList<ElapsedTime>();
+		gameDuration = new ElapsedTime(0);
+		avgSequenceTime = new ElapsedTime(0);
 	}
 	
 	public void addToAvgSequenceTime(ElapsedTime time)
 	{
-		
+		sequenceTimes.add(time);
+		avgSequenceTime = calculateAverage();
+	}
+	
+	public ElapsedTime getAvgSequenceTime()
+	{
+		return avgSequenceTime;
 	}
 	
 	private ElapsedTime calculateAverage()
 	{
-		if (sequenceTimes.size() == 0)
+		if (sequenceTimes == null || sequenceTimes.size() == 0)
 		{
 			return new ElapsedTime(0);
 		}
