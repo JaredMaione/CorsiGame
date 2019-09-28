@@ -23,6 +23,11 @@ public class ElapsedTime
 		}
 	}
 	
+	public long toMS()
+	{
+		return (minutes * 60000) + (seconds * 1000) + ms;
+	}
+	
 	public int getMinutes()
 	{
 		return minutes;
