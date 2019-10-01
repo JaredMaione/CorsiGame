@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
@@ -41,11 +42,17 @@ public class Main extends Application {
 			animTimer.start();*/
 			CorsiSequencePlayer player = new CorsiSequencePlayer();
 			player.playSequence(blocks, 1, 1);
+			blocks.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, e -> testEventHandler(e.getSource()));
 			
 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void testEventHandler(Object obj)
+	{
+		System.out.println("foo");
 	}
 	
 	public static void main(String[] args) {
