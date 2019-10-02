@@ -18,10 +18,11 @@ public class CorsiSequencePlayer
 	/**
 	 * 
 	 * @param blocks Sequence of CorsiBlocks
+	 * @param level Current level which dictates how many blocks will make up the sequence (starting index 1)
 	 * @param secBetweenBlinks Number of seconds between blinks
 	 * @param blinkSeconds Number of seconds for which the block will be lit during blink
 	 */
-	public void playSequence(ArrayList<CorsiBlock> blocks, int secBetweenBlinks, int blinkSeconds)
+	public void playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds)
 	{	
 		if (blocks.size() > 0)
 		{
@@ -38,7 +39,7 @@ public class CorsiSequencePlayer
 					{
 						stopwatch.reset();
 						
-						if (blockIndex == blocks.size() - 1)
+						if (blockIndex == level - 1 || blockIndex == blocks.size())
 						{
 							this.stop();
 							return;
