@@ -23,7 +23,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
-			Stopwatch stopwatch = new Stopwatch();
+			/*Stopwatch stopwatch = new Stopwatch();
 			CorsiBlock testBlock = new CorsiBlock(2, 2, 50);
 			ArrayList<CorsiBlock> blocks = CorsiBlockGenerator.generateBlocks(4, (int) scene.getWidth(), (int) scene.getHeight());
 			for (CorsiBlock block : blocks)
@@ -40,9 +40,11 @@ public class Main extends Application {
 
 					};
 			animTimer.start();*/
-			CorsiSequencePlayer player = new CorsiSequencePlayer();
-			player.playSequence(blocks, 1, 1);
-			blocks.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, e -> testEventHandler(e.getSource()));
+		// player = new CorsiSequencePlayer();
+			//player.playSequence(blocks, 1, 1);
+			
+			GameManager manny = new GameManager(new PlayerData(), root);
+			//blocks.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, e -> testEventHandler(e.getSource()));
 			
 
 		} catch(Exception e) {
