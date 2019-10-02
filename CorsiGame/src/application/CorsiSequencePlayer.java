@@ -22,8 +22,7 @@ public class CorsiSequencePlayer
 	 * @param blinkSeconds Number of seconds for which the block will be lit during blink
 	 */
 	public void playSequence(ArrayList<CorsiBlock> blocks, int secBetweenBlinks, int blinkSeconds)
-	{
-		
+	{	
 		if (blocks.size() > 0)
 		{
 			blocks.get(blockIndex).blink(blinkSeconds);
