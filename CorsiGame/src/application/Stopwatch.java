@@ -24,7 +24,16 @@ public class Stopwatch
 	public ElapsedTime stop()
 	{
 		isRunning = false;
-		elapsedTime = new ElapsedTime(System.currentTimeMillis() - startTime);
+		
+		if (elapsedTime == null)
+		{
+			elapsedTime = new ElapsedTime(System.currentTimeMillis() - startTime);
+		}
+		else
+		{
+			elapsedTime.addTime(new ElapsedTime(System.currentTimeMillis() - startTime));
+		}
+		
 		return elapsedTime;
 	}
 	
