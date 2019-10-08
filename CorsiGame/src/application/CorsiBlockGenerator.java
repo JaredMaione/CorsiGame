@@ -15,7 +15,7 @@ public abstract class CorsiBlockGenerator
 			double x = 0.0;
 			double y = 0.0;
 			
-			// Verify that block is spawning in an open space (must be 1 or more blocks away from all others)
+			// Verify that block is spawning in an open space (must be 2 or more blocks away from all others)
 			boolean validLocation = false;
 			while (!validLocation)
 			{
@@ -26,23 +26,12 @@ public abstract class CorsiBlockGenerator
 				
 				for (CorsiBlock block : blocks)
 				{
-					if (block.getX() > x)
-					{
-						validLocation = validLocation && (block.getX() - x > BLOCK_SIDE_LENGTH);
-					}
-					else
-					{
-						validLocation = validLocation && (x - block.getX() > (BLOCK_SIDE_LENGTH * 2));
-					}
+					double blockX = block.getX();
+					double blockY = block.getY();
 					
-					if (block.getY() > y)
-					{
-						validLocation = validLocation && (block.getY() - x > BLOCK_SIDE_LENGTH);
-					}
-					else
-					{
-						validLocation = validLocation && (y - block.getY() > (BLOCK_SIDE_LENGTH * 2));
-					}
+					validLocation = validLocation && 
+									(blockX - x >  BLOCK_SIDE_LENGTH * 2 || (x - blockX > BLOCK_SIDE_LENGTH * 3)) &&
+									(blockY - y > BLOCK_SIDE_LENGTH * 2 || (y - blockY > BLOCK_SIDE_LENGTH * 3));	
 				}
 			}
 			
