@@ -23,6 +23,13 @@ public class ElapsedTime
 		}
 	}
 	
+	public void addTime(ElapsedTime timeToAdd)
+	{
+		minutes += timeToAdd.getMinutes();
+		seconds += timeToAdd.getSeconds();
+		ms += timeToAdd.getMS();
+	}
+	
 	public long toMS()
 	{
 		return (minutes * 60000) + (seconds * 1000) + ms;
