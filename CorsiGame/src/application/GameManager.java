@@ -41,15 +41,26 @@ public class GameManager
 		
 		gameObjects.getChildren().add(submitButton);
 		
-		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
-																(int) (gameObjects.getScene().getHeight() - SCENE_Y_OFFSET));
-		currentLevel = 2;
-		
-
+		blocks = new ArrayList<CorsiBlock>();
+		currentLevel = 1;
 		
 		sequencePlayer = new CorsiSequencePlayer();
 		sequenceTimer = new Stopwatch();
 		gameTimer = new Stopwatch();
+		
+		beginGame();
+		
+	}
+	
+	public void beginGame()
+	{
+		startCurrentLevel();
+	}
+	
+	private void startCurrentLevel()
+	{
+		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
+				(int) (gameObjects.getScene().getHeight() - SCENE_Y_OFFSET));
 		
 		EventHandler<MouseEvent> blockHandler = new EventHandler<MouseEvent>()
 		{
@@ -61,20 +72,17 @@ public class GameManager
 					handleBlockClicked((CorsiBlock) e.getSource());
 				}
 			}
-
 		};
 		
-
 		for (CorsiBlock block : blocks)
 		{
 			block.addEventFilter(MouseEvent.MOUSE_CLICKED, blockHandler);
-			objectGroup.getChildren().add(block);
+			gameObjects.getChildren().add(block);
 		}
 		
 		sequencePlayer.playSequence(blocks, currentLevel, 1, 1);
+		gameTimer.start();
 	}
-	
-	
 	
 	private void handleBlockClicked(CorsiBlock block)
 	{
