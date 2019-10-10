@@ -108,5 +108,21 @@ public class GameManager
 	
 	private void evaluatePerformance()
 	{
+		if (clickedBlocks.size() == 0 || clickedBlocks.size() != currentLevel)
+		{
+			System.out.println("Failed");
+		}
+		else
+		{
+			for (int i = 0; i < currentLevel; ++i)
+			{
+				if (blocks.get(i).equals(clickedBlocks.get(i)))
+				{
+					System.out.println("Success");
+					++currentLevel;
+					startCurrentLevel();
+				}
+			}
+		}
 	}
 }
