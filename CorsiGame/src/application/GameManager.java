@@ -69,7 +69,10 @@ public class GameManager
 			{
 				if (e.getSource() instanceof CorsiBlock)
 				{
-					handleBlockClicked((CorsiBlock) e.getSource());
+					if (((CorsiBlock) e.getSource()).getClickable())
+					{
+						handleBlockClicked((CorsiBlock) e.getSource());
+					}
 				}
 			}
 		};
@@ -86,15 +89,7 @@ public class GameManager
 	
 	private void handleBlockClicked(CorsiBlock block)
 	{
-		if (block.equals(blocks.get(currentLevel)))
-		{
-			System.out.println("Correct");
-			++currentLevel;
-		}
-		else
-		{
-			System.out.println("Wrong");
-		}
+		System.out.println("click");
 	}
 	
 	public boolean correctBlockClicked(CorsiBlock block, ArrayList<CorsiBlock> sequence, int level)
