@@ -84,8 +84,20 @@ public class GameManager
 		startCurrentLevel();
 	}
 	
+	private void clearBlocks()
+	{
+		for (CorsiBlock block : blocks)
+		{
+			gameObjects.getChildren().remove(block);
+		}
+		
+		blocks.clear();
+	}
+	
 	private void startCurrentLevel()
 	{
+		clearBlocks();
+		
 		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
 				(int) (gameObjects.getScene().getHeight() - SCENE_Y_OFFSET));
 		
@@ -114,14 +126,22 @@ public class GameManager
 		}
 		else
 		{
+			boolean success = true;
+			
 			for (int i = 0; i < currentLevel; ++i)
 			{
-				if (blocks.get(i).equals(clickedBlocks.get(i)))
-				{
-					System.out.println("Success");
-					++currentLevel;
-					startCurrentLevel();
-				}
+				success = success && blocks.get(i).equals(clickedBlocks.get(i));
+			}
+			
+			if (success)
+			{
+				System.out.println("Success");
+				++currentLevel;
+				startCurrentLevel();
+			}
+			else
+			{
+				System.out.println("Failed");
 			}
 		}
 	}
