@@ -9,6 +9,7 @@ public class CorsiBlock extends Rectangle
 	private final Color LIT_COLOR = Color.RED;
 	private final Color UNLIT_COLOR = Color.BLUE;
 	
+	private boolean isClickable;
 	private boolean isLit;
 	private Stopwatch blinkStopwatch;
 	
@@ -70,5 +71,15 @@ public class CorsiBlock extends Rectangle
 	public boolean isLit()
 	{
 		return isLit;
+	}
+	
+	public void setClickable(boolean canClick)
+	{
+		isClickable = canClick;
+	}
+	
+	public boolean getClickable()
+	{
+		return isClickable;
 	}
 }
