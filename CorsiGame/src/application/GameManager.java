@@ -108,6 +108,5 @@ public class GameManager
 	
 	private void evaluatePerformance()
 	{
-		
 	}
 }
