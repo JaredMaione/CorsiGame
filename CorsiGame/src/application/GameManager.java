@@ -30,6 +30,8 @@ public class GameManager
 	// This value will be subtracted from the height of the scene to locate submit button
 	private final int SCENE_Y_OFFSET = 50;
 	
+	private EventHandler<MouseEvent> clickHandler;
+	
 	public GameManager(PlayerData playerData, Group objectGroup)
 	{
 		this.playerData = playerData;
@@ -49,22 +51,8 @@ public class GameManager
 		gameTimer = new Stopwatch();
 		
 		clickBuffer = new ArrayList<CorsiBlock>();
-		
-		beginGame();
-		
-	}
-	
-	public void beginGame()
-	{
-		startCurrentLevel();
-	}
-	
-	private void startCurrentLevel()
-	{
-		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
-				(int) (gameObjects.getScene().getHeight() - SCENE_Y_OFFSET));
-		
-		EventHandler<MouseEvent> blockHandler = new EventHandler<MouseEvent>()
+
+		clickHandler = new EventHandler<MouseEvent>()
 		{
 			@Override
 			public void handle(MouseEvent e)
@@ -76,14 +64,28 @@ public class GameManager
 			}
 		};
 		
+		beginGame();
+		
+	}
+	
+	public void beginGame()
+	{
+		gameTimer.start();
+		startCurrentLevel();
+	}
+	
+	private void startCurrentLevel()
+	{
+		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
+				(int) (gameObjects.getScene().getHeight() - SCENE_Y_OFFSET));
+		
 		for (CorsiBlock block : blocks)
 		{
-			block.addEventFilter(MouseEvent.MOUSE_CLICKED, blockHandler);
+			block.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
 			gameObjects.getChildren().add(block);
 		}
 		
 		sequencePlayer.playSequence(blocks, currentLevel, 1, 1);
-		gameTimer.start();
 	}
 	
 	private void handleBlockClicked(CorsiBlock block)
