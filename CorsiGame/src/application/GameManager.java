@@ -32,6 +32,8 @@ public class GameManager
 	
 	private EventHandler<MouseEvent> clickHandler;
 	
+	private int numTries;
+	
 	public GameManager(PlayerData playerData, Group objectGroup)
 	{
 		this.playerData = playerData;
@@ -66,13 +68,13 @@ public class GameManager
 					if (clickedBlocks.size() != 0)
 					{
 						evaluatePerformance();
-						clickedBlocks.clear();
 					}
 				}
 			}
 		};
 		
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
+		numTries = 0;
 		
 		beginGame();
 		
@@ -97,6 +99,7 @@ public class GameManager
 	private void startCurrentLevel()
 	{
 		clearBlocks();
+		++numTries;
 		
 		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
 				(int) (gameObjects.getScene().getHeight() - SCENE_Y_OFFSET));
@@ -122,7 +125,10 @@ public class GameManager
 	{
 		if (clickedBlocks.size() == 0 || clickedBlocks.size() != currentLevel)
 		{
-			System.out.println("Failed");
+			if (numTries < 2)
+			{
+				startCurrentLevel();
+			}
 		}
 		else
 		{
@@ -132,17 +138,22 @@ public class GameManager
 			{
 				success = success && blocks.get(i).equals(clickedBlocks.get(i));
 			}
-			
+						
 			if (success)
 			{
-				System.out.println("Success");
 				++currentLevel;
+				numTries = 0;
 				startCurrentLevel();
 			}
 			else
 			{
-				System.out.println("Failed");
+				if (numTries < 2)
+				{
+					startCurrentLevel();
+				}
 			}
 		}
+		
+		clickedBlocks.clear();
 	}
 }
