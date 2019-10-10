@@ -26,6 +26,12 @@ public class CorsiSequencePlayer
 	{	
 		if (blocks.size() > 0)
 		{
+			// Lock out all blocks
+			for (CorsiBlock block : blocks)
+			{
+				block.setClickable(false);
+			}
+			
 			blocks.get(blockIndex).blink(blinkSeconds);
 
 			stopwatch.start();
@@ -35,6 +41,7 @@ public class CorsiSequencePlayer
 				@Override
 				public void handle(long arg0) 
 				{
+					// Condition: the total time from the beginning of the blink to the delay for the next blink has passed
 					if (stopwatch.getMSFromStart() > (blinkSeconds + secBetweenBlinks) * 1000)
 					{
 						stopwatch.reset();
@@ -42,6 +49,13 @@ public class CorsiSequencePlayer
 						if (blockIndex == level - 1 || blockIndex == blocks.size())
 						{
 							this.stop();
+							
+							// Allow blocks to be clicked again
+							for (CorsiBlock block :blocks)
+							{
+								block.setClickable(true);
+							}
+							
 							return;
 						}
 						
