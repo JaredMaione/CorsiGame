@@ -14,7 +14,7 @@ public class GameManager
 	private final String SUBMIT_BUTTON_LABEL = "Submit";
 	
 	private ArrayList<CorsiBlock> blocks;
-	private ArrayList<CorsiBlock> clickBuffer;
+	private ArrayList<CorsiBlock> clickedBlocks;
 	private PlayerData playerData;
 	private Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
@@ -50,7 +50,7 @@ public class GameManager
 		sequenceTimer = new Stopwatch();
 		gameTimer = new Stopwatch();
 		
-		clickBuffer = new ArrayList<CorsiBlock>();
+		clickedBlocks = new ArrayList<CorsiBlock>();
 
 		clickHandler = new EventHandler<MouseEvent>()
 		{
@@ -61,8 +61,18 @@ public class GameManager
 				{
 					handleBlockClicked((CorsiBlock) e.getSource());
 				}
+				else if (e.getSource().equals(submitButton))
+				{
+					if (clickedBlocks.size() != 0)
+					{
+						evaluatePerformance();
+						clickedBlocks.clear();
+					}
+				}
 			}
 		};
+		
+		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
 		
 		beginGame();
 		
@@ -92,12 +102,12 @@ public class GameManager
 	{
 		if (block.isClickable()) 
 		{
-			clickBuffer.add(block);
+			clickedBlocks.add(block);
 		}
 	}
 	
-	public boolean correctBlockClicked(CorsiBlock block, ArrayList<CorsiBlock> sequence, int level)
+	private void evaluatePerformance()
 	{
-		return false;
+		
 	}
 }
