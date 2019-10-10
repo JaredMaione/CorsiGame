@@ -14,7 +14,7 @@ public class GameManager
 	private final String SUBMIT_BUTTON_LABEL = "Submit";
 	
 	private ArrayList<CorsiBlock> blocks;
-	private ArrayList<CorsiBlock> sequence;
+	private ArrayList<CorsiBlock> clickBuffer;
 	private PlayerData playerData;
 	private Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
@@ -69,10 +69,7 @@ public class GameManager
 			{
 				if (e.getSource() instanceof CorsiBlock)
 				{
-					if (((CorsiBlock) e.getSource()).isClickable())
-					{
-						handleBlockClicked((CorsiBlock) e.getSource());
-					}
+					handleBlockClicked((CorsiBlock) e.getSource());
 				}
 			}
 		};
@@ -89,6 +86,7 @@ public class GameManager
 	
 	private void handleBlockClicked(CorsiBlock block)
 	{
+		
 		System.out.println("click");
 	}
 	
