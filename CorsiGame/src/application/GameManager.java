@@ -69,7 +69,7 @@ public class GameManager
 			{
 				if (e.getSource() instanceof CorsiBlock)
 				{
-					if (((CorsiBlock) e.getSource()).getClickable())
+					if (((CorsiBlock) e.getSource()).isClickable())
 					{
 						handleBlockClicked((CorsiBlock) e.getSource());
 					}

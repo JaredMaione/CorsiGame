@@ -78,7 +78,7 @@ public class CorsiBlock extends Rectangle
 		isClickable = canClick;
 	}
 	
-	public boolean getClickable()
+	public boolean isClickable()
 	{
 		return isClickable;
 	}
