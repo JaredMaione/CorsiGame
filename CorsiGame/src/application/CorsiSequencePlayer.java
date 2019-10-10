@@ -24,6 +24,8 @@ public class CorsiSequencePlayer
 	 */
 	public void playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds)
 	{	
+		blockIndex = 0;
+		
 		if (blocks.size() > 0)
 		{
 			// Lock out all blocks
