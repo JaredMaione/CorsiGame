@@ -48,6 +48,8 @@ public class GameManager
 		sequenceTimer = new Stopwatch();
 		gameTimer = new Stopwatch();
 		
+		clickBuffer = new ArrayList<CorsiBlock>();
+		
 		beginGame();
 		
 	}
@@ -86,8 +88,10 @@ public class GameManager
 	
 	private void handleBlockClicked(CorsiBlock block)
 	{
-		
-		System.out.println("click");
+		if (block.isClickable()) 
+		{
+			clickBuffer.add(block);
+		}
 	}
 	
 	public boolean correctBlockClicked(CorsiBlock block, ArrayList<CorsiBlock> sequence, int level)
