@@ -54,6 +54,8 @@ public class GameManager
 		sequencePlayer = new CorsiSequencePlayer(sequenceTimer);
 	
 		clickedBlocks = new ArrayList<CorsiBlock>();
+		
+		score = new GameScore();
 
 		clickHandler = new EventHandler<MouseEvent>()
 		{
