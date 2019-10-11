@@ -41,7 +41,7 @@ public class CorsiBlock extends Rectangle
 			@Override
 			public void handle(long arg0) 
 			{
-				if ((blinkStopwatch.getMSFromStart() / 1000) >= numSeconds)
+				if ((((double) blinkStopwatch.getMSFromStart()) / 1000.0) >= numSeconds)
 				{
 					setLit(false);
 					blinkStopwatch.reset();
