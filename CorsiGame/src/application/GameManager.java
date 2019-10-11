@@ -48,7 +48,7 @@ public class GameManager
 		blocks = new ArrayList<CorsiBlock>();
 		currentLevel = 1;
 		
-		sequencePlayer = new CorsiSequencePlayer();
+		sequencePlayer = new CorsiSequencePlayer(sequenceTimer);
 		sequenceTimer = new Stopwatch();
 		gameTimer = new Stopwatch();
 		
@@ -110,7 +110,7 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		sequencePlayer.playSequence(blocks, currentLevel, 1, 1);
+		sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
 	}
 	
 	private void handleBlockClicked(CorsiBlock block)
