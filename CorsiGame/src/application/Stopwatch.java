@@ -60,4 +60,9 @@ public class Stopwatch
 		elapsedTime = null;
 		isRunning = false;
 	}
+	
+	public boolean isRunning()
+	{
+		return isRunning;
+	}
 }
