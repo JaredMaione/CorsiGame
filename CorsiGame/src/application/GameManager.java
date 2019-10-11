@@ -117,6 +117,7 @@ public class GameManager
 	{
 		if (block.isClickable()) 
 		{
+			block.blink(0.1);
 			clickedBlocks.add(block);
 		}
 	}
