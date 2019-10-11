@@ -7,22 +7,17 @@ import javafx.animation.AnimationTimer;
 public class CorsiSequencePlayer 
 {
 	private Stopwatch stopwatch;
+	private Stopwatch sequenceTimer;
 	private int blockIndex;
 	
-	public CorsiSequencePlayer()
+	public CorsiSequencePlayer(Stopwatch sequenceTimer)
 	{
 		stopwatch = new Stopwatch();
 		blockIndex = 0;
+		this.sequenceTimer = sequenceTimer;
 	}
 	
-	/**
-	 * 
-	 * @param blocks Sequence of CorsiBlocks
-	 * @param level Current level which dictates how many blocks will make up the sequence (starting index 1)
-	 * @param secBetweenBlinks Number of seconds between blinks
-	 * @param blinkSeconds Number of seconds for which the block will be lit during blink
-	 */
-	public void playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds)
+	public void playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer)
 	{	
 		blockIndex = 0;
 		
@@ -38,7 +33,7 @@ public class CorsiSequencePlayer
 
 			stopwatch.start();
 			
-			AnimationTimer sequenceTimer = new AnimationTimer()
+			AnimationTimer sequencePlayTimer = new AnimationTimer()
 			{
 				@Override
 				public void handle(long arg0) 
@@ -58,6 +53,11 @@ public class CorsiSequencePlayer
 								block.setClickable(true);
 							}
 							
+							if (startSequenceTimer)
+							{
+								//sequenceTimer.start();
+							}
+							
 							return;
 						}
 						
@@ -68,7 +68,7 @@ public class CorsiSequencePlayer
 				}
 			};
 			
-			sequenceTimer.start();
+			sequencePlayTimer.start();
 		}
 	}
 }
