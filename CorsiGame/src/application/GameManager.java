@@ -107,8 +107,8 @@ public class GameManager
 		{
 			sequenceTimer.stop();
 			score.addToAvgSequenceTime(sequenceTimer.getLastElapsedTime());
-			sequenceTimer.reset();
 			System.out.println(sequenceTimer.getMSFromStart());
+			sequenceTimer.reset();
 		}
 		
 		++numTries;
