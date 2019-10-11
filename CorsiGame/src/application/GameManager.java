@@ -48,10 +48,11 @@ public class GameManager
 		blocks = new ArrayList<CorsiBlock>();
 		currentLevel = 1;
 		
-		sequencePlayer = new CorsiSequencePlayer(sequenceTimer);
 		sequenceTimer = new Stopwatch();
 		gameTimer = new Stopwatch();
 		
+		sequencePlayer = new CorsiSequencePlayer(sequenceTimer);
+	
 		clickedBlocks = new ArrayList<CorsiBlock>();
 
 		clickHandler = new EventHandler<MouseEvent>()
@@ -99,6 +100,15 @@ public class GameManager
 	private void startCurrentLevel()
 	{
 		clearBlocks();
+		
+		if (sequenceTimer.isRunning())
+		{
+			sequenceTimer.stop();
+			score.addToAvgSequenceTime(sequenceTimer.getLastElapsedTime());
+			sequenceTimer.reset();
+			System.out.println(sequenceTimer.getMSFromStart());
+		}
+		
 		++numTries;
 		
 		blocks = CorsiBlockGenerator.generateBlocks(NUM_BLOCKS, (int) gameObjects.getScene().getWidth(), 
