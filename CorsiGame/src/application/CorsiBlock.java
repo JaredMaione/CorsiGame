@@ -31,7 +31,7 @@ public class CorsiBlock extends Rectangle
 		this.setHeight(sideLength);
 	}
 	
-	public void blink(int numSeconds)
+	public void blink(double numSeconds)
 	{
 		setLit(true);
 		blinkStopwatch.start();
