@@ -55,7 +55,7 @@ public class CorsiSequencePlayer
 							
 							if (startSequenceTimer)
 							{
-								//sequenceTimer.start();
+								sequenceTimer.start();
 							}
 							
 							return;
