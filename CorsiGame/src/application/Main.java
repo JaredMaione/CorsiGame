@@ -17,11 +17,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Group root = new Group();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
+		//	Group root = new Group();
+			//Scene scene = new Scene(root,400,400);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//primaryStage.setScene(scene);
+			//primaryStage.show();
 			
 			/*Stopwatch stopwatch = new Stopwatch();
 			CorsiBlock testBlock = new CorsiBlock(2, 2, 50);
@@ -43,7 +43,7 @@ public class Main extends Application {
 		// player = new CorsiSequencePlayer();
 			//player.playSequence(blocks, 1, 1);
 			
-			GameManager manny = new GameManager(new PlayerData(), root);
+			GameManager manny = new GameManager(new PlayerData(), primaryStage);
 			//blocks.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, e -> testEventHandler(e.getSource()));
 			
 
