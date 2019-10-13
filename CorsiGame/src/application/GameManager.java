@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class GameManager 
 {
@@ -34,10 +35,16 @@ public class GameManager
 	
 	private int numTries;
 	
-	public GameManager(PlayerData playerData, Group objectGroup)
+	private Stage stage;
+	
+	public GameManager(PlayerData playerData, Stage stage)
 	{
+		stage.setScene(new Scene(gameObjects, 400, 400));
+		stage.show();
+		this.stage = stage;
+		
 		this.playerData = playerData;
-		gameObjects = objectGroup;
+		gameObjects = new Group();
 		
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
 		submitButton.setLayoutX(0);
