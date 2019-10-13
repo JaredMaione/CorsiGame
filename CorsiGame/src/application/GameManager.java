@@ -39,12 +39,12 @@ public class GameManager
 	
 	public GameManager(PlayerData playerData, Stage stage)
 	{
+		gameObjects = new Group();
 		stage.setScene(new Scene(gameObjects, 400, 400));
 		stage.show();
 		this.stage = stage;
 		
 		this.playerData = playerData;
-		gameObjects = new Group();
 		
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
 		submitButton.setLayoutX(0);
