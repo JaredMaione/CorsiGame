@@ -40,6 +40,7 @@ public class GameManager
 	public GameManager(PlayerData playerData, Stage stage)
 	{
 		gameObjects = new Group();
+		
 		stage.setScene(new Scene(gameObjects, 400, 400));
 		stage.show();
 		this.stage = stage;
