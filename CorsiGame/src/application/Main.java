@@ -17,34 +17,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-		//	Group root = new Group();
-			//Scene scene = new Scene(root,400,400);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			//primaryStage.setScene(scene);
-			//primaryStage.show();
-			
-			/*Stopwatch stopwatch = new Stopwatch();
-			CorsiBlock testBlock = new CorsiBlock(2, 2, 50);
-			ArrayList<CorsiBlock> blocks = CorsiBlockGenerator.generateBlocks(4, (int) scene.getWidth(), (int) scene.getHeight());
-			for (CorsiBlock block : blocks)
-			{
-				root.getChildren().add(block);
-			}
-			/*AnimationTimer animTimer = new AnimationTimer()
-					{
-						@Override
-						public void handle(long arg0) 
-						{
-							testBlock.setLit(!testBlock.isLit());
-						}
 
-					};
-			animTimer.start();*/
-		// player = new CorsiSequencePlayer();
-			//player.playSequence(blocks, 1, 1);
+			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
-			GameManager manny = new GameManager(new PlayerData(), primaryStage);
-			//blocks.get(0).addEventFilter(MouseEvent.MOUSE_CLICKED, e -> testEventHandler(e.getSource()));
+			
+			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
+			MainMenu menu = new MainMenu(primaryStage);
 			
 
 		} catch(Exception e) {
