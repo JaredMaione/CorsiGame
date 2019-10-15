@@ -30,6 +30,14 @@ public class TwoColumnPane extends GridPane
 		rebuildPane();
 	}
 	
+	public void addAll(Node[] nodes)
+	{
+		for (Node node : nodes)
+		{
+			addNode(node);
+		}
+	}
+	
 	private void rebuildPane()
 	{
 		this.getChildren().clear();
