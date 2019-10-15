@@ -4,7 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-public abstract class TwoColumnPane extends GridPane 
+public class TwoColumnPane extends GridPane 
 {
 	private final int[] paddingData = {5, 5, 5, 15};
 
