@@ -1,6 +1,9 @@
 package application;
 
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class RegistrationMenu 
@@ -21,8 +24,31 @@ public class RegistrationMenu
 	private TextField countryField;
 	private TextField diagnosisField;
 	
+	private Stage stage;
+	
 	public RegistrationMenu(Stage stage)
 	{
 		formPane = new TwoColumnPane();
+		
+		nameField = new TextField();
+		dobField = new TextField();
+		cityField = new TextField();
+		stateField = new TextField();
+		countryField = new TextField();
+		diagnosisField = new TextField();
+		
+		formPane.addAll(new Node[] 
+		{
+			new Text(NAME_FIELD_LABEL), nameField,
+			new Text(DOB_FIELD_LABEL), dobField,
+			new Text(CITY_FIELD_LABEL), cityField,
+			new Text(STATE_FIELD_LABEL), stateField,
+			new Text(COUNTRY_FIELD_LABEL), countryField,
+			new Text(DIAGNOSIS_FIELD_LABEL), diagnosisField
+		});
+		
+		stage.setScene(new Scene(formPane, 400, 400));
+		
+		
 	}
 }
