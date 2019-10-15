@@ -48,7 +48,6 @@ public class RegistrationMenu
 		});
 		
 		stage.setScene(new Scene(formPane, 400, 400));
-		
-		
+		stage.show();		
 	}
 }
