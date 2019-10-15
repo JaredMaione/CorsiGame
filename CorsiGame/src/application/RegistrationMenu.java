@@ -1,14 +1,20 @@
 package application;
 
+import java.io.File;
+
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class RegistrationMenu 
 {
 	private TwoColumnPane formPane;
+	private FlowPane mainPane;
 	
 	private final String USERNAME_FIELD_LABEL = "Username:";
 	private final String DOB_FIELD_LABEL = "Date of Birth:";
@@ -16,7 +22,7 @@ public class RegistrationMenu
 	private final String STATE_FIELD_LABEL = "State, Province, or Region:";
 	private final String COUNTRY_FIELD_LABEL = "Country:";
 	private final String DIAGNOSIS_FIELD_LABEL = "Diagnosis:";
-	private final String TERMS_LABEL = "By clicking \"OK\", you consent to the storage and analysis of all information provided. You" +
+	private final String TERMS_LABEL = "By clicking \"Submit\", you consent to the storage and analysis of all information provided. You" +
 									   "also consent to the analysis of any and all game activity. If you click \"Cancel\", no information" +
 									   	"will be stored and you will be returned to the main menu.";
 	
@@ -27,12 +33,14 @@ public class RegistrationMenu
 	private TextField countryField;
 	private TextField diagnosisField;
 	
-	
+	private Button submitButton;
+	private Button cancelButton;
 	
 	private Stage stage;
 	
 	public RegistrationMenu(Stage stage)
 	{
+		mainPane = new FlowPane(Orientation.VERTICAL);
 		formPane = new TwoColumnPane();
 		
 		usernameField = new TextField();
@@ -52,7 +60,13 @@ public class RegistrationMenu
 			new Text(DIAGNOSIS_FIELD_LABEL), diagnosisField
 		});
 		
-		stage.setScene(new Scene(formPane, 400, 400));
+		mainPane.getChildren().add(formPane);
+		
+		Text termsText = new Text(TERMS_LABEL);
+		termsText.setWrappingWidth(400);
+		mainPane.getChildren().add(termsText);
+		
+		stage.setScene(new Scene(mainPane, 400, 400));
 		stage.show();		
 	}
 }
