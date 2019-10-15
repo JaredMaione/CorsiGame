@@ -16,7 +16,9 @@ public class RegistrationMenu
 	private final String STATE_FIELD_LABEL = "State, Province, or Region:";
 	private final String COUNTRY_FIELD_LABEL = "Country:";
 	private final String DIAGNOSIS_FIELD_LABEL = "Diagnosis:";
-	private final String TERMS_LABEL = "By clicking \"OK\", you consent to the storage and analysis of all information provided.";
+	private final String TERMS_LABEL = "By clicking \"OK\", you consent to the storage and analysis of all information provided. You" +
+									   "also consent to the analysis of any and all game activity. If you click \"Cancel\", no information" +
+									   	"will be stored and you will be returned to the main menu.";
 	
 	private TextField usernameField;
 	private TextField dobField;
