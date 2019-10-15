@@ -20,7 +20,8 @@ public class Main extends Application {
 			
 			
 			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
-			MainMenu menu = new MainMenu(primaryStage);
+			//MainMenu menu = new MainMenu(primaryStage);
+			RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 			
 
 		} catch(Exception e) {
