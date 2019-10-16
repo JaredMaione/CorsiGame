@@ -63,10 +63,12 @@ public class RegistrationMenu
 			new Text(DIAGNOSIS_FIELD_LABEL), diagnosisField
 		});
 		
+		mainPane.setPadding(formPane.getPadding());
+		
 		mainPane.getChildren().add(formPane);
 		
 		Text termsText = new Text(TERMS_LABEL);
-		termsText.setWrappingWidth(400);
+		termsText.setWrappingWidth(350);
 		mainPane.getChildren().add(termsText);
 		
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
