@@ -81,6 +81,6 @@ public class RegistrationMenu
 		mainPane.getChildren().add(buttonBox);
 		
 		stage.setScene(new Scene(mainPane, 400, 350));
-		stage.show();		
+		stage.show();
 	}
 }
