@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ public class GameManager
 {
 	private Button submitButton;
 	private final String SUBMIT_BUTTON_LABEL = "Submit";
+	private final String START_MESSAGE_TEXT = "START";
 	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
@@ -129,7 +131,22 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
+		int seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
+		
+		AnimationTimer messageWaitTimer = new AnimationTimer()
+		{
+			@Override
+			public void handle(long arg0) 
+			{
+			}
+		};
+		
+		messageWaitTimer.start();
+	}
+	
+	private void displayLargeMessage(String message)
+	{
+		
 	}
 	
 	private void handleBlockClicked(CorsiBlock block)
