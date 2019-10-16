@@ -80,7 +80,7 @@ public class RegistrationMenu
 		buttonBox.getChildren().add(cancelButton);
 		mainPane.getChildren().add(buttonBox);
 		
-		stage.setScene(new Scene(mainPane, 400, 400));
+		stage.setScene(new Scene(mainPane, 400, 350));
 		stage.show();		
 	}
 }
