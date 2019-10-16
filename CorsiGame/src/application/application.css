@@ -7,3 +7,8 @@
 {
 	-fx-font: 16px "Arial";
 }
+
+.large_message_text
+{
+	-fx-font: 40px "Arial";
+}
