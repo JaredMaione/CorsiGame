@@ -11,11 +11,11 @@
 .large_positive_message_text
 {
 	-fx-font: 80px "Arial";
-	-fx-text-fill: green;
+	-fx-fill: green;
 }
 
 .large_negative_message_text
 {
 	-fx-font: 80px "Arial";
-	-fx-text-fill: red;
+	-fx-fill: red;
 }
