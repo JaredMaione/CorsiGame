@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class PlayerData 
 {
-	private int id;
+	private String username;
+	private String password;
 	private Date dob;
 	private String city;
 	private String state;
