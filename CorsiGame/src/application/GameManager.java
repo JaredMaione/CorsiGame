@@ -52,7 +52,8 @@ public class GameManager
 	{
 		gameObjects = new Group();
 		
-		stage.setScene(new Scene(gameObjects, 400, 400));
+		stage.setScene(new Scene(gameObjects, 800, 600));
+		stage.setResizable(false);
 		stage.show();
 		this.stage = stage;
 		
@@ -136,7 +137,7 @@ public class GameManager
 	public void beginGame()
 	{
 		gameTimer.start();
-		startCurrentLevel();
+		startCurrentLevel(0);
 	}
 	
 	private void clearBlocks()
@@ -149,7 +150,7 @@ public class GameManager
 		blocks.clear();
 	}
 	
-	private void startCurrentLevel()
+	private void startCurrentLevel(double secToDelaySequence)
 	{
 		clearBlocks();
 		
@@ -171,7 +172,7 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		int seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
+		double seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true, secToDelaySequence);
 		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 	}
 	
@@ -190,7 +191,8 @@ public class GameManager
 		{
 			if (numTries < 2)
 			{
-				startCurrentLevel();
+				TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
+				startCurrentLevel(2);
 			}
 		}
 		else
@@ -207,14 +209,14 @@ public class GameManager
 				++currentLevel;
 				numTries = 0;
 				TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
-				startCurrentLevel();
+				startCurrentLevel(2);
 			}
 			else
 			{
 				if (numTries < 2)
 				{
 					TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
-					startCurrentLevel();
+					startCurrentLevel(2);
 				}
 				else
 				{
