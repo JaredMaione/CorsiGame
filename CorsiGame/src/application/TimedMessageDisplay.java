@@ -16,12 +16,12 @@ public abstract class TimedMessageDisplay
 			@Override
 			public void handle(long arg0) 
 			{
-				if (stopwatch.getMSFromStart() * 1000 > delayToStart)
+				if (stopwatch.getMSFromStart() > delayToStart * 1000)
 				{
 					message.setVisible(true);
 				}
 				
-				if (stopwatch.getMSFromStart() * 1000 > delayToStart + secVisible)
+				if (stopwatch.getMSFromStart()  > (delayToStart + secVisible) * 1000)
 				{
 					stopwatch.reset();
 					message.setVisible(false);
