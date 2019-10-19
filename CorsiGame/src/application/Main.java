@@ -19,9 +19,9 @@ public class Main extends Application {
 		try {
 			
 			
-			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
+			GameManager manny = new GameManager(new PlayerData(), primaryStage);
 			//MainMenu menu = new MainMenu(primaryStage);
-			RegistrationMenu reggie = new RegistrationMenu(primaryStage);
+			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 			
 
 		} catch(Exception e) {
