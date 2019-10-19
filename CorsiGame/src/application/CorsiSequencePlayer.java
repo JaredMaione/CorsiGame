@@ -100,6 +100,6 @@ public class CorsiSequencePlayer
 	
 	private double estimateSequenceTime(int level, int secBetweenBlinks, int blinkSeconds, double secToDelay)
 	{
-		return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds) + (secToDelay * 1000);
+		return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds) + secToDelay;
 	}
 }
