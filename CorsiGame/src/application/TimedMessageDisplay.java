@@ -2,21 +2,19 @@ package application;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
+import javafx.scene.text.Text;
 
 public class TimedMessageDisplay extends AnimationTimer
 {
-	private String messageToDisplay;
+	private Text messageToDisplay;
 	private double x;
 	private double y;
-	private Group objGroup;
 	private double secToWait;
 	
-	public TimedMessageDisplay(String message, double x, double y, Group group, double secToWait)
+	public TimedMessageDisplay(Text message, double secToWait)
 	{
 		messageToDisplay = message;
-		this.x = x;
-		this.y = y;
-		objGroup = group;
+
 		this.secToWait = secToWait;
 	}
 
@@ -32,6 +30,16 @@ public class TimedMessageDisplay extends AnimationTimer
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		this.stop();
+		
+		messageToDisplay.setVisible(false);
+	}
+	
+	public void displayMessage()
+	{
+		messageToDisplay.setVisible(true);
+		this.start();
 	}
 
 }
