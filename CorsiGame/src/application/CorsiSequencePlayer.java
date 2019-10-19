@@ -18,7 +18,7 @@ public class CorsiSequencePlayer
 		this.sequenceTimer = sequenceTimer;
 	}
 	
-	public int playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer)
+	public int playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer, int secToDelay)
 	{	
 		blockIndex = 0;
 		
@@ -29,10 +29,6 @@ public class CorsiSequencePlayer
 			{
 				block.setClickable(false);
 			}
-			
-			blocks.get(blockIndex).blink(blinkSeconds);
-
-			stopwatch.start();
 			
 			AnimationTimer sequencePlayTimer = new AnimationTimer()
 			{
@@ -69,7 +65,27 @@ public class CorsiSequencePlayer
 				}
 			};
 			
-			sequencePlayTimer.start();
+			AnimationTimer delayTimer = new AnimationTimer()
+			{
+
+				@Override
+				public void handle(long now) 
+				{
+					if (stopwatch.getMSFromStart() > secToDelay * 1000)
+					{
+						stopwatch.reset();
+						
+						blocks.get(blockIndex).blink(blinkSeconds);
+
+						stopwatch.start();
+						
+						sequencePlayTimer.start();
+					}
+				}
+			};
+			
+			stopwatch.start();
+			delayTimer.start();
 			
 			return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds);
 		}
@@ -79,6 +95,11 @@ public class CorsiSequencePlayer
 	
 	private int estimateSequenceTime(int level, int secBetweenBlinks, int blinkSeconds)
 	{
-		return new Integer((blinkSeconds + secBetweenBlinks) * level);
+		return (blinkSeconds + secBetweenBlinks) * level;
+	}
+	
+	private int estimateSequenceTime(int level, int secBetweenBlinks, int blinkSeconds, int secToDelay)
+	{
+		return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds) + (secToDelay * 1000);
 	}
 }
