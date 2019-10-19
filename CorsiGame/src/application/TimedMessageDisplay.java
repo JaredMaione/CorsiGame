@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 
 public abstract class TimedMessageDisplay
 {
-	public void displayMessage(Text message, double delayToStart, double secVisible)
+	public static void displayMessage(Text message, double delayToStart, double secVisible)
 	{
 		Stopwatch stopwatch = new Stopwatch();
 		stopwatch.start();
