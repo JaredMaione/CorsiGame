@@ -4,41 +4,33 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 
-public class TimedMessageDisplay
+public abstract class TimedMessageDisplay
 {
-	private Text messageToDisplay;
-	private double x;
-	private double y;
-	private double secToWait;
-	private Stopwatch stopwatch;
-	
-	public TimedMessageDisplay(Text message, double secToWait)
+	public void displayMessage(Text message, double delayToStart, double secVisible)
 	{
-		messageToDisplay = message;
-
-		this.secToWait = secToWait;
-	}
-
-	
-	public void displayMessage()
-	{
+		Stopwatch stopwatch = new Stopwatch();
 		stopwatch.start();
-		messageToDisplay.setVisible(true);
 		
-		AnimationTimer sequencePlayTimer = new AnimationTimer()
+		AnimationTimer timer = new AnimationTimer()
 		{
 			@Override
 			public void handle(long arg0) 
 			{
-				// Condition: the total time from the beginning of the blink to the delay for the next blink has passed
-				if (stopwatch.getMSFromStart() > secToWait * 1000)
+				if (stopwatch.getMSFromStart() * 1000 > delayToStart)
+				{
+					message.setVisible(true);
+				}
+				
+				if (stopwatch.getMSFromStart() * 1000 > delayToStart + secVisible)
 				{
 					stopwatch.reset();
+					message.setVisible(false);
+					this.stop();
 				}
 			}
 		};
 		
-		sequencePlayTimer.start();
+		timer.start();
 	}
 
 }
