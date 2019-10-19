@@ -94,7 +94,7 @@ public class RegistrationMenu
 			{
 				if (e.getSource().equals(submitButton))
 				{
-					
+					createProfileAndPlayGame();
 				}
 				
 				if (e.getSource().equals(cancelButton))
@@ -116,5 +116,18 @@ public class RegistrationMenu
 		
 		stage.setScene(new Scene(mainPane, 400, 450));
 		stage.show();
+	}
+	
+	private void createProfileAndPlayGame()
+	{
+		PlayerData data = new PlayerData();
+		data.setUsername(usernameField.getText());
+		data.setPassword(passwordField.getText());
+		data.setCity(cityField.getText());
+		data.setState(stateField.getText());
+		data.setCountry(countryField.getText());
+		data.setDiagnosis(diagnosisField.getText());
+		
+		GameManager manager = new GameManager(data, stage);
 	}
 }
