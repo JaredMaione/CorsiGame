@@ -30,8 +30,8 @@ public abstract class CorsiBlockGenerator
 					double blockY = block.getY();
 					
 					validLocation = validLocation && 
-									(blockX - x >  BLOCK_SIDE_LENGTH * 2 || (x - blockX > BLOCK_SIDE_LENGTH * 3)) &&
-									(blockY - y > BLOCK_SIDE_LENGTH * 2 || (y - blockY > BLOCK_SIDE_LENGTH * 3));	
+									(blockX - x >  BLOCK_SIDE_LENGTH * 1.5 || (x - blockX > BLOCK_SIDE_LENGTH * 2.5)) &&
+									(blockY - y > BLOCK_SIDE_LENGTH * 1.5 || (y - blockY > BLOCK_SIDE_LENGTH * 2.5));	
 				}
 			}
 			
