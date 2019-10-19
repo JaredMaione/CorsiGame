@@ -187,41 +187,38 @@ public class GameManager
 	
 	private void evaluatePerformance()
 	{
+		boolean success = true;
+		
 		if (clickedBlocks.size() == 0 || clickedBlocks.size() != currentLevel)
+		{
+			success = false;
+		}
+		else
+		{
+			for (int i = 0; i < currentLevel; ++i)
+			{
+				success = success && blocks.get(i).equals(clickedBlocks.get(i));
+			}
+		}
+					
+		if (success)
+		{
+			++currentLevel;
+			numTries = 0;
+			TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
+			startCurrentLevel(2);
+		}
+		else
 		{
 			if (numTries < 2)
 			{
 				TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
 				startCurrentLevel(2);
 			}
-		}
-		else
-		{
-			boolean success = true;
-			
-			for (int i = 0; i < currentLevel; ++i)
-			{
-				success = success && blocks.get(i).equals(clickedBlocks.get(i));
-			}
-						
-			if (success)
-			{
-				++currentLevel;
-				numTries = 0;
-				TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
-				startCurrentLevel(2);
-			}
 			else
 			{
-				if (numTries < 2)
-				{
-					TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
-					startCurrentLevel(2);
-				}
-				else
-				{
-					TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
-				}
+				score.setCorsiSpan(currentLevel);
+				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
 			}
 		}
 		
