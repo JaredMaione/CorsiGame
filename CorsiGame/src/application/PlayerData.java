@@ -10,5 +10,5 @@ public class PlayerData
 	private String state;
 	private String country;
 	private String diagnosis;
-	private ArrayList<GameScore> scores;
+	private ArrayList<GameData> scores;
 }
