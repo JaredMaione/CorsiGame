@@ -96,6 +96,7 @@ public class GameManager
 		
 		gameObjects.getChildren().add(submitButton);
 		
+		// This is a test
 		EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>()
 		{
 
@@ -108,6 +109,7 @@ public class GameManager
 		};
 		stage.getScene().setOnMouseMoved(mouseHandler);
 		
+		// So is this
 		EventHandler<MouseEvent> outOfBoundsMouseHandler = new EventHandler<MouseEvent>()
 		{
 
