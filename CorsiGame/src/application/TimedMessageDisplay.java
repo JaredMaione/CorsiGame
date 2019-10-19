@@ -4,12 +4,13 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.text.Text;
 
-public class TimedMessageDisplay extends AnimationTimer
+public class TimedMessageDisplay
 {
 	private Text messageToDisplay;
 	private double x;
 	private double y;
 	private double secToWait;
+	private Stopwatch stopwatch;
 	
 	public TimedMessageDisplay(Text message, double secToWait)
 	{
@@ -18,28 +19,26 @@ public class TimedMessageDisplay extends AnimationTimer
 		this.secToWait = secToWait;
 	}
 
-	@Override
-	public void handle(long now) 
-	{
-		try 
-		{
-			Thread.sleep((long) secToWait * 1000);
-		}
-		catch (InterruptedException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		this.stop();
-		
-		messageToDisplay.setVisible(false);
-	}
 	
 	public void displayMessage()
 	{
+		stopwatch.start();
 		messageToDisplay.setVisible(true);
-		this.start();
+		
+		AnimationTimer sequencePlayTimer = new AnimationTimer()
+		{
+			@Override
+			public void handle(long arg0) 
+			{
+				// Condition: the total time from the beginning of the blink to the delay for the next blink has passed
+				if (stopwatch.getMSFromStart() > secToWait * 1000)
+				{
+					stopwatch.reset();
+				}
+			}
+		};
+		
+		sequencePlayTimer.start();
 	}
 
 }
