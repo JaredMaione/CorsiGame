@@ -3,6 +3,7 @@ package application;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.text.Text;
 
 public class CorsiSequencePlayer 
 {
@@ -17,7 +18,7 @@ public class CorsiSequencePlayer
 		this.sequenceTimer = sequenceTimer;
 	}
 	
-	public int playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer)
+	public int playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer, Text message)
 	{	
 		blockIndex = 0;
 		
