@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameManager 
@@ -48,6 +49,9 @@ public class GameManager
 		this.stage = stage;
 		
 		this.playerData = playerData;
+		
+		gameObjects.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 		
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
 		submitButton.setLayoutX(0);
@@ -131,8 +135,15 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		int seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
+		Text startMessage = new Text(START_MESSAGE_TEXT);
+		startMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 130);
+		startMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
+		startMessage.setVisible(false);
+		startMessage.getStyleClass().add("large_message_text");
+		gameObjects.getChildren().add(startMessage);
 		
+		int seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
+		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 	}
 	
 	private void handleBlockClicked(CorsiBlock block)
