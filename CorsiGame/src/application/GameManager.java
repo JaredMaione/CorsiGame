@@ -133,20 +133,6 @@ public class GameManager
 		
 		int seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true);
 		
-		AnimationTimer messageWaitTimer = new AnimationTimer()
-		{
-			@Override
-			public void handle(long arg0) 
-			{
-			}
-		};
-		
-		messageWaitTimer.start();
-	}
-	
-	private void displayLargeMessage(String message)
-	{
-		
 	}
 	
 	private void handleBlockClicked(CorsiBlock block)
