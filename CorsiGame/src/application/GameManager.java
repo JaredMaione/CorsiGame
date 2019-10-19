@@ -25,7 +25,7 @@ public class GameManager
 	private PlayerData playerData;
 	private Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
-	private GameScore score;
+	private GameData score;
 	private int currentLevel;
 	private CorsiSequencePlayer sequencePlayer;
 	
@@ -96,6 +96,31 @@ public class GameManager
 		
 		gameObjects.getChildren().add(submitButton);
 		
+		EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>()
+		{
+
+			@Override
+			public void handle(MouseEvent e)
+			{
+				score.addMousePosition(new MousePosition(e.getX(), e.getY()));
+			}
+	
+		};
+		stage.getScene().setOnMouseMoved(mouseHandler);
+		
+		EventHandler<MouseEvent> outOfBoundsMouseHandler = new EventHandler<MouseEvent>()
+		{
+
+			@Override
+			public void handle(MouseEvent arg0) 
+			{
+				score.addMousePosition(new MousePosition(-1, -1));
+			}
+	
+		};
+		
+		stage.getScene().setOnMouseExited(outOfBoundsMouseHandler);
+		
 		blocks = new ArrayList<CorsiBlock>();
 		currentLevel = 1;
 		
@@ -106,7 +131,7 @@ public class GameManager
 	
 		clickedBlocks = new ArrayList<CorsiBlock>();
 		
-		score = new GameScore();
+		score = new GameData();
 
 		clickHandler = new EventHandler<MouseEvent>()
 		{
@@ -219,6 +244,13 @@ public class GameManager
 			{
 				score.setCorsiSpan(currentLevel);
 				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
+				
+				for (MousePosition pos : score.getMousePositions())
+				{
+					System.out.println(pos.getX());
+					System.out.println(pos.getY());
+					System.out.println();
+				}
 			}
 		}
 		
