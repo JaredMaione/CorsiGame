@@ -87,7 +87,7 @@ public class CorsiSequencePlayer
 			stopwatch.start();
 			delayTimer.start();
 			
-			return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds);
+			return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds, secToDelay);
 		}
 		
 		return 0;
