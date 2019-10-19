@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 
 public class TwoColumnPane extends GridPane 
 {
-	private final int[] paddingData = {5, 5, 5, 15};
+	private final int[] paddingData = {5, 5, 10, 15};
 	private ArrayList<Node> nodes;
 	private final int NODES_PER_ROW = 2;
 
