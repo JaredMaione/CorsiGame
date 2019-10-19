@@ -18,7 +18,7 @@ public class CorsiSequencePlayer
 		this.sequenceTimer = sequenceTimer;
 	}
 	
-	public int playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer, int secToDelay)
+	public double playSequence(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer, double secToDelay)
 	{	
 		blockIndex = 0;
 		
@@ -98,7 +98,7 @@ public class CorsiSequencePlayer
 		return (blinkSeconds + secBetweenBlinks) * level;
 	}
 	
-	private int estimateSequenceTime(int level, int secBetweenBlinks, int blinkSeconds, int secToDelay)
+	private double estimateSequenceTime(int level, int secBetweenBlinks, int blinkSeconds, double secToDelay)
 	{
 		return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds) + (secToDelay * 1000);
 	}
