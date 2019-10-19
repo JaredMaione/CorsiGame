@@ -80,6 +80,7 @@ public class CorsiSequencePlayer
 						stopwatch.start();
 						
 						sequencePlayTimer.start();
+						this.stop();
 					}
 				}
 			};
