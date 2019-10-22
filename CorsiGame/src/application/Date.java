@@ -12,6 +12,11 @@ public class Date
 		this.day = day;
 		this.year = year;
 	}
+	
+	public String toFormattedString()
+	{
+		return String.format("%02d", month) + "/" + String.format("%02d", day) + "/" + year;
+	}
 
 	public int getMonth() 
 	{
