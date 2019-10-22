@@ -19,6 +19,11 @@ public class GameData
 		avgSequenceTime = new ElapsedTime(0);
 	}
 	
+	public String sendToString()
+	{
+		return "";
+	}
+	
 	public void addMousePosition(MousePosition pos)
 	{
 		mousePositions.add(pos);
