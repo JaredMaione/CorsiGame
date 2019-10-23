@@ -6,11 +6,38 @@ public class Date
 	private int day;
 	private int year;
 	
+	private final String EXCEPTION_MESSAGE = "Unable to parse date from string!";
+	
 	public Date(int month, int day, int year)
 	{
 		this.month = month;
 		this.day = day;
 		this.year = year;
+	}
+	
+	public Date(String dateString) throws UnableToParseDateException
+	{
+		if (dateString.indexOf("/") != -1)
+		{
+			throw new UnableToParseDateException(EXCEPTION_MESSAGE);
+		}
+		else
+		{
+			try
+			{
+				month = Integer.parseInt(dateString.substring(0, dateString.indexOf("/")));
+				
+				dateString = dateString.substring(dateString.indexOf("/") + 1, dateString.length());
+				day = Integer.parseInt(dateString.substring(0, dateString.indexOf("/")));
+				
+				dateString = dateString.substring(dateString.indexOf("/") + 1, dateString.length());
+				year = Integer.parseInt(dateString);
+			}
+			catch(NumberFormatException ex)
+			{
+				throw new UnableToParseDateException(EXCEPTION_MESSAGE);
+			}
+		}
 	}
 	
 	public String toFormattedString()
