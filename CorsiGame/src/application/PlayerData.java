@@ -37,6 +37,24 @@ public class PlayerData
 		scores = new ArrayList<GameData>();
 		
 	}
+	
+	public String sendToString()
+	{
+		String dataString =  username + "\n" +
+			   password + "\n" +
+			   dob.toFormattedString() + "\n" + 
+			   city + "\n" +
+			   state + "\n" + 
+			   country + "\n" +
+			   diagnosis;
+		
+		for (GameData gameData : scores)
+		{
+			dataString += "\n" + gameData.sendToString();
+		}
+		
+		return dataString;
+	}
 
 	public String getUsername() 
 	{
