@@ -1,8 +1,11 @@
 package application;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,6 +15,8 @@ import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
@@ -23,11 +28,11 @@ public class FileManager
 	public FileManager()
 	{
 		
-		String encrypted = encrypt("i am the senate", ENCRYPTION_KEY);
-		String decrypted = decrypt(encrypted, ENCRYPTION_KEY);
+		//String encrypted = encrypt("i am the senate", ENCRYPTION_KEY);
+		//String decrypted = decrypt(encrypted, ENCRYPTION_KEY);
 		
-		System.out.println(encrypted);
-		System.out.println(decrypted);
+		//System.out.println(encrypted);
+		//System.out.println(decrypted);
 		
 		PlayerData testData = new PlayerData("user", "pass", new Date(1,1,01), "city", "state", "country", "diagnosis");
 		writeEncrypted(testData.sendToString(), System.getProperty("user.dir") + "\\file.foo");
@@ -39,12 +44,14 @@ public class FileManager
 		try 
 		{
 			File dataFile = new File(path);
-			FileWriter fileWriter = new FileWriter(dataFile);
-			fileWriter.write(encrypt(path, ENCRYPTION_KEY));
+			Cipher cipher = Cipher.getInstance("AES");
+			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
+			CipherOutputStream outputStream = new CipherOutputStream(new FileOutputStream(dataFile), cipher);
+			outputStream.write(data.getBytes());
 			
-			fileWriter.close();
+			outputStream.close();
 		} 
-		catch (IOException e) 
+		catch (IOException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,24 +63,23 @@ public class FileManager
 		try 
 		{
 			File dataFile = new File(path);
-
-			BufferedReader fileReader = new BufferedReader(new FileReader(dataFile));
+			Cipher cipher = Cipher.getInstance("AES");
+			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
+			CipherInputStream inputStream = new CipherInputStream(new FileInputStream(dataFile), cipher);
+			ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
 			
-			String line;
-			String message = "";
-			
-			while ((line = fileReader.readLine()) != null)
+			int currentByte = 0;
+			while ((currentByte = inputStream.read()) != -1)
 			{
-				message += line;
+				byteOutput.write(currentByte);
 			}
 			
-			fileReader.close();
+			inputStream.close();
+			byteOutput.close();
 			
-			message = decrypt(message, ENCRYPTION_KEY);
-			
-			return message;
+			return byteOutput.toString();
 		} 
-		catch (IOException e) 
+		catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IOException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,31 +89,31 @@ public class FileManager
 	}
 	
 	
-	private String encrypt(String message, String key)
+	private byte[] encrypt(String message, String key)
 	{
 		try 
 		{
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(key.getBytes()), "AES"));
 			byte[] bytes = cipher.doFinal(message.getBytes());
-			return new String(bytes);
+			return bytes;
 		} 
 		catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "";
+		return new byte[0];
 	}
 	
-	private String decrypt(String encryptedMsg, String key)
+	private byte[] decrypt(byte[] encryptedMsg, String key)
 	{
 		try 
 		{
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(key.getBytes()), "AES"));
-			byte[] bytes = cipher.doFinal(encryptedMsg.getBytes());
-			return new String(bytes);
+			byte[] bytes = cipher.doFinal(encryptedMsg);
+			return bytes;
 		} 
 		catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) 
 		{
@@ -115,7 +121,7 @@ public class FileManager
 			e.printStackTrace();
 		}
 		
-		return "";
+		return new byte[0];
 	}
 	
 	
