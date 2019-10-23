@@ -1,6 +1,9 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -28,6 +31,7 @@ public class FileManager
 		
 		PlayerData testData = new PlayerData("user", "pass", new Date(1,1,01), "city", "state", "country", "diagnosis");
 		writeEncrypted(testData.sendToString(), System.getProperty("user.dir") + "\\file.txt");
+		System.out.println(decryptAndRead(System.getProperty("user.dir") + "\\file.txt"));
 	}
 	
 	public void writeEncrypted(String data, String path)
@@ -49,8 +53,34 @@ public class FileManager
 	
 	public String decryptAndRead(String path)
 	{
-		File dataFile = new File(path);
-		FileReader 
+		try 
+		{
+			File dataFile = new File(path);
+
+			BufferedReader fileReader = new BufferedReader(new FileReader(dataFile));
+			
+			String line;
+			String message = "";
+			
+			while ((line = fileReader.readLine()) != null)
+			{
+				message += line;
+				System.out.println(line);
+			}
+			
+			fileReader.close();
+			
+			message = decrypt(message, ENCRYPTION_KEY);
+			
+			return message;
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "";
 	}
 	
 	
