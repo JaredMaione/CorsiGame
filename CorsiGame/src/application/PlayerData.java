@@ -1,5 +1,8 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 public class PlayerData 
@@ -54,6 +57,42 @@ public class PlayerData
 		}
 		
 		return dataString;
+	}
+	
+	public void readFromString(String data)
+	{
+		try 
+		{
+			BufferedReader dataReader = new BufferedReader(new StringReader(data));
+						
+			username = dataReader.readLine();
+			password = dataReader.readLine();
+			dob = new Date(dataReader.readLine());
+			city = dataReader.readLine();
+			state = dataReader.readLine();
+			country = dataReader.readLine();
+			diagnosis = dataReader.readLine();
+			
+			if (username == null ||
+				password == null ||
+				dob == null ||
+				city == null ||
+				state == null ||
+				country == null ||
+				diagnosis == null)
+			{
+				System.out.println("Error");
+			}
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (UnableToParseDateException e) 
+		{
+			dob = new Date(0, 0, 0);
+			e.printStackTrace();
+		}
 	}
 
 	public String getUsername() 
