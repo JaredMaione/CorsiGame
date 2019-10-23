@@ -30,8 +30,8 @@ public class FileManager
 		System.out.println(decrypted);
 		
 		PlayerData testData = new PlayerData("user", "pass", new Date(1,1,01), "city", "state", "country", "diagnosis");
-		writeEncrypted(testData.sendToString(), System.getProperty("user.dir") + "\\file.txt");
-		System.out.println(decryptAndRead(System.getProperty("user.dir") + "\\file.txt"));
+		writeEncrypted(testData.sendToString(), System.getProperty("user.dir") + "\\file.foo");
+		System.out.println(decryptAndRead(System.getProperty("user.dir") + "\\file.foo"));
 	}
 	
 	public void writeEncrypted(String data, String path)
@@ -65,7 +65,6 @@ public class FileManager
 			while ((line = fileReader.readLine()) != null)
 			{
 				message += line;
-				System.out.println(line);
 			}
 			
 			fileReader.close();
