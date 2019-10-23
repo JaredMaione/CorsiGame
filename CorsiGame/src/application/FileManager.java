@@ -27,16 +27,6 @@ public class FileManager
 	
 	public FileManager()
 	{
-		
-		//String encrypted = encrypt("i am the senate", ENCRYPTION_KEY);
-		//String decrypted = decrypt(encrypted, ENCRYPTION_KEY);
-		
-		//System.out.println(encrypted);
-		//System.out.println(decrypted);
-		
-		PlayerData testData = new PlayerData("user", "pass", new Date(1,1,01), "city", "state", "country", "diagnosis");
-		writeEncrypted(testData.sendToString(), System.getProperty("user.dir") + "\\file.foo");
-		System.out.println(decryptAndRead(System.getProperty("user.dir") + "\\file.foo"));
 	}
 	
 	public void writeEncrypted(String data, String path)
@@ -47,13 +37,14 @@ public class FileManager
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
 			CipherOutputStream outputStream = new CipherOutputStream(new FileOutputStream(dataFile), cipher);
+			
+			// Data encrypted automatically during writing
 			outputStream.write(data.getBytes());
 			
 			outputStream.close();
 		} 
 		catch (IOException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -65,6 +56,8 @@ public class FileManager
 			File dataFile = new File(path);
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
+			
+			// Data decrypted automatically during reading
 			CipherInputStream inputStream = new CipherInputStream(new FileInputStream(dataFile), cipher);
 			ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
 			
@@ -81,48 +74,9 @@ public class FileManager
 		} 
 		catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return "";
 	}
-	
-	
-	private byte[] encrypt(String message, String key)
-	{
-		try 
-		{
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(key.getBytes()), "AES"));
-			byte[] bytes = cipher.doFinal(message.getBytes());
-			return bytes;
-		} 
-		catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return new byte[0];
-	}
-	
-	private byte[] decrypt(byte[] encryptedMsg, String key)
-	{
-		try 
-		{
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(key.getBytes()), "AES"));
-			byte[] bytes = cipher.doFinal(encryptedMsg);
-			return bytes;
-		} 
-		catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return new byte[0];
-	}
-	
-	
 }
