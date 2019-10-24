@@ -8,13 +8,13 @@ public class GameData
 	private ElapsedTime avgSequenceTime;
 	private ArrayList<ElapsedTime> sequenceTimes;
 	private ElapsedTime gameDuration;
-	private ArrayList<MousePosition> mousePositions;
+	private ArrayList<Position> mousePositions;
 	
 	public GameData()
 	{
 		corsiSpan = 0;
 		sequenceTimes = new ArrayList<ElapsedTime>();
-		mousePositions = new ArrayList<MousePosition>();
+		mousePositions = new ArrayList<Position>();
 		gameDuration = new ElapsedTime(0);
 		avgSequenceTime = new ElapsedTime(0);
 	}
@@ -24,7 +24,7 @@ public class GameData
 		return "";
 	}
 	
-	public void addMousePosition(MousePosition pos)
+	public void addMousePosition(Position pos)
 	{
 		mousePositions.add(pos);
 	}
@@ -81,7 +81,7 @@ public class GameData
 		gameDuration = duration;
 	}
 	
-	public ArrayList<MousePosition> getMousePositions()
+	public ArrayList<Position> getMousePositions()
 	{
 		return mousePositions;
 	}

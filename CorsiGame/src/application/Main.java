@@ -23,7 +23,7 @@ public class Main extends Application {
 			//mainMenu menu = new MainMenu(primaryStage);
 			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 			//FileManager fm = new FileManager();
-			ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage);
+			//ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage);
 			
 
 		} catch(Exception e) {

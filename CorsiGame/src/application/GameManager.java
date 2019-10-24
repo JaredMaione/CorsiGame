@@ -103,7 +103,7 @@ public class GameManager
 			@Override
 			public void handle(MouseEvent e)
 			{
-				score.addMousePosition(new MousePosition(e.getX(), e.getY()));
+				score.addMousePosition(new Position(e.getX(), e.getY()));
 			}
 	
 		};
@@ -116,7 +116,7 @@ public class GameManager
 			@Override
 			public void handle(MouseEvent arg0) 
 			{
-				score.addMousePosition(new MousePosition(-1, -1));
+				score.addMousePosition(new Position(-1, -1));
 			}
 	
 		};
@@ -247,7 +247,7 @@ public class GameManager
 				score.setCorsiSpan(currentLevel);
 				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
 				
-				for (MousePosition pos : score.getMousePositions())
+				for (Position pos : score.getMousePositions())
 				{
 					System.out.println(pos.getX());
 					System.out.println(pos.getY());
