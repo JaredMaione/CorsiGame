@@ -2,7 +2,7 @@ package application;
 
 public class MouseAction extends TimestampedAction
 {
-	private Position mousePosition;
+	protected Position mousePosition;
 	
 	public MouseAction(long msFromStart, Position mousePosition)
 	{
