@@ -1,10 +1,12 @@
 package application;
 
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -41,8 +43,33 @@ public class ReturningPlayerMenu
 					submitButton, cancelButton
 				});
 		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(submitButton))
+				{
+					
+				}
+				
+				if (e.getSource().equals(cancelButton))
+				{
+					MainMenu menu = new MainMenu(stage);
+				}
+			}
+		};
+		
+		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		cancelButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		
 		stage.setScene(new Scene(formPane, 300, 130));
 		stage.setResizable(false);
 		stage.show();
+	}
+	
+	private boolean credentialsCorrect(String username, String password)
+	{
+		return true;
 	}
 }
