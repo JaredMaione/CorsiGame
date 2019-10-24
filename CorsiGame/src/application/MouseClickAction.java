@@ -5,7 +5,7 @@ public class MouseClickAction extends MouseAction
 	private int clickCount;
 	private boolean dragged;
 	
-	public MouseClickAction(long msFromStart, Position mousePosition, int clickCount, boolean dragged)
+	public MouseClickAction(long msFromStart, Position mousePosition, int clickCount)
 	{
 		super(msFromStart, mousePosition);
 		this.clickCount = clickCount;
