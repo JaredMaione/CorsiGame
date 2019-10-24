@@ -96,8 +96,7 @@ public class GameManager
 		
 		gameObjects.getChildren().add(submitButton);
 		
-		// This is a test
-		EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>()
+		EventHandler<MouseEvent> mouseMoveHandler = new EventHandler<MouseEvent>()
 		{
 
 			@Override
@@ -105,9 +104,21 @@ public class GameManager
 			{
 				score.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
 			}
-	
 		};
-		stage.getScene().setOnMouseMoved(mouseHandler);
+		stage.getScene().addEventFilter(MouseEvent.MOUSE_MOVED, mouseMoveHandler);
+		
+		
+		EventHandler<MouseEvent> mouseClickHandler = new EventHandler<MouseEvent>()
+		{
+
+			@Override
+			public void handle(MouseEvent e)
+			{
+	
+				score.addTimestampedAction(new MouseClickAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
+			}
+		};
+		stage.getScene().addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickHandler);
 		
 		blocks = new ArrayList<CorsiBlock>();
 		currentLevel = 1;
@@ -129,6 +140,7 @@ public class GameManager
 				if (e.getSource() instanceof CorsiBlock)
 				{
 					handleBlockClicked((CorsiBlock) e.getSource());
+					score.addTimestampedAction(new BlockClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount(), (CorsiBlock) e.getSource()));
 				}
 				else if (e.getSource().equals(submitButton))
 				{
