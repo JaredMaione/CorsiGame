@@ -2,17 +2,17 @@ package application;
 
 public class MouseAction extends TimestampedAction
 {
-	private Position clickPosition;
+	private Position mousePosition;
 	
-	public MouseAction(long msFromStart, Position clickPosition)
+	public MouseAction(long msFromStart, Position mousePosition)
 	{
 		super(msFromStart);
-		this.clickPosition = clickPosition;
+		this.mousePosition = mousePosition;
 	}
 	
-	public MouseAction(long startTime, long currentTime, Position clickPosition)
+	public MouseAction(long startTime, long currentTime, Position mousePosition)
 	{
 		super(startTime, currentTime);
-		this.clickPosition = clickPosition;
+		this.mousePosition = mousePosition;
 	}
 }
