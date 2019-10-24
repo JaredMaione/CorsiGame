@@ -16,6 +16,7 @@ public class GameData
 		sequenceTimes = new ArrayList<ElapsedTime>();
 		gameDuration = new ElapsedTime(0);
 		avgSequenceTime = new ElapsedTime(0);
+		gameActions = new ArrayList<TimestampedAction>();
 	}
 	
 	public String sendToString()
