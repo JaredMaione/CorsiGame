@@ -30,6 +30,8 @@ public class ReturningPlayerMenu
 	
 	private ArrayList<PlayerData> playerData;
 	
+	private Stage stage;
+	
 	public ReturningPlayerMenu(Stage stage, ArrayList<PlayerData> playerData)
 	{
 		usernameField = new TextField();
@@ -39,6 +41,7 @@ public class ReturningPlayerMenu
 		cancelButton = new Button(CANCEL_BUTTON_LABEL);
 		
 		this.playerData = playerData;
+		this.stage = stage;
 		
 		formPane = new TwoColumnPane();
 		
@@ -56,7 +59,16 @@ public class ReturningPlayerMenu
 			{
 				if (e.getSource().equals(submitButton))
 				{
+					PlayerData player = matchCredentialsToPlayer(usernameField.getText().trim(), passwordField.getText().trim());
 					
+					if (player != null)
+					{
+						GameManager gameManager = new GameManager(player, stage);
+					}
+					else
+					{
+						// Need to deal with invalid credentials somehow
+					}
 				}
 				
 				if (e.getSource().equals(cancelButton))
@@ -74,8 +86,16 @@ public class ReturningPlayerMenu
 		stage.show();
 	}
 	
-	private boolean credentialsCorrect(String username, String password)
+	private PlayerData matchCredentialsToPlayer(String username, String password)
 	{
-		return true;
+		for (PlayerData player : playerData)
+		{
+			if (player.getUsername() == username && player.getPassword() == password)
+			{
+				return player;
+			}
+		}
+		
+		return null;
 	}
 }
