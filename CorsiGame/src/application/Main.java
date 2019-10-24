@@ -22,7 +22,8 @@ public class Main extends Application {
 			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
 			//mainMenu menu = new MainMenu(primaryStage);
 			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
-			FileManager fm = new FileManager();
+			//FileManager fm = new FileManager();
+			ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage);
 			
 
 		} catch(Exception e) {
