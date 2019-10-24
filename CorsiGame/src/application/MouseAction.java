@@ -15,4 +15,9 @@ public class MouseAction extends TimestampedAction
 		super(startTime, currentTime);
 		this.mousePosition = mousePosition;
 	}
+	
+	public Position getMousePosition()
+	{
+		return mousePosition;
+	}
 }
