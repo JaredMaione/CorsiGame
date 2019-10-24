@@ -1,6 +1,6 @@
 package application;
 
-public class TimestampedAction 
+public abstract class TimestampedAction 
 {
 	protected long msFromStart;
 	
