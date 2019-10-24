@@ -247,6 +247,10 @@ public class GameManager
 			{
 				score.setCorsiSpan(currentLevel);
 				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
+				score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
+				gameTimer.stop();
+				score.setGameDuration(gameTimer.getLastElapsedTime());
+				gameTimer.reset();
 			}
 		}
 		
