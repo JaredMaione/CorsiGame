@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -26,13 +28,17 @@ public class ReturningPlayerMenu
 	
 	private TwoColumnPane formPane;
 	
-	public ReturningPlayerMenu(Stage stage)
+	private ArrayList<PlayerData> playerData;
+	
+	public ReturningPlayerMenu(Stage stage, ArrayList<PlayerData> playerData)
 	{
 		usernameField = new TextField();
 		passwordField = new PasswordField();
 		
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
 		cancelButton = new Button(CANCEL_BUTTON_LABEL);
+		
+		this.playerData = playerData;
 		
 		formPane = new TwoColumnPane();
 		
