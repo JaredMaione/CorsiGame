@@ -103,25 +103,11 @@ public class GameManager
 			@Override
 			public void handle(MouseEvent e)
 			{
-				score.addMousePosition(new Position(e.getX(), e.getY()));
+				score.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
 			}
 	
 		};
 		stage.getScene().setOnMouseMoved(mouseHandler);
-		
-		// So is this
-		EventHandler<MouseEvent> outOfBoundsMouseHandler = new EventHandler<MouseEvent>()
-		{
-
-			@Override
-			public void handle(MouseEvent arg0) 
-			{
-				score.addMousePosition(new Position(-1, -1));
-			}
-	
-		};
-		
-		stage.getScene().setOnMouseExited(outOfBoundsMouseHandler);
 		
 		blocks = new ArrayList<CorsiBlock>();
 		currentLevel = 1;
@@ -246,13 +232,6 @@ public class GameManager
 			{
 				score.setCorsiSpan(currentLevel);
 				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
-				
-				for (Position pos : score.getMousePositions())
-				{
-					System.out.println(pos.getX());
-					System.out.println(pos.getY());
-					System.out.println();
-				}
 			}
 		}
 		
