@@ -94,6 +94,11 @@ public class CorsiSequencePlayer
 		return 0;
 	}
 	
+	public double playSequence(CorsiSequenceData data)
+	{
+		return playSequence(data.getBlocks(), data.getLevel(), data.getSecBetweenBlinks(), data.getBlinkSeconds(), data.isStartSequenceTimer(), data.getSecToDelay());
+	}
+	
 	private int estimateSequenceTime(int level, int secBetweenBlinks, int blinkSeconds)
 	{
 		return (blinkSeconds + secBetweenBlinks) * level;
