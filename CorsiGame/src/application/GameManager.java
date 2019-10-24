@@ -197,7 +197,10 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		double seconds = sequencePlayer.playSequence(blocks, currentLevel, 1, 1, true, secToDelaySequence);
+		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, 1, 1, true, secToDelaySequence);
+		score.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
+		
+		double seconds = sequencePlayer.playSequence(sequenceData);
 		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 	}
 	
