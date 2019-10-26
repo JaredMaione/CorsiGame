@@ -256,6 +256,7 @@ public class GameManager
 			}
 			else
 			{
+				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
 				processGameOver();
 			}
 		}
@@ -266,7 +267,6 @@ public class GameManager
 	public void processGameOver()
 	{
 		score.setCorsiSpan(currentLevel);
-		TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
 		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 		score.setGameDuration(gameTimer.getLastElapsedTime());
