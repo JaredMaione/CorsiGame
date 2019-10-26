@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class ElapsedTime implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2164275180143319116L;
 
 	public static final String FILE_IDENTIFIER = "ELAPSED_TIME";
