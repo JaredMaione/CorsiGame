@@ -251,6 +251,7 @@ public class GameManager
 				gameTimer.stop();
 				score.setGameDuration(gameTimer.getLastElapsedTime());
 				gameTimer.reset();
+				playerData.addScore(score);
 			}
 		}
 		
