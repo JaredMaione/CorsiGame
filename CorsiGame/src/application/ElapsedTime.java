@@ -1,7 +1,14 @@
 package application;
 
-public class ElapsedTime 
+import java.io.Serializable;
+
+public class ElapsedTime implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3L;
+
 	public static final String FILE_IDENTIFIER = "ELAPSED_TIME";
 	
 	private int minutes;
