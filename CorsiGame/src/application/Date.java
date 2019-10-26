@@ -1,7 +1,12 @@
 package application;
 
-public class Date 
+import java.io.Serializable;
+
+public class Date implements Serializable
 {
+	/**
+	 * 
+	 */
 	private int month;
 	private int day;
 	private int year;
