@@ -1,9 +1,15 @@
 package application;
 
+import java.util.ArrayList;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -61,7 +67,32 @@ public class MainMenu
 		buttonBox.getChildren().add(existingPlayerButton);
 		buttonBox.getChildren().add(helpButton);
 		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(newPlayerButton))
+				{
+					RegistrationMenu menu = new RegistrationMenu(stage);
+				}
+				
+				if (e.getSource().equals(existingPlayerButton))
+				{
+					ReturningPlayerMenu menu = new ReturningPlayerMenu(stage, loadPlayers());
+				}
+				
+			}
+		};
+		
 		mainPane.setCenter(buttonBox);
 		stage.show();
+	}
+	
+	private ArrayList<PlayerData> loadPlayers()
+	{
+		ArrayList<PlayerData> players = new ArrayList<PlayerData>();
+		
+		return players;
 	}
 }
