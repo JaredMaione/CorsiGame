@@ -91,6 +91,10 @@ public class MainMenu
 			}
 		};
 		
+		newPlayerButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		existingPlayerButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		helpButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		
 		mainPane.setCenter(buttonBox);
 		stage.show();
 	}
