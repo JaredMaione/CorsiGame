@@ -2,6 +2,11 @@ package application;
 
 public class MouseAction extends TimestampedAction
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected Position mousePosition;
 	
 	public MouseAction(long msFromStart, Position mousePosition)

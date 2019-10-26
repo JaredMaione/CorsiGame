@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class SequenceInitiationAction extends TimestampedAction
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5317944950267416564L;
+	
 	private CorsiSequenceData sequenceData;
 	
 	public SequenceInitiationAction(long msFromStart, CorsiSequenceData sequenceData)

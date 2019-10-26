@@ -2,6 +2,11 @@ package application;
 
 public class MouseClickAction extends MouseAction
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6702552219772516694L;
+	
 	private int clickCount;
 	
 	public MouseClickAction(long msFromStart, Position mousePosition, int clickCount)
