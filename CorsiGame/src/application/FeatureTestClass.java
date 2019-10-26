@@ -6,13 +6,12 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class FeatureTestClass implements Serializable
+public class FeatureTestClass
 {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 12L;
 	public int x;
 	public int y;
 	
