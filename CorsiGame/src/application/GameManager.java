@@ -1,12 +1,16 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,6 +23,11 @@ public class GameManager
 	private final String CORRECT_MESSAGE_TEXT = "CORRECT";
 	private final String INCORRECT_MESSAGE_TEXT = "INCORRECT";
 	private final String GAME_OVER_MESSAGE_TEXT = "GAME\nOVER";
+	
+	private final String PLAY_AGAIN_TITLE = "Play again?";
+	private final String PLAY_AGAIN_MESSAGE = "Would you like to play again?";
+	private final String PLAY_AGAIN_YES_LABEL = "Yes, play again!";
+	private final String PLAY_AGAIN_NO_LABEL = "No, return to menu.";
 	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
@@ -33,6 +42,8 @@ public class GameManager
 	private Group gameObjects;
 	
 	private final int NUM_BLOCKS = 9;
+	
+	private final int STARTING_LEVEL = 1;
 	
 	// This value will be subtracted from the height of the scene to locate submit button
 	private final int SCENE_Y_OFFSET = 50;
@@ -155,14 +166,14 @@ public class GameManager
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
 		numTries = 0;
 		
-		beginGame();
+		beginGame(0);
 		
 	}
 	
-	public void beginGame()
+	public void beginGame(int delay)
 	{
 		gameTimer.start();
-		startCurrentLevel(0);
+		startCurrentLevel(delay);
 	}
 	
 	private void clearBlocks()
@@ -234,27 +245,51 @@ public class GameManager
 			++currentLevel;
 			numTries = 0;
 			TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
-			startCurrentLevel(2);
+			startCurrentLevel(3);
 		}
 		else
 		{
 			if (numTries < 2)
 			{
 				TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
-				startCurrentLevel(2);
+				startCurrentLevel(3);
 			}
 			else
 			{
 				score.setCorsiSpan(currentLevel);
-				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 2);
+				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
 				score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 				gameTimer.stop();
 				score.setGameDuration(gameTimer.getLastElapsedTime());
-				gameTimer.reset();
 				playerData.addScore(score);
+				reset();
+				
+				Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
+				playAgainAlert.setTitle(PLAY_AGAIN_TITLE);
+				playAgainAlert.setHeaderText(PLAY_AGAIN_MESSAGE);
+				Optional<ButtonType> choice = playAgainAlert.showAndWait();
+				
+				if (choice.isPresent() && choice.get() == ButtonType.OK)
+				{
+					beginGame(1);
+				}
+				else
+				{
+					MainMenu menu = new MainMenu(stage);
+				}
 			}
 		}
 		
 		clickedBlocks.clear();
+	}
+	
+	public void reset()
+	{
+		score = new GameData();
+		clickedBlocks.clear();
+		gameTimer.reset();
+		sequenceTimer.reset();
+		clearBlocks();
+		currentLevel = STARTING_LEVEL;
 	}
 }
