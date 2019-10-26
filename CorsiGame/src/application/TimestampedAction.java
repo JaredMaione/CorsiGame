@@ -2,6 +2,7 @@ package application;
 
 public abstract class TimestampedAction 
 {
+	public static final String FILE_IDENTIFIER = "TIMESTAMPED_ACTION";
 	protected long msFromStart;
 	
 	public TimestampedAction(long msFromStart)
@@ -22,6 +23,6 @@ public abstract class TimestampedAction
 	
 	public String sendToString()
 	{
-		return Long.toString(msFromStart);
+		return FILE_IDENTIFIER + "\n" + Long.toString(msFromStart);
 	}
 }
