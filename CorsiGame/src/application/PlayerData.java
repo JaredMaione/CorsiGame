@@ -7,11 +7,11 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 public class PlayerData implements Serializable
-{
+{	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 252115055904727829L;
 	
 	public static final String FILE_IDENTIFIER = "PLAYER_DATA";
 	private String username;

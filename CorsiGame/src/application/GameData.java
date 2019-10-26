@@ -8,7 +8,7 @@ public class GameData implements Serializable
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = -4433645078534843484L;
 
 	public static final String FILE_IDENTIFIER = "GAME_DATA";
 	
