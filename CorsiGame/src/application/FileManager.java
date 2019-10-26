@@ -78,7 +78,7 @@ public class FileManager
 			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
 			
 			// Data decrypted automatically during reading			
-			ObjectInputStream inputStream = new ObjectInputStream(new CipherInputStream(new FileInputStream("test.ser"), cipher));
+			ObjectInputStream inputStream = new ObjectInputStream(new CipherInputStream(new FileInputStream(path), cipher));
 			objectToReturn =  inputStream.readObject();
 
 			inputStream.close();
