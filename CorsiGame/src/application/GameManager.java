@@ -256,31 +256,36 @@ public class GameManager
 			}
 			else
 			{
-				score.setCorsiSpan(currentLevel);
-				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
-				score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
-				gameTimer.stop();
-				score.setGameDuration(gameTimer.getLastElapsedTime());
-				playerData.addScore(score);
-				reset();
-				
-				Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
-				playAgainAlert.setTitle(PLAY_AGAIN_TITLE);
-				playAgainAlert.setHeaderText(PLAY_AGAIN_MESSAGE);
-				Optional<ButtonType> choice = playAgainAlert.showAndWait();
-				
-				if (choice.isPresent() && choice.get() == ButtonType.OK)
-				{
-					beginGame(1);
-				}
-				else
-				{
-					MainMenu menu = new MainMenu(stage);
-				}
+				processGameOver();
 			}
 		}
 		
 		clickedBlocks.clear();
+	}
+	
+	public void processGameOver()
+	{
+		score.setCorsiSpan(currentLevel);
+		TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
+		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
+		gameTimer.stop();
+		score.setGameDuration(gameTimer.getLastElapsedTime());
+		playerData.addScore(score);
+		reset();
+		
+		Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
+		playAgainAlert.setTitle(PLAY_AGAIN_TITLE);
+		playAgainAlert.setHeaderText(PLAY_AGAIN_MESSAGE);
+		Optional<ButtonType> choice = playAgainAlert.showAndWait();
+		
+		if (choice.isPresent() && choice.get() == ButtonType.OK)
+		{
+			beginGame(1);
+		}
+		else
+		{
+			MainMenu menu = new MainMenu(stage);
+		}
 	}
 	
 	public void reset()
