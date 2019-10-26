@@ -17,7 +17,7 @@ public class Date
 	
 	public Date(String dateString) throws UnableToParseDateException
 	{
-		if (dateString.indexOf("/") != -1 || dateString == null)
+		if (dateString.indexOf("/") == -1 || dateString == null)
 		{
 			throw new UnableToParseDateException(EXCEPTION_MESSAGE);
 		}
