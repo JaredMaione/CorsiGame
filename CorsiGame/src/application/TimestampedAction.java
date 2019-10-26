@@ -19,4 +19,9 @@ public abstract class TimestampedAction
 	{
 		return msFromStart;
 	}
+	
+	public String sendToString()
+	{
+		return Long.toString(msFromStart);
+	}
 }
