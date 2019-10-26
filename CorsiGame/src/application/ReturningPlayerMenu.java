@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,6 +21,9 @@ public class ReturningPlayerMenu
 	
 	private final String SUBMIT_BUTTON_LABEL = "Submit & Play";
 	private final String CANCEL_BUTTON_LABEL = "Cancel & Return to Menu";
+	
+	private final String ERROR_TITLE = "Error";
+	private final String INVALID_CREDENTIALS_MESSAGE = "Invalid username and/or password! Please try again.";
 	
 	private TextField usernameField;
 	private PasswordField passwordField;
@@ -67,7 +72,10 @@ public class ReturningPlayerMenu
 					}
 					else
 					{
-						// Need to deal with invalid credentials somehow
+						Alert invalidPasswordAlert = new Alert(AlertType.INFORMATION);
+						invalidPasswordAlert.setTitle(ERROR_TITLE);
+						invalidPasswordAlert.setHeaderText(INVALID_CREDENTIALS_MESSAGE);
+						invalidPasswordAlert.show();
 					}
 				}
 				
@@ -90,7 +98,7 @@ public class ReturningPlayerMenu
 	{
 		for (PlayerData player : playerData)
 		{
-			if (player.getUsername() == username && player.getPassword() == password)
+			if (player.getUsername().equals(username) && player.getPassword().equals(password))
 			{
 				return player;
 			}
