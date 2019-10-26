@@ -42,12 +42,17 @@ public class Main extends Application {
 			//mainMenu menu = new MainMenu(primaryStage);
 			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 
-			//PlayerData data = new PlayerData("User", "Pass", new Date(1,1,19), "City", "State", "Zip", "Diagnosis");
+			PlayerData data = new PlayerData("User", "Pass", new Date(1,1,19), "City", "State", "Zip", "Diagnosis");
 			//PlayerData data = new PlayerData();
-			//FileManager fm = new FileManager();
-			//fm.writeEncrypted(data.sendToString(), System.getProperty("user.dir") + "\\kung.foo");
+			//fm.writeEncrypted(data, System.getProperty("user.dir") + "\\player.ser");
+			//FileManager.writeEncrypted(new ElapsedTime(1000000), System.getProperty("user.dir") + "\\et.ser");
+			//ElapsedTime time = (ElapsedTime) FileManager.decryptAndReadObj(System.getProperty("user.dir") + "\\et.ser");
+			//System.out.println(time.getSeconds());
+			//PlayerData newData = (PlayerData) fm.decryptAndReadObj(System.getProperty("user.dir") + "\\player.ser");
 			//data.readFromString(fm.decryptAndRead(System.getProperty("user.dir") + "\\kung.foo"));
-			//ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage);
+			ArrayList<PlayerData> players = new ArrayList<PlayerData>();
+			players.add(data);
+			ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage, players);
 
 
 			/*Test with serialization and no encryption
@@ -63,8 +68,8 @@ public class Main extends Application {
 			System.out.println(foo.y);
 			objInStream.close();*/
 			
-			testEncryptedSerialization();
-			testDecryptedSerialization();
+		//	testEncryptedSerialization();
+			//testDecryptedSerialization();
 
 
 
@@ -88,7 +93,9 @@ public class Main extends Application {
 			CipherOutputStream outputStream = new CipherOutputStream(os, cipher);
 
 			ObjectOutputStream objStream = new ObjectOutputStream(outputStream);
-			objStream.writeObject(new FeatureTestClass());
+			FeatureTestClass test = new FeatureTestClass();
+			test.x = 54;
+			objStream.writeObject(test);
 			objStream.close();
 
 			outputStream.close();
