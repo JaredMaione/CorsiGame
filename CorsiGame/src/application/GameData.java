@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class GameData 
 {
+	public static final String FILE_IDENTIFIER = "GAME_DATA";
+	
 	private int corsiSpan;
 	private ElapsedTime avgSequenceTime;
 	private ArrayList<ElapsedTime> sequenceTimes;
@@ -21,7 +23,21 @@ public class GameData
 	
 	public String sendToString()
 	{
-		return "";
+		String returnString = Integer.toString(corsiSpan) + "\n" +
+							  gameDuration.sendToString() + "\n-";
+		
+		for (ElapsedTime et : sequenceTimes)
+		{
+			returnString += "\n" + et.sendToString();
+		}
+		
+		returnString += "\n-\n";
+		
+		returnString += avgSequenceTime.sendToString() + "\n-";
+		
+
+		
+		return returnString;
 	}
 	
 	public void addTimestampedAction(TimestampedAction action)
