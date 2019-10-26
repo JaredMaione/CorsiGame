@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -29,6 +31,23 @@ public class FileManager
 	{
 	}
 	
+	public void writeEncrypted(Object object, String path)
+	{
+		try 
+		{
+			Cipher cipher = Cipher.getInstance("AES");
+			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
+
+			ObjectOutputStream outputStream = new ObjectOutputStream(new CipherOutputStream(new FileOutputStream(path), cipher));
+			outputStream.writeObject(object);
+			outputStream.close();
+		} 
+		catch (IOException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public void writeEncrypted(String data, String path)
 	{
 		try 
@@ -47,6 +66,30 @@ public class FileManager
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public Object decryptAndReadObj(String path)
+	{
+		Object objectToReturn = null;
+		
+		try 
+		{
+			Cipher cipher = Cipher.getInstance("AES");
+			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(Base64.getEncoder().encode(ENCRYPTION_KEY.getBytes()), "AES"));
+			
+			// Data decrypted automatically during reading			
+			ObjectInputStream inputStream = new ObjectInputStream(new CipherInputStream(new FileInputStream("test.ser"), cipher));
+			objectToReturn =  inputStream.readObject();
+
+			inputStream.close();
+			
+		} 
+		catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IOException | ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return objectToReturn;
 	}
 	
 	public String decryptAndRead(String path)
