@@ -1,9 +1,15 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameData 
+public class GameData implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
+
 	public static final String FILE_IDENTIFIER = "GAME_DATA";
 	
 	private int corsiSpan;
