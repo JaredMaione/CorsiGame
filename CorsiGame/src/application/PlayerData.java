@@ -178,4 +178,9 @@ public class PlayerData implements Serializable
 	{
 		this.scores = scores;
 	}
+	
+	public void addScore(GameData scoreToAdd)
+	{
+		scores.add(scoreToAdd);
+	}
 }
