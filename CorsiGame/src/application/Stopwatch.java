@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Stopwatch implements Serializable
 {
+	private static final long serialVersionUID = -6833815408946316276L;
 
 	private boolean isRunning;
 	
