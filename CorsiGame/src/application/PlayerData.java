@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class PlayerData 
 {
+	public static final String FILE_IDENTIFIER = "PLAYER_DATA";
 	private String username;
 	private String password;
 	private Date dob;
@@ -38,12 +39,12 @@ public class PlayerData
 		this.country = country;
 		this.diagnosis = diagnosis;
 		scores = new ArrayList<GameData>();
-		
 	}
 	
 	public String sendToString()
 	{
-		String dataString =  username + "\n" +
+		String dataString = FILE_IDENTIFIER + "\n" + 
+			   username + "\n" +
 			   password + "\n" +
 			   dob.toFormattedString() + "\n" + 
 			   city + "\n" +
