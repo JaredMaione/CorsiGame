@@ -37,12 +37,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 
-
+			PlayerData data = new PlayerData("User", "Pass", new Date(1,1,19), "City", "State", "Zip", "Diagnosis");
+			FileManager.writeEncrypted(data, "C:\\Users\\Jared\\git\\CorsiRepository\\CorsiGame\\GameFiles\\TestPlayer.ser");
 			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
-			//mainMenu menu = new MainMenu(primaryStage);
+			MainMenu menu = new MainMenu(primaryStage);
 			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 
-			PlayerData data = new PlayerData("User", "Pass", new Date(1,1,19), "City", "State", "Zip", "Diagnosis");
 			//PlayerData data = new PlayerData();
 			//fm.writeEncrypted(data, System.getProperty("user.dir") + "\\player.ser");
 			//FileManager.writeEncrypted(new ElapsedTime(1000000), System.getProperty("user.dir") + "\\et.ser");
@@ -50,9 +50,11 @@ public class Main extends Application {
 			//System.out.println(time.getSeconds());
 			//PlayerData newData = (PlayerData) fm.decryptAndReadObj(System.getProperty("user.dir") + "\\player.ser");
 			//data.readFromString(fm.decryptAndRead(System.getProperty("user.dir") + "\\kung.foo"));
-			ArrayList<PlayerData> players = new ArrayList<PlayerData>();
-			players.add(data);
-			ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage, players);
+			//ArrayList<PlayerData> players = new ArrayList<PlayerData>();
+			//players.add(data);
+			//ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage, players);
+			
+			
 
 
 			/*Test with serialization and no encryption
