@@ -23,15 +23,11 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-public class FileManager 
+public abstract class FileManager 
 {
-	private final String ENCRYPTION_KEY = "123456781234";
+	private static final String ENCRYPTION_KEY = "123456781234";
 	
-	public FileManager()
-	{
-	}
-	
-	public void writeEncrypted(Object object, String path)
+	public static void writeEncrypted(Object object, String path)
 	{
 		try 
 		{
@@ -48,7 +44,7 @@ public class FileManager
 		}
 	}
 	
-	public void writeEncrypted(String data, String path)
+	public static void writeEncrypted(String data, String path)
 	{
 		try 
 		{
@@ -68,7 +64,7 @@ public class FileManager
 		}
 	}
 	
-	public Object decryptAndReadObj(String path)
+	public static Object decryptAndReadObj(String path)
 	{
 		Object objectToReturn = null;
 		
@@ -92,7 +88,7 @@ public class FileManager
 		return objectToReturn;
 	}
 	
-	public String decryptAndRead(String path)
+	public static String decryptAndRead(String path)
 	{
 		try 
 		{
