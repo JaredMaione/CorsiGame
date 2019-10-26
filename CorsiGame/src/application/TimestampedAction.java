@@ -9,9 +9,14 @@ public abstract class TimestampedAction
 		this.msFromStart = msFromStart;
 	}
 	
-	// This constructor calculates msFromStart (calculation is abstracted away)
+	// This constructor calculates msFromStart (calculation is abstracted away from caller)
 	public TimestampedAction(long startTime, long currentTime)
 	{
 		msFromStart = currentTime - startTime;
+	}
+	
+	public long getMSFromStart()
+	{
+		return msFromStart;
 	}
 }
