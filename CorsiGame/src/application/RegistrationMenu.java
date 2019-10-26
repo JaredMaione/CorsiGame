@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -49,8 +50,12 @@ public class RegistrationMenu
 	
 	private Stage stage;
 	
-	public RegistrationMenu(Stage stage)
+	private ArrayList<PlayerData> players;
+	
+	public RegistrationMenu(Stage stage, ArrayList<PlayerData> players)
 	{
+		this.players = players;
+		
 		FlowPane mainPane = new FlowPane(Orientation.VERTICAL);
 		
 		formPane = new TwoColumnPane();
