@@ -1,7 +1,13 @@
 package application;
 
-public abstract class TimestampedAction 
+import java.io.Serializable;
+
+public abstract class TimestampedAction implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4L;
 	public static final String FILE_IDENTIFIER = "TIMESTAMPED_ACTION";
 	protected long msFromStart;
 	
