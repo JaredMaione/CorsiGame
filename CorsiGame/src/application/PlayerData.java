@@ -2,11 +2,17 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-public class PlayerData 
+public class PlayerData implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public static final String FILE_IDENTIFIER = "PLAYER_DATA";
 	private String username;
 	private String password;
