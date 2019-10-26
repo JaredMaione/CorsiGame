@@ -2,6 +2,8 @@ package application;
 
 public class ElapsedTime 
 {
+	public static final String FILE_IDENTIFIER = "ELAPSED_TIME";
+	
 	private int minutes;
 	private int seconds;
 	private int ms;
@@ -21,6 +23,11 @@ public class ElapsedTime
 		{
 			minutes = 0;
 		}
+	}
+	
+	public String sendToString()
+	{
+		return minutes + ":" + seconds + ":" + ms;
 	}
 	
 	public void addTime(ElapsedTime timeToAdd)
