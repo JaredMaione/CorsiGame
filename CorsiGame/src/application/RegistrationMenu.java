@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
@@ -8,6 +9,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -37,7 +39,7 @@ public class RegistrationMenu
 	private PasswordField passwordField;
 	private PasswordField passwordConfirmField;
 	
-	private TextField dobField;
+	private DatePicker dobSelect;
 	private TextField cityField;
 	private TextField stateField;
 	private TextField countryField;
@@ -64,7 +66,7 @@ public class RegistrationMenu
 		usernameField = new TextField();
 		passwordField = new PasswordField();
 		passwordConfirmField = new PasswordField();
-		dobField = new TextField();
+		dobSelect = new DatePicker(LocalDate.now());
 		cityField = new TextField();
 		stateField = new TextField();
 		countryField = new TextField();
@@ -75,7 +77,7 @@ public class RegistrationMenu
 			new Text(USERNAME_FIELD_LABEL), usernameField,
 			new Text(PASSWORD_LABEL), passwordField,
 			new Text(PASSWORD_LABEL_CONFIRM), passwordConfirmField,
-			new Text(DOB_FIELD_LABEL), dobField,
+			new Text(DOB_FIELD_LABEL), dobSelect,
 			new Text(CITY_FIELD_LABEL), cityField,
 			new Text(STATE_FIELD_LABEL), stateField,
 			new Text(COUNTRY_FIELD_LABEL), countryField,
