@@ -17,6 +17,8 @@ public class ScoreboardMenu
 	private final String GLOBAL_LEADERBOARD_BUTTON_LABEL = "View Global Leaderboard";
 	private final String PERSONAL_SCORES_BUTTON_LABEL = "View Personal Scores";
 	private final String RETURN_TO_MENU_BUTTON_LABEL = "Return to Menu";
+	private final String USERNAME_LABEL = "Username";
+	private final String CORSI_SPAN_LABEL = "Highest Corsi Span";
 	
 	private final int BUTTON_SPACING = 4;
 	private final int NUM_SCOREBOARD_COLUMNS = 2;
@@ -95,8 +97,14 @@ public class ScoreboardMenu
 	
 	private void displayGlobalLeaderboard()
 	{
+		statDisplayPane.removeAllNodes();
+		
+		// Add column labels
+		statDisplayPane.addNode(new Text(USERNAME_LABEL));
+		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
 		for (PlayerData player : players)
 		{
+			statDisplayPane.addNode(new Text(player.getUsername()));
 		}
 	}
 }
