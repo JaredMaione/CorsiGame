@@ -45,7 +45,7 @@ public class RegistrationMenu
 	private TextField countryField;
 	private TextField diagnosisField;
 	
-	private FixedDimensionGridPane formPane;
+	private FixedColumnGridPane formPane;
 	
 	private Button submitButton;
 	private Button cancelButton;
@@ -61,7 +61,7 @@ public class RegistrationMenu
 		
 		FlowPane mainPane = new FlowPane(Orientation.VERTICAL);
 		
-		formPane = new FixedDimensionGridPane();
+		formPane = new FixedColumnGridPane();
 		
 		usernameField = new TextField();
 		passwordField = new PasswordField();

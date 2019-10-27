@@ -20,7 +20,7 @@ public class ScoreboardMenu
 	
 	private final int BUTTON_SPACING = 4;
 			
-	private FixedDimensionGridPane statDisplayPane;
+	private FixedColumnGridPane statDisplayPane;
 	private FlowPane mainPane;
 	private Button viewPersonalScoresButton;
 	private Button viewGlobalLeaderboardButton;
@@ -37,7 +37,7 @@ public class ScoreboardMenu
 		this.currentPlayer = currentPlayer;
 		mainPane = new FlowPane(Orientation.VERTICAL);
 
-		statDisplayPane = new FixedDimensionGridPane();
+		statDisplayPane = new FixedColumnGridPane();
 		statDisplayPane.addNode(new Text("Foo"));
 		
 		viewPersonalScoresButton = new Button(PERSONAL_SCORES_BUTTON_LABEL);
