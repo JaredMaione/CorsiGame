@@ -18,7 +18,7 @@ public class PlayerData implements Serializable
 	private String state;
 	private String country;
 	private String diagnosis;
-	private ArrayList<GameData> scores;
+	private ArrayList<GameData> gameDataList;
 	
 	public PlayerData()
 	{
@@ -29,7 +29,7 @@ public class PlayerData implements Serializable
 		state = "";
 		country = "";
 		diagnosis = "";
-		scores = new ArrayList<GameData>();
+		gameDataList = new ArrayList<GameData>();
 	}
 	
 	public PlayerData(String username, String password, Date dob, String city, String state, String country, String diagnosis)
@@ -41,7 +41,7 @@ public class PlayerData implements Serializable
 		this.state = state;
 		this.country = country;
 		this.diagnosis = diagnosis;
-		scores = new ArrayList<GameData>();
+		gameDataList = new ArrayList<GameData>();
 	}
 	
 	public String sendToString()
@@ -55,7 +55,7 @@ public class PlayerData implements Serializable
 			   country + "\n" +
 			   diagnosis;
 		
-		for (GameData gameData : scores)
+		for (GameData gameData : gameDataList)
 		{
 			dataString += "\n" + gameData.sendToString();
 		}
@@ -169,18 +169,18 @@ public class PlayerData implements Serializable
 		this.diagnosis = diagnosis;
 	}
 
-	public ArrayList<GameData> getScores() 
+	public ArrayList<GameData> getGameDataList() 
 	{
-		return scores;
+		return gameDataList;
 	}
 
-	public void setScores(ArrayList<GameData> scores) 
+	public void setGameDataList(ArrayList<GameData> dataList) 
 	{
-		this.scores = scores;
+		this.gameDataList = dataList;
 	}
 	
-	public void addScore(GameData scoreToAdd)
+	public void addGameData(GameData data)
 	{
-		scores.add(scoreToAdd);
+		gameDataList.add(data);
 	}
 }

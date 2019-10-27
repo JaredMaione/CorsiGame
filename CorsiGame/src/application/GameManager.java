@@ -270,7 +270,7 @@ public class GameManager
 		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 		score.setGameDuration(gameTimer.getLastElapsedTime());
-		playerData.addScore(score);
+		playerData.addGameData(score);
 		reset();
 		
 		Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
