@@ -129,13 +129,20 @@ public class RegistrationMenu
 	private void createProfileAndPlayGame()
 	{
 		PlayerData data = new PlayerData();
-		data.setUsername(usernameField.getText());
-		data.setPassword(passwordField.getText());
-		data.setCity(cityField.getText());
-		data.setState(stateField.getText());
-		data.setCountry(countryField.getText());
-		data.setDiagnosis(diagnosisField.getText());
+		data.setUsername(usernameField.getText().trim());
+		data.setPassword(passwordField.getText().trim());
+		data.setCity(cityField.getText().trim());
+		data.setState(stateField.getText().trim());
+		data.setCountry(countryField.getText().trim());
+		data.setDiagnosis(diagnosisField.getText().trim());
 		
 		GameManager manager = new GameManager(data, stage);
+	}
+	
+	private boolean allFieldsFilled()
+	{
+		return usernameField.getText() != null &&
+			   
+				
 	}
 }
