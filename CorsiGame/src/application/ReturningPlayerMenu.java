@@ -31,7 +31,7 @@ public class ReturningPlayerMenu
 	private Button submitButton;
 	private Button cancelButton;
 	
-	private TwoColumnPane formPane;
+	private FixedDimensionGridPane formPane;
 	
 	private ArrayList<PlayerData> playerData;
 	
@@ -48,7 +48,7 @@ public class ReturningPlayerMenu
 		this.playerData = playerData;
 		this.stage = stage;
 		
-		formPane = new TwoColumnPane();
+		formPane = new FixedDimensionGridPane();
 		
 		formPane.addAll(new Node[] 
 				{
