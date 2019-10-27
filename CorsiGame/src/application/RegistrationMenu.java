@@ -131,16 +131,18 @@ public class RegistrationMenu
 	
 	private void createProfileAndPlayGame()
 	{
-		PlayerData data = new PlayerData();
-		data.setUsername(usernameField.getText().trim());
-		data.setPassword(passwordField.getText().trim());
-		data.setCity(cityField.getText().trim());
-		data.setState(stateField.getText().trim());
-		data.setCountry(countryField.getText().trim());
-		data.setDiagnosis(diagnosisField.getText().trim());
-		data.setDob(new Date(dobSelect.getValue()));
+		PlayerData player = new PlayerData();
+		player.setUsername(usernameField.getText().trim());
+		player.setPassword(passwordField.getText().trim());
+		player.setCity(cityField.getText().trim());
+		player.setState(stateField.getText().trim());
+		player.setCountry(countryField.getText().trim());
+		player.setDiagnosis(diagnosisField.getText().trim());
+		player.setDob(new Date(dobSelect.getValue()));
 		
-		GameManager manager = new GameManager(data, stage);
+		players.add(player);
+		
+		GameManager manager = new GameManager(player, stage);
 	}
 	
 	private boolean inputDataValid()
