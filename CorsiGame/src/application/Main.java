@@ -40,7 +40,7 @@ public class Main extends Application {
 			//PlayerData data = new PlayerData("User", "Pass", new Date(1,1,19), "City", "State", "Zip", "Diagnosis");
 			//FileManager.writeEncrypted(data, "C:\\Users\\Jared\\git\\CorsiRepository\\CorsiGame\\GameFiles\\TestPlayer.ser");
 			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
-			//MainMenu menu = new MainMenu(primaryStage);
+			MainMenu menu = new MainMenu(primaryStage);
 			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 
 			PlayerData data = new PlayerData();
@@ -54,7 +54,7 @@ public class Main extends Application {
 			players.add(data);
 			//ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage, players);
 			
-			ScoreboardMenu scoreboard = new ScoreboardMenu(primaryStage, players, data);
+			//ScoreboardMenu scoreboard = new ScoreboardMenu(primaryStage, players, data);
 
 
 			/*Test with serialization and no encryption
