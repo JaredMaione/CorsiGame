@@ -59,12 +59,12 @@ public class ScoreboardMenu
 			{
 				if (e.getSource().equals(viewPersonalScoresButton))
 				{
-					
+					displayPersonalScores();
 				}
 				
 				if (e.getSource().equals(viewGlobalLeaderboardButton))
 				{
-					
+					displayGlobalLeaderboard();
 				}
 				
 				if (e.getSource().equals(returnToMenuButton))
@@ -85,5 +85,17 @@ public class ScoreboardMenu
 		stage.setScene(new Scene(mainPane, 400, 400));
 		stage.setResizable(false);
 		stage.show();
+	}
+	
+	private void displayPersonalScores()
+	{
+		
+	}
+	
+	private void displayGlobalLeaderboard()
+	{
+		for (PlayerData player : players)
+		{
+		}
 	}
 }
