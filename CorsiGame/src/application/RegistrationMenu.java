@@ -145,14 +145,14 @@ public class RegistrationMenu
 	
 	private boolean inputDataValid()
 	{
-		return usernameField.getText() != null &&
-			   passwordField.getText() != null &&
-			   passwordConfirmField.getText() != null &&
+		return !usernameField.getText().equals("") &&
+			   !passwordField.getText().equals("") &&
+			   !passwordConfirmField.getText().equals("") &&
 			   (passwordField.getText().equals(passwordConfirmField.getText())) &&
-			   cityField.getText() != null &&
-			   stateField.getText() != null &&
-			   countryField.getText() != null &&
-			   diagnosisField.getText() != null &&
+			   !cityField.getText().equals("") &&
+			   !stateField.getText().equals("") &&
+			   !countryField.getText().equals("") &&
+			   !diagnosisField.getText().equals("") &&
 			   dobSelect.getValue() != null;
 	}
 }
