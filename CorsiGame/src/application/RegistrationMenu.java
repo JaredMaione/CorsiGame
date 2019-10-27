@@ -102,7 +102,10 @@ public class RegistrationMenu
 			{
 				if (e.getSource().equals(submitButton))
 				{
-					createProfileAndPlayGame();
+					if (allFieldsFilled())
+					{
+						createProfileAndPlayGame();
+					}
 				}
 				
 				if (e.getSource().equals(cancelButton))
@@ -135,6 +138,7 @@ public class RegistrationMenu
 		data.setState(stateField.getText().trim());
 		data.setCountry(countryField.getText().trim());
 		data.setDiagnosis(diagnosisField.getText().trim());
+		data.setDob(new Date(dobSelect.getValue()));
 		
 		GameManager manager = new GameManager(data, stage);
 	}
@@ -142,7 +146,11 @@ public class RegistrationMenu
 	private boolean allFieldsFilled()
 	{
 		return usernameField.getText() != null &&
-			   
-				
+			   passwordField.getText() != null &&
+			   cityField.getText() != null &&
+			   stateField.getText() != null &&
+			   countryField.getText() != null &&
+			   diagnosisField.getText() != null &&
+			   dobSelect.getValue() != null;
 	}
 }
