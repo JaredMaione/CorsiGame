@@ -19,6 +19,7 @@ public class ScoreboardMenu
 	private final String RETURN_TO_MENU_BUTTON_LABEL = "Return to Menu";
 	
 	private final int BUTTON_SPACING = 4;
+	private final int NUM_SCOREBOARD_COLUMNS = 2;
 			
 	private FixedColumnGridPane statDisplayPane;
 	private FlowPane mainPane;
@@ -37,7 +38,7 @@ public class ScoreboardMenu
 		this.currentPlayer = currentPlayer;
 		mainPane = new FlowPane(Orientation.VERTICAL);
 
-		statDisplayPane = new FixedColumnGridPane();
+		statDisplayPane = new FixedColumnGridPane(NUM_SCOREBOARD_COLUMNS);
 		statDisplayPane.addNode(new Text("Foo"));
 		
 		viewPersonalScoresButton = new Button(PERSONAL_SCORES_BUTTON_LABEL);
