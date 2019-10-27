@@ -54,6 +54,7 @@ public class RegistrationMenu
 	
 	public RegistrationMenu(Stage stage, ArrayList<PlayerData> players)
 	{
+		this.stage = stage;
 		this.players = players;
 		
 		FlowPane mainPane = new FlowPane(Orientation.VERTICAL);
