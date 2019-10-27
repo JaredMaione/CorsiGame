@@ -45,6 +45,12 @@ public class FixedColumnGridPane extends GridPane
 		}
 	}
 	
+	public void removeAllNodes()
+	{
+		this.getChildren().clear();
+		nodes.clear();
+	}
+	
 	private void rebuildPane()
 	{
 		this.getChildren().clear();
