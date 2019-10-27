@@ -29,9 +29,7 @@ public class MainMenu
 	private final String HELP_BUTTON_TEXT = "Help";
 	private final String GAME_TITLE = "Corsi Task";
 	private final String GAME_AUTHOR = "Developed by Jared Maione";
-	
-	private final String GAME_FILES_FOLDER = "GameFiles";
-	
+		
 	private Button newPlayerButton;
 	private Button existingPlayerButton;
 	private Button helpButton;
@@ -103,7 +101,7 @@ public class MainMenu
 	{
 		ArrayList<PlayerData> players = new ArrayList<PlayerData>();
 
-		File playerFolder = new File(System.getProperty("user.dir") + "\\" +GAME_FILES_FOLDER);
+		File playerFolder = new File(System.getProperty("user.dir") + "\\" + FileManager.GAME_FILES_FOLDER);
 		
 		if (!playerFolder.exists())
 		{
