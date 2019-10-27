@@ -2,9 +2,11 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -26,8 +28,13 @@ public class ScoreboardMenu
 	
 	private Stage stage;
 	
-	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players)
+	private ArrayList<PlayerData> players;
+	private PlayerData currentPlayer;
+	
+	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players, PlayerData currentPlayer)
 	{
+		this.players = players;
+		this.currentPlayer = currentPlayer;
 		mainPane = new FlowPane(Orientation.VERTICAL);
 
 		statDisplayPane = new TwoColumnPane();
@@ -45,6 +52,32 @@ public class ScoreboardMenu
 		buttonBox.getChildren().add(viewGlobalLeaderboardButton);
 		buttonBox.getChildren().add(returnToMenuButton);
 		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(viewPersonalScoresButton))
+				{
+					
+				}
+				
+				if (e.getSource().equals(viewGlobalLeaderboardButton))
+				{
+					
+				}
+				
+				if (e.getSource().equals(returnToMenuButton))
+				{
+					MainMenu menu = new MainMenu(stage);
+				}
+			}
+		};
+		
+		viewPersonalScoresButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		viewGlobalLeaderboardButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+
 		mainPane.getChildren().add(statDisplayPane);
 		mainPane.getChildren().add(buttonBox);
 		
