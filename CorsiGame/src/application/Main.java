@@ -54,7 +54,7 @@ public class Main extends Application {
 			players.add(data);
 			//ReturningPlayerMenu menu = new ReturningPlayerMenu(primaryStage, players);
 			
-			ScoreboardMenu scoreboard = new ScoreboardMenu(primaryStage, players);
+			ScoreboardMenu scoreboard = new ScoreboardMenu(primaryStage, players, data);
 
 
 			/*Test with serialization and no encryption
