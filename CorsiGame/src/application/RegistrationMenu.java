@@ -102,7 +102,7 @@ public class RegistrationMenu
 			{
 				if (e.getSource().equals(submitButton))
 				{
-					if (allFieldsFilled())
+					if (inputDataValid())
 					{
 						createProfileAndPlayGame();
 					}
@@ -143,10 +143,12 @@ public class RegistrationMenu
 		GameManager manager = new GameManager(data, stage);
 	}
 	
-	private boolean allFieldsFilled()
+	private boolean inputDataValid()
 	{
 		return usernameField.getText() != null &&
 			   passwordField.getText() != null &&
+			   passwordConfirmField.getText() != null &&
+			   (passwordField.getText().equals(passwordConfirmField.getText())) &&
 			   cityField.getText() != null &&
 			   stateField.getText() != null &&
 			   countryField.getText() != null &&
