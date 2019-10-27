@@ -1,6 +1,7 @@
 package application;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Date implements Serializable
 {
@@ -45,6 +46,13 @@ public class Date implements Serializable
 				throw new UnableToParseDateException(EXCEPTION_MESSAGE);
 			}
 		}
+	}
+	
+	public Date(LocalDate date)
+	{
+		month = date.getMonthValue();
+		day = date.getDayOfMonth();
+		year = date.getYear();
 	}
 	
 	public String toFormattedString()
