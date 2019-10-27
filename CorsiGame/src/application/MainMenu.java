@@ -16,6 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MainMenu 
 {
@@ -89,6 +90,19 @@ public class MainMenu
 			}
 		};
 		
+		EventHandler<WindowEvent> windowCloseHandler = new EventHandler<WindowEvent>() 
+		{
+	          public void handle(WindowEvent e) 
+	          {
+	              for (PlayerData player : players)
+	              {
+	            	  FileManager.writeEncrypted(player, System.getProperty("user.dir") + "\\" + FileManager.GAME_FILES_FOLDER + "\\" + player.getUsername() + ".ser");
+	              }
+	          }
+		};
+		
+		stage.setOnCloseRequest(windowCloseHandler);
+		
 		newPlayerButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		existingPlayerButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		helpButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
@@ -113,7 +127,6 @@ public class MainMenu
 			if (file.getName().substring(file.getName().indexOf("."), file.getName().length()).equals(".ser"))
 			{
 				players.add((PlayerData) FileManager.decryptAndReadObj(file.getAbsolutePath()));
-				
 			}
 		}
 				
