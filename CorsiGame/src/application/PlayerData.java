@@ -101,7 +101,7 @@ public class PlayerData implements Serializable
 	
 	public int getMaxCorsiSpan()
 	{
-		int max = -1;
+		int max = 0;
 		
 		for (GameData data : gameDataList)
 		{
