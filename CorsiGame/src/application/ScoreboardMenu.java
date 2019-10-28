@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +20,7 @@ public class ScoreboardMenu
 	private final String RETURN_TO_MENU_BUTTON_LABEL = "Return to Menu";
 	private final String USERNAME_LABEL = "Username";
 	private final String CORSI_SPAN_LABEL = "Highest Corsi Span";
+	private final String NUM_GAMES_LABEL = "Number of Games Played";
 	
 	private final int BUTTON_SPACING = 4;
 	private final int NUM_SCOREBOARD_COLUMNS = 2;
@@ -92,7 +94,10 @@ public class ScoreboardMenu
 	
 	private void displayPersonalScores()
 	{
-		
+		statDisplayPane.removeAllNodes();
+		Node[] nodes = new Node[] {new Text(USERNAME_LABEL), new Text(currentPlayer.getUsername()),
+								   new Text(CORSI_SPAN_LABEL), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
+							       new Text(NUM_GAMES_LABEL), new Text(Integer.toString(currentPlayer.getNumberOfGames()))};
 	}
 	
 	private void displayGlobalLeaderboard()
@@ -102,9 +107,13 @@ public class ScoreboardMenu
 		// Add column labels
 		statDisplayPane.addNode(new Text(USERNAME_LABEL));
 		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
+		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
+		
 		for (PlayerData player : players)
 		{
 			statDisplayPane.addNode(new Text(player.getUsername()));
+			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
+			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
 		}
 	}
 }
