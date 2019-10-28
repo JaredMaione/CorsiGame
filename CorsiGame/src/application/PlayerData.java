@@ -113,6 +113,11 @@ public class PlayerData implements Serializable
 		
 		return max;
 	}
+	
+	public int getNumberOfGames()
+	{
+		return gameDataList.size();
+	}
 
 	public String getUsername() 
 	{
