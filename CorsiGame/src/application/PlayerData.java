@@ -98,6 +98,21 @@ public class PlayerData implements Serializable
 			e.printStackTrace();
 		}
 	}
+	
+	public int getMaxCorsiSpan()
+	{
+		int max = -1;
+		
+		for (GameData data : gameDataList)
+		{
+			if (data.getCorsiSpan() > max)
+			{
+				max = data.getCorsiSpan();
+			}
+		}
+		
+		return max;
+	}
 
 	public String getUsername() 
 	{
