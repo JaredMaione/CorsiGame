@@ -8,10 +8,12 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -34,6 +36,9 @@ public class RegistrationMenu
 	
 	private final String SUBMIT_BUTTON_LABEL = "Submit & Play Game!";
 	private final String CANCEL_BUTTON_LABEL = "Cancel";
+	
+	private final String ERROR_TITLE = "Invalid Data!";
+	private final String INVALID_INPUT_MESSAGE = "One or more of the fields is either not filled or is filled incorrectly. Please review and try again.";
 	
 	private TextField usernameField;
 	private PasswordField passwordField;
@@ -106,11 +111,18 @@ public class RegistrationMenu
 					{
 						createProfileAndPlayGame();
 					}
+					else
+					{
+						Alert invalidDataAlert = new Alert(AlertType.INFORMATION);
+						invalidDataAlert.setTitle(ERROR_TITLE);
+						invalidDataAlert.setHeaderText(INVALID_INPUT_MESSAGE);
+						invalidDataAlert.showAndWait();
+					}
 				}
 				
 				if (e.getSource().equals(cancelButton))
 				{
-					
+					MainMenu menu = new MainMenu(stage);
 				}
 			}
 		};
