@@ -40,11 +40,11 @@ public class Main extends Application {
 			PlayerData player = new PlayerData("User", "Pass", new Date(1,1,19), "City", "State", "Zip", "Diagnosis");
 			//FileManager.writeEncrypted(data, "C:\\Users\\Jared\\git\\CorsiRepository\\CorsiGame\\GameFiles\\TestPlayer.ser");
 			//GameManager manny = new GameManager(new PlayerData(), primaryStage);
-			//MainMenu menu = new MainMenu(primaryStage);
+			MainMenu menu = new MainMenu(primaryStage);
 			//RegistrationMenu reggie = new RegistrationMenu(primaryStage);
 			ArrayList<PlayerData> players = new ArrayList<PlayerData>();
 			players.add(player);
-			LoggedInMenu logMenu = new LoggedInMenu(primaryStage, player, players);
+		//	LoggedInMenu logMenu = new LoggedInMenu(primaryStage, player, players);
 
 			//PlayerData data = new PlayerData();
 			//fm.writeEncrypted(data, System.getProperty("user.dir") + "\\player.ser");
