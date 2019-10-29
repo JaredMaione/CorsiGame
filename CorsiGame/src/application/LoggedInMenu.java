@@ -2,9 +2,11 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -45,6 +47,31 @@ public class LoggedInMenu
 		buttonBox.getChildren().add(scoreboardButton);
 		buttonBox.getChildren().add(logoutButton);
 		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(playButton))
+				{
+					GameManager gameManager = new GameManager(loggedInPlayer, stage);
+				}
+				
+				if (e.getSource().equals(scoreboardButton))
+				{
+					ScoreboardMenu menu = new ScoreboardMenu(stage, players, loggedInPlayer);
+				}
+				
+				if (e.getSource().equals(logoutButton))
+				{
+					MainMenu menu = new MainMenu(stage);
+				}
+			}
+		};
+		
+		playButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		scoreboardButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		logoutButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.getChildren().add(new GameInformationHeader());
