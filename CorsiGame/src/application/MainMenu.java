@@ -48,7 +48,7 @@ public class MainMenu
 		stage.setResizable(false);
 		
 		mainPane = new BorderPane();
-		stage.setScene(new Scene(mainPane, 400, 400));
+		stage.setScene(new Scene(mainPane, 350, 100));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 		GameInformationHeader titlePane = new GameInformationHeader();
