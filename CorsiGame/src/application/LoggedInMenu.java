@@ -21,6 +21,7 @@ public class LoggedInMenu
 	private final String USERNAME_LABEL = "Logged in as:";
 	
 	private final int COMPONENT_SPACING = 6;
+	private final int PADDING_VALUE = 5;
 
 	private ArrayList<PlayerData> players;
 	private PlayerData loggedInPlayer;
@@ -77,7 +78,7 @@ public class LoggedInMenu
 		logoutButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 
 		mainPane = new FlowPane(Orientation.VERTICAL);
-		mainPane.setPadding(new Insets(5, 5, 5, 5));
+		mainPane.setPadding(new Insets(PADDING_VALUE, PADDING_VALUE, PADDING_VALUE, PADDING_VALUE));
 		mainPane.getChildren().add(new GameInformationHeader());
 		mainPane.setVgap(COMPONENT_SPACING);
 		mainPane.getChildren().add(new Text(USERNAME_LABEL + " " + loggedInPlayer.getUsername()));
