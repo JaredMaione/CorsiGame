@@ -45,11 +45,14 @@ public class LoggedInMenu
 		buttonBox.getChildren().add(scoreboardButton);
 		buttonBox.getChildren().add(logoutButton);
 		
+
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.getChildren().add(new GameInformationHeader());
 		mainPane.getChildren().add(buttonBox);
 		
-		stage.setScene(new Scene(mainPane, 200, 200));
+		stage.setScene(new Scene(mainPane, 360, 100));
+		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 		stage.show();
 	}
 }
