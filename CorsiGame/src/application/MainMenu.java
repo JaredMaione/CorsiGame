@@ -28,8 +28,7 @@ public class MainMenu
 	private final String NEW_PLAYER_BUTTON_TEXT = "New Player Sign-Up";
 	private final String EXISTING_PLAYER_BUTTON_TEXT = "Existing Player Login";
 	private final String HELP_BUTTON_TEXT = "Help";
-	private final String GAME_TITLE = "Corsi Task";
-	private final String GAME_AUTHOR = "Developed by Jared Maione";
+	
 		
 	private Button newPlayerButton;
 	private Button existingPlayerButton;
@@ -50,18 +49,9 @@ public class MainMenu
 		stage.setScene(new Scene(mainPane, 400, 400));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-		FlowPane textPane = new FlowPane(Orientation.VERTICAL);
-		Text gameTitle = new Text(GAME_TITLE);
-		gameTitle.getStyleClass().add("title_text");
+		GameInformationHeader titlePane = new GameInformationHeader();
 		
-		Text gameAuthor = new Text(GAME_AUTHOR);
-		gameAuthor.getStyleClass().add("subtitle_text");
-		
-		textPane.getChildren().add(gameTitle);
-		textPane.getChildren().add(gameAuthor);
-		textPane.setPrefHeight(80);
-		
-		mainPane.setTop(textPane);
+		mainPane.setTop(titlePane);
 		
 		newPlayerButton = new Button(NEW_PLAYER_BUTTON_TEXT);
 		existingPlayerButton = new Button(EXISTING_PLAYER_BUTTON_TEXT);
