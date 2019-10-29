@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,8 +23,9 @@ public class MainMenu
 {
 	private BorderPane mainPane;
 	private HBox buttonBox;
+	
 	private final int BUTTON_SPACING = 10;
-
+	private final int PADDING_VALUE = 5;
 	
 	private final String NEW_PLAYER_BUTTON_TEXT = "New Player Sign-Up";
 	private final String EXISTING_PLAYER_BUTTON_TEXT = "Existing Player Login";
@@ -52,6 +54,7 @@ public class MainMenu
 		GameInformationHeader titlePane = new GameInformationHeader();
 		
 		mainPane.setTop(titlePane);
+		mainPane.setPadding(new Insets(PADDING_VALUE, PADDING_VALUE, PADDING_VALUE, PADDING_VALUE));
 		
 		newPlayerButton = new Button(NEW_PLAYER_BUTTON_TEXT);
 		existingPlayerButton = new Button(EXISTING_PLAYER_BUTTON_TEXT);
