@@ -109,7 +109,7 @@ public class RegistrationMenu
 				{
 					if (inputDataValid())
 					{
-						createProfileAndPlayGame();
+						createProfileAndLogin();
 					}
 					else
 					{
@@ -141,7 +141,7 @@ public class RegistrationMenu
 		stage.show();
 	}
 	
-	private void createProfileAndPlayGame()
+	private void createProfileAndLogin()
 	{
 		PlayerData player = new PlayerData();
 		player.setUsername(usernameField.getText().trim());
@@ -154,7 +154,7 @@ public class RegistrationMenu
 		
 		players.add(player);
 		
-		GameManager manager = new GameManager(player, stage);
+		LoggedInMenu menu = new LoggedInMenu(stage, player, players);
 	}
 	
 	private boolean inputDataValid()
