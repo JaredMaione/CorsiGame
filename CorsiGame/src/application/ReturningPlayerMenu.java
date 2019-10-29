@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,6 +25,8 @@ public class ReturningPlayerMenu
 	
 	private final String ERROR_TITLE = "Error";
 	private final String INVALID_CREDENTIALS_MESSAGE = "Invalid username and/or password! Please try again.";
+	
+	private final int ENTER_KEY_CONSTANT = 13;
 	
 	private TextField usernameField;
 	private PasswordField passwordField;
@@ -85,6 +88,17 @@ public class ReturningPlayerMenu
 				}
 			}
 		};
+		
+		EventHandler<KeyEvent> enterKeyHandler = new EventHandler<KeyEvent>()
+		{
+			@Override
+			public void handle(KeyEvent e) 
+			{
+				
+			}
+		};
+
+		passwordField.addEventFilter(KeyEvent.KEY_TYPED, enterKeyHandler);
 		
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		cancelButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
