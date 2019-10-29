@@ -26,7 +26,7 @@ public class ReturningPlayerMenu
 	private final String ERROR_TITLE = "Error";
 	private final String INVALID_CREDENTIALS_MESSAGE = "Invalid username and/or password! Please try again.";
 	
-	private final int ENTER_KEY_CONSTANT = 13;
+	private final int ENTER_KEY_CODE = 13;
 	
 	private TextField usernameField;
 	private PasswordField passwordField;
@@ -67,19 +67,7 @@ public class ReturningPlayerMenu
 			{
 				if (e.getSource().equals(submitButton))
 				{
-					PlayerData player = matchCredentialsToPlayer(usernameField.getText().trim(), passwordField.getText().trim());
-					
-					if (player != null)
-					{
-						LoggedInMenu menu = new LoggedInMenu(stage, player, playersList);
-					}
-					else
-					{
-						Alert invalidPasswordAlert = new Alert(AlertType.INFORMATION);
-						invalidPasswordAlert.setTitle(ERROR_TITLE);
-						invalidPasswordAlert.setHeaderText(INVALID_CREDENTIALS_MESSAGE);
-						invalidPasswordAlert.show();
-					}
+					authenticateInput();
 				}
 				
 				if (e.getSource().equals(cancelButton))
@@ -94,7 +82,10 @@ public class ReturningPlayerMenu
 			@Override
 			public void handle(KeyEvent e) 
 			{
-				
+				if (e.getCharacter().toCharArray()[0] == ENTER_KEY_CODE)
+				{
+					authenticateInput();
+				}
 			}
 		};
 
@@ -106,6 +97,23 @@ public class ReturningPlayerMenu
 		stage.setScene(new Scene(formPane, 300, 130));
 		stage.setResizable(false);
 		stage.show();
+	}
+	
+	private void authenticateInput()
+	{
+		PlayerData player = matchCredentialsToPlayer(usernameField.getText().trim(), passwordField.getText().trim());
+		
+		if (player != null)
+		{
+			LoggedInMenu menu = new LoggedInMenu(stage, player, playersList);
+		}
+		else
+		{
+			Alert invalidPasswordAlert = new Alert(AlertType.INFORMATION);
+			invalidPasswordAlert.setTitle(ERROR_TITLE);
+			invalidPasswordAlert.setHeaderText(INVALID_CREDENTIALS_MESSAGE);
+			invalidPasswordAlert.show();
+		}
 	}
 	
 	private PlayerData matchCredentialsToPlayer(String username, String password)
