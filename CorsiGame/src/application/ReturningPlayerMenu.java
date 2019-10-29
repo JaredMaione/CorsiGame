@@ -33,11 +33,11 @@ public class ReturningPlayerMenu
 	
 	private FixedColumnGridPane formPane;
 	
-	private ArrayList<PlayerData> playerData;
+	private ArrayList<PlayerData> playersList;
 	
 	private Stage stage;
 	
-	public ReturningPlayerMenu(Stage stage, ArrayList<PlayerData> playerData)
+	public ReturningPlayerMenu(Stage stage, ArrayList<PlayerData> playersList)
 	{
 		usernameField = new TextField();
 		passwordField = new PasswordField();
@@ -45,7 +45,7 @@ public class ReturningPlayerMenu
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
 		cancelButton = new Button(CANCEL_BUTTON_LABEL);
 		
-		this.playerData = playerData;
+		this.playersList = playersList;
 		this.stage = stage;
 		
 		formPane = new FixedColumnGridPane();
@@ -68,7 +68,7 @@ public class ReturningPlayerMenu
 					
 					if (player != null)
 					{
-						GameManager gameManager = new GameManager(player, stage);
+						LoggedInMenu menu = new LoggedInMenu(stage, player, playersList);
 					}
 					else
 					{
@@ -96,7 +96,7 @@ public class ReturningPlayerMenu
 	
 	private PlayerData matchCredentialsToPlayer(String username, String password)
 	{
-		for (PlayerData player : playerData)
+		for (PlayerData player : playersList)
 		{
 			if (player.getUsername().equals(username) && player.getPassword().equals(password))
 			{
