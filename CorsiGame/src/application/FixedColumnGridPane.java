@@ -31,6 +31,12 @@ public class FixedColumnGridPane extends GridPane
 		this.numColumns = numColumns;
 	}
 	
+	public void setColumns(int numColumns)
+	{
+		this.numColumns = numColumns;
+		rebuildPane();
+	}
+	
 	public void addNode(Node node)
 	{
 		nodes.add(node);
