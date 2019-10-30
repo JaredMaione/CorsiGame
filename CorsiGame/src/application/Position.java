@@ -1,7 +1,10 @@
 package application;
 
-public class Position 
+import java.io.Serializable;
+
+public class Position implements Serializable
 {
+	private static final long serialVersionUID = -4072427736021987251L;
 	
 	private double x;
 	private double y;
