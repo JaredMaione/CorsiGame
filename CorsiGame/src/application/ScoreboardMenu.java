@@ -43,7 +43,6 @@ public class ScoreboardMenu
 		mainPane = new FlowPane(Orientation.VERTICAL);
 
 		statDisplayPane = new FixedColumnGridPane(NUM_SCOREBOARD_COLUMNS);
-		statDisplayPane.addNode(new Text("Foo"));
 		
 		viewPersonalScoresButton = new Button(PERSONAL_SCORES_BUTTON_LABEL);
 		viewGlobalLeaderboardButton = new Button(GLOBAL_LEADERBOARD_BUTTON_LABEL);
