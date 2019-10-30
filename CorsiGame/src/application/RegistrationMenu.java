@@ -14,6 +14,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -58,6 +59,8 @@ public class RegistrationMenu
 	private Stage stage;
 	
 	private ArrayList<PlayerData> players;
+	
+	private final int ENTER_KEY_CODE = 13;
 	
 	public RegistrationMenu(Stage stage, ArrayList<PlayerData> players)
 	{
@@ -130,6 +133,31 @@ public class RegistrationMenu
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		cancelButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		
+		EventHandler<KeyEvent> enterKeyHandler = new EventHandler<KeyEvent>()
+		{
+			@Override
+			public void handle(KeyEvent e) 
+			{
+				if (e.getCharacter().toCharArray()[0] == ENTER_KEY_CODE)
+				{
+					if (inputDataValid())
+					{
+						createProfileAndLogin();
+					}
+					else
+					{
+						Alert invalidDataAlert = new Alert(AlertType.INFORMATION);
+						invalidDataAlert.setTitle(ERROR_TITLE);
+						invalidDataAlert.setHeaderText(INVALID_INPUT_MESSAGE);
+						invalidDataAlert.showAndWait();
+					}
+				}
+			}
+		};
+		
+		mainPane.addEventFilter(KeyEvent.KEY_TYPED, enterKeyHandler);
+		
+		
 		HBox buttonBox = new HBox();
 		buttonBox.setSpacing(3);
 		buttonBox.getChildren().add(submitButton);
@@ -153,6 +181,7 @@ public class RegistrationMenu
 		player.setDob(new Date(dobSelect.getValue()));
 		
 		players.add(player);
+		player.saveToFile();
 		
 		LoggedInMenu menu = new LoggedInMenu(stage, player, players);
 	}
