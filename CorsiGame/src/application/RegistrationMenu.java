@@ -34,7 +34,7 @@ public class RegistrationMenu
 	private final String PASSWORD_LABEL = "Password:";
 	private final String PASSWORD_LABEL_CONFIRM = "Confirm password:";
 	
-	private final String SUBMIT_BUTTON_LABEL = "Submit & Play Game!";
+	private final String SUBMIT_BUTTON_LABEL = "Submit & Login";
 	private final String CANCEL_BUTTON_LABEL = "Cancel";
 	
 	private final String ERROR_TITLE = "Invalid Data!";
