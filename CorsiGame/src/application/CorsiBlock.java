@@ -9,8 +9,8 @@ import javafx.scene.shape.Rectangle;
 public class CorsiBlock extends Rectangle implements Serializable
 {
 	private static final long serialVersionUID = 8373831206086832375L;
-	private final Color LIT_COLOR = Color.RED;
-	private final Color UNLIT_COLOR = Color.BLUE;
+	private final BlockColor LIT_COLOR = BlockColor.RED;
+	private final BlockColor UNLIT_COLOR = BlockColor.BLUE;
 	
 	private boolean isClickable;
 	private boolean isLit;
@@ -20,6 +20,7 @@ public class CorsiBlock extends Rectangle implements Serializable
 	{
 		super();
 		isLit = false;
+		
 		setFill(UNLIT_COLOR);
 		
 		blinkStopwatch = new Stopwatch();
@@ -55,6 +56,22 @@ public class CorsiBlock extends Rectangle implements Serializable
 		};
 		
 		blinkTimer.start();
+	}
+	
+	public void setFill(BlockColor fillColor)
+	{
+		switch(fillColor)
+		{
+		case BLUE :
+			setFill(Color.BLUE);
+			break;
+		case RED :
+			setFill(Color.RED);
+			break;
+		default :
+			setFill(Color.BLACK);
+		}
+		
 	}
 	
 	public void setLit(boolean lit)
