@@ -278,6 +278,8 @@ public class GameManager
 		playAgainAlert.setHeaderText(PLAY_AGAIN_MESSAGE);
 		Optional<ButtonType> choice = playAgainAlert.showAndWait();
 		
+		playerData.saveToFile();
+		
 		if (choice.isPresent() && choice.get() == ButtonType.OK)
 		{
 			beginGame(1);
