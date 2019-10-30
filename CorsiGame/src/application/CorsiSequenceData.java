@@ -1,9 +1,15 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CorsiSequenceData 
+public class CorsiSequenceData implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2483897520589617244L;
+	
 	private ArrayList<CorsiBlock> blocks;
 	private int level;
 	private int secBetweenBlinks;
