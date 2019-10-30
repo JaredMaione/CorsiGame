@@ -166,7 +166,6 @@ public class RegistrationMenu
 			   !cityField.getText().equals("") &&
 			   !stateField.getText().equals("") &&
 			   !countryField.getText().equals("") &&
-			   !diagnosisField.getText().equals("") &&
 			   dobSelect.getValue() != null;
 	}
 }
