@@ -23,7 +23,8 @@ public class ScoreboardMenu
 	private final String NUM_GAMES_LABEL = "Number of Games Played";
 	
 	private final int BUTTON_SPACING = 4;
-	private final int NUM_SCOREBOARD_COLUMNS = 2;
+	private final int NUM_PERSONAL_SCORE_COLUMNS = 2;
+	private final int NUM_GLOBAL_SCORE_COLUMNS = 3;
 			
 	private FixedColumnGridPane statDisplayPane;
 	private FlowPane mainPane;
@@ -42,7 +43,7 @@ public class ScoreboardMenu
 		this.currentPlayer = currentPlayer;
 		mainPane = new FlowPane(Orientation.VERTICAL);
 
-		statDisplayPane = new FixedColumnGridPane(NUM_SCOREBOARD_COLUMNS);
+		statDisplayPane = new FixedColumnGridPane();
 		
 		viewPersonalScoresButton = new Button(PERSONAL_SCORES_BUTTON_LABEL);
 		viewGlobalLeaderboardButton = new Button(GLOBAL_LEADERBOARD_BUTTON_LABEL);
@@ -94,6 +95,7 @@ public class ScoreboardMenu
 	private void displayPersonalScores()
 	{
 		statDisplayPane.removeAllNodes();
+		statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
 		Node[] nodes = new Node[] {new Text(USERNAME_LABEL), new Text(currentPlayer.getUsername()),
 								   new Text(CORSI_SPAN_LABEL), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
 							       new Text(NUM_GAMES_LABEL), new Text(Integer.toString(currentPlayer.getNumberOfGames()))};
@@ -102,6 +104,7 @@ public class ScoreboardMenu
 	private void displayGlobalLeaderboard()
 	{
 		statDisplayPane.removeAllNodes();
+		statDisplayPane.setColumns(NUM_GLOBAL_SCORE_COLUMNS);
 		
 		// Add column labels
 		statDisplayPane.addNode(new Text(USERNAME_LABEL));
