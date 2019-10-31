@@ -94,7 +94,7 @@ public class ScoreboardMenu
 				
 				if (e.getSource().equals(returnToMenuButton))
 				{
-					MainMenu menu = new MainMenu(stage);
+					LoggedInMenu menu = new LoggedInMenu(stage, currentPlayer, players);
 				}
 			}
 		};
