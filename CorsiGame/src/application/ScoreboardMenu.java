@@ -6,7 +6,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -21,6 +23,8 @@ public class ScoreboardMenu
 	private final String USERNAME_LABEL = "Username";
 	private final String CORSI_SPAN_LABEL = "Highest Corsi Span";
 	private final String NUM_GAMES_LABEL = "Number of Games Played";
+	private final String NO_SCORES_MSG_TITLE = "No Scores in This Category";
+	private final String NO_SCORES_MSG = "There are no scores to be displayed in this category.";
 	
 	private final int BUTTON_SPACING = 4;
 	private final int NUM_PERSONAL_SCORE_COLUMNS = 2;
@@ -64,12 +68,28 @@ public class ScoreboardMenu
 			{
 				if (e.getSource().equals(viewPersonalScoresButton))
 				{
-					displayPersonalScores();
+					if (currentPlayer.getNumberOfGames() > 0)
+					{
+						displayPersonalScores();
+					}
+					else
+					{
+						displayNoScoresMessage();
+					}
 				}
 				
 				if (e.getSource().equals(viewGlobalLeaderboardButton))
 				{
-					displayGlobalLeaderboard();
+					for (PlayerData player : players)
+					{
+						if (player.getNumberOfGames() > 0)
+						{
+							displayGlobalLeaderboard();
+							return;
+						}
+					}
+					
+					displayNoScoresMessage();
 				}
 				
 				if (e.getSource().equals(returnToMenuButton))
@@ -117,5 +137,13 @@ public class ScoreboardMenu
 			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
 			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
 		}
+	}
+	
+	private void displayNoScoresMessage()
+	{
+		Alert noScoresAlert = new Alert(AlertType.INFORMATION);
+		noScoresAlert.setTitle(NO_SCORES_MSG_TITLE);
+		noScoresAlert.setHeaderText(NO_SCORES_MSG);
+		noScoresAlert.showAndWait();
 	}
 }
