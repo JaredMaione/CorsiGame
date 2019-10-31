@@ -266,7 +266,7 @@ public class GameManager
 	
 	public void processGameOver()
 	{
-		score.setCorsiSpan(currentLevel);
+		score.setCorsiSpan(currentLevel - 1);
 		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 		score.setGameDuration(gameTimer.getLastElapsedTime());
