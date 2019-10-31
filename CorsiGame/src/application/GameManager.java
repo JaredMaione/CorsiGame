@@ -31,11 +31,17 @@ public class GameManager
 	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
+	
 	private PlayerData playerData;
+	private ArrayList<PlayerData> players;
+	
 	private Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
+	
 	private GameData score;
+	
 	private int currentLevel;
+	
 	private CorsiSequencePlayer sequencePlayer;
 	
 	// All blocks will be added to this node
@@ -59,7 +65,7 @@ public class GameManager
 	private Text incorrectMessage;
 	private Text gameOverMessage;
 	
-	public GameManager(PlayerData playerData, Stage stage)
+	public GameManager(Stage stage, ArrayList<PlayerData> players, PlayerData playerData)
 	{
 		gameObjects = new Group();
 		
@@ -69,6 +75,8 @@ public class GameManager
 		this.stage = stage;
 		
 		this.playerData = playerData;
+		
+		this.players = players;
 		
 		gameObjects.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
@@ -286,7 +294,7 @@ public class GameManager
 		}
 		else
 		{
-			MainMenu menu = new MainMenu(stage);
+			LoggedInMenu menu = new LoggedInMenu(stage, playerData, players);
 		}
 	}
 	

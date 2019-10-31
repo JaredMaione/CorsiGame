@@ -58,7 +58,7 @@ public class LoggedInMenu
 			{
 				if (e.getSource().equals(playButton))
 				{
-					GameManager gameManager = new GameManager(loggedInPlayer, stage);
+					GameManager gameManager = new GameManager(stage, players, loggedInPlayer);
 				}
 				
 				if (e.getSource().equals(scoreboardButton))
