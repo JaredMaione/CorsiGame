@@ -189,6 +189,7 @@ public class RegistrationMenu
 	private boolean inputDataValid()
 	{
 		return !usernameField.getText().equals("") &&
+			   usernameUnique() &&
 			   !passwordField.getText().equals("") &&
 			   !passwordConfirmField.getText().equals("") &&
 			   (passwordField.getText().equals(passwordConfirmField.getText())) &&
@@ -196,5 +197,18 @@ public class RegistrationMenu
 			   !stateField.getText().equals("") &&
 			   !countryField.getText().equals("") &&
 			   dobSelect.getValue() != null;
+	}
+	
+	private boolean usernameUnique()
+	{
+		for (PlayerData existingPlayer : players)
+		{
+			if (usernameField.getText().trim().equals(existingPlayer.getUsername()))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
