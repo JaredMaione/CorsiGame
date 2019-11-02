@@ -65,7 +65,7 @@ public class PlayerData implements Serializable, Comparable<PlayerData>
 	
 	public void saveToFile()
 	{
-		FileManager.writeEncrypted(this, System.getProperty("user.dir") + "\\" + FileManager.GAME_FILES_FOLDER + "\\" + username + ".ser");
+		FileManager.writeEncrypted(this, System.getProperty("user.dir") + "\\" + FileManager.PLAYER_FILES_FOLDER + "\\" + username + ".ser");
 	}
 	
 	public void readFromString(String data)

@@ -89,7 +89,7 @@ public class MainMenu
 	          {
 	              for (PlayerData player : players)
 	              {
-	            	  FileManager.writeEncrypted(player, System.getProperty("user.dir") + "\\" + FileManager.GAME_FILES_FOLDER + "\\" + player.getUsername() + ".ser");
+	            	  FileManager.writeEncrypted(player, System.getProperty("user.dir") + "\\" + FileManager.PLAYER_FILES_FOLDER + "\\" + player.getUsername() + ".ser");
 	              }
 	          }
 		};
@@ -108,7 +108,7 @@ public class MainMenu
 	{
 		ArrayList<PlayerData> players = new ArrayList<PlayerData>();
 
-		File playerFolder = new File(System.getProperty("user.dir") + "\\" + FileManager.GAME_FILES_FOLDER);
+		File playerFolder = new File(System.getProperty("user.dir") + "\\" + FileManager.PLAYER_FILES_FOLDER);
 		
 		if (!playerFolder.exists())
 		{
