@@ -88,14 +88,14 @@ public class GameManager
 		gameObjects.getChildren().add(startMessage);
 		
 		correctMessage = new Text(CORRECT_MESSAGE_TEXT);
-		correctMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 150);
+		correctMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 185);
 		correctMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
 		correctMessage.setVisible(false);
 		correctMessage.getStyleClass().add("large_positive_message_text");
 		gameObjects.getChildren().add(correctMessage);
 		
 		incorrectMessage = new Text(INCORRECT_MESSAGE_TEXT);
-		incorrectMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 160);
+		incorrectMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 205);
 		incorrectMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
 		incorrectMessage.setVisible(false);
 		incorrectMessage.getStyleClass().add("large_negative_message_text");
