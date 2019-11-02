@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -132,9 +133,13 @@ public class ScoreboardMenu
 		statDisplayPane.addNode(new Text(USERNAME_LABEL));
 		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
 		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
+
+		PlayerData[] sortedScores = players.toArray(new PlayerData[players.size()]);
+		Arrays.sort(sortedScores);
 		
-		for (PlayerData player : players)
+		for (int i = sortedScores.length - 1; i >= 0; --i)
 		{
+			PlayerData player = sortedScores[i];
 			Text usernameText = new Text(player.getUsername());
 			
 			if (player.equals(currentPlayer))
