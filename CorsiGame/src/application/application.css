@@ -19,3 +19,8 @@
 	-fx-font: 80px "Arial";
 	-fx-fill: red;
 }
+
+.scoreboard_player_username_text
+{
+	-fx-fill: deeppink;
+}
