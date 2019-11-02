@@ -27,7 +27,7 @@ public class GameManager
 	private final String PLAY_AGAIN_TITLE = "Play again?";
 	private final String PLAY_AGAIN_MESSAGE = "Would you like to play again?";
 	private final String PLAY_AGAIN_YES_LABEL = "Yes, play again!";
-	private final String PLAY_AGAIN_NO_LABEL = "No, return to menu.";
+	private final String PLAY_AGAIN_NO_LABEL = "No, return to menu";
 	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
@@ -282,8 +282,12 @@ public class GameManager
 		reset();
 		
 		Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
+		((Button) playAgainAlert.getDialogPane().lookupButton(ButtonType.OK)).setText(PLAY_AGAIN_YES_LABEL);
+		((Button) playAgainAlert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(PLAY_AGAIN_NO_LABEL);
+		
 		playAgainAlert.setTitle(PLAY_AGAIN_TITLE);
 		playAgainAlert.setHeaderText(PLAY_AGAIN_MESSAGE);
+
 		Optional<ButtonType> choice = playAgainAlert.showAndWait();
 		
 		playerData.saveToFile();
