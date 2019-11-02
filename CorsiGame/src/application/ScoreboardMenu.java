@@ -107,7 +107,7 @@ public class ScoreboardMenu
 		mainPane.getChildren().add(buttonBox);
 		
 		this.stage = stage;
-		stage.setScene(new Scene(mainPane, 400, 400));
+		stage.setScene(new Scene(mainPane, 430, 400));
 		stage.setResizable(false);
 		stage.show();
 	}
@@ -116,9 +116,9 @@ public class ScoreboardMenu
 	{
 		statDisplayPane.removeAllNodes();
 		statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
-		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL), new Text(currentPlayer.getUsername()),
-								   new Text(CORSI_SPAN_LABEL), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
-							       new Text(NUM_GAMES_LABEL), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
+		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
+								   new Text(CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
+							       new Text(NUM_GAMES_LABEL + ":"), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
 	}
 	
 	private void displayGlobalLeaderboard()
