@@ -108,6 +108,7 @@ public class ScoreboardMenu
 		
 		this.stage = stage;
 		stage.setScene(new Scene(mainPane, 430, 400));
+		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setResizable(false);
 		stage.show();
 	}
@@ -120,6 +121,7 @@ public class ScoreboardMenu
 								   new Text(CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
 							       new Text(NUM_GAMES_LABEL + ":"), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
 	}
+
 	
 	private void displayGlobalLeaderboard()
 	{
@@ -133,12 +135,18 @@ public class ScoreboardMenu
 		
 		for (PlayerData player : players)
 		{
-			statDisplayPane.addNode(new Text(player.getUsername()));
+			Text usernameText = new Text(player.getUsername());
+			
+			if (player.equals(currentPlayer))
+			{
+				usernameText.getStyleClass().add("scoreboard_player_username_text");
+			}
+			
+			statDisplayPane.addNode(usernameText);
 			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
 			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
 		}
 	}
-	
 	private void displayNoScoresMessage()
 	{
 		Alert noScoresAlert = new Alert(AlertType.INFORMATION);
