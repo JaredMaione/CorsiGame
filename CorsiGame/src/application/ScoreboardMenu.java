@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -30,6 +31,7 @@ public class ScoreboardMenu
 	private final int BUTTON_SPACING = 4;
 	private final int NUM_PERSONAL_SCORE_COLUMNS = 2;
 	private final int NUM_GLOBAL_SCORE_COLUMNS = 3;
+	private final int SCORES_PER_PAGE = 8;
 			
 	private FixedColumnGridPane statDisplayPane;
 	private FlowPane mainPane;
@@ -134,12 +136,19 @@ public class ScoreboardMenu
 		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
 		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
 
-		PlayerData[] sortedScores = players.toArray(new PlayerData[players.size()]);
-		Arrays.sort(sortedScores);
+		ArrayList<PlayerData> sortedPlayers = new ArrayList<PlayerData>(players);
+		Collections.sort(sortedPlayers, Collections.reverseOrder());
+
+		int startingIndex = sortedPlayers.indexOf(currentPlayer) - (SCORES_PER_PAGE / 2);
 		
-		for (int i = sortedScores.length - 1; i >= 0; --i)
+		while (startingIndex < 0)
 		{
-			PlayerData player = sortedScores[i];
+			++startingIndex;
+		}
+		
+		for (int i = startingIndex; i < sortedPlayers.indexOf(currentPlayer) + (SCORES_PER_PAGE / 2) && i < sortedPlayers.size(); ++i)
+		{
+			PlayerData player = sortedPlayers.get(i);
 			Text usernameText = new Text(player.getUsername());
 			
 			if (player.equals(currentPlayer))
