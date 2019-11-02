@@ -114,7 +114,8 @@ public class ScoreboardMenu
 					{
 						if (player.getNumberOfGames() > 0)
 						{
-							displayGlobalLeaderboard();
+							//displayGlobalLeaderboard();
+							displayGlobalLeaderboard(scoresListTargetIndex);
 							return;
 						}
 					}
@@ -130,13 +131,29 @@ public class ScoreboardMenu
 				if (e.getSource().equals(pageLeftButton))
 				{
 					scoresListTargetIndex -= SCORES_PER_PAGE / 2;
-					displayGlobalLeaderboard(scoresListTargetIndex);
+					
+					if (scoresListTargetIndex >= 0)
+					{
+						displayGlobalLeaderboard(scoresListTargetIndex);
+					}
+					else
+					{
+						scoresListTargetIndex = 0;
+					}
 				}
 				
 				if (e.getSource().equals(pageRightButton)) 
 				{
 					scoresListTargetIndex += SCORES_PER_PAGE / 2;
-					displayGlobalLeaderboard(scoresListTargetIndex);
+					
+					if (scoresListTargetIndex < sortedPlayers.size())
+					{
+						displayGlobalLeaderboard(scoresListTargetIndex);
+					}
+					else
+					{
+						scoresListTargetIndex = sortedPlayers.size() - 1;
+					}
 				}
 			}
 		};
@@ -170,49 +187,12 @@ public class ScoreboardMenu
 		pageLeftButton.setDisable(true);
 		pageRightButton.setDisable(true);
 	}
-
-	
-	private void displayGlobalLeaderboard()
-	{
-		statDisplayPane.removeAllNodes();
-		statDisplayPane.setColumns(NUM_GLOBAL_SCORE_COLUMNS);
-		
-		// Add column labels
-		statDisplayPane.addNode(new Text(USERNAME_LABEL));
-		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
-		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
-
-		ArrayList<PlayerData> sortedPlayers = new ArrayList<PlayerData>(players);
-		Collections.sort(sortedPlayers, Collections.reverseOrder());
-
-		int startingIndex = sortedPlayers.indexOf(currentPlayer) - (SCORES_PER_PAGE / 2);
-		
-		while (startingIndex < 0)
-		{
-			++startingIndex;
-		}
-		
-		for (int i = startingIndex; i < sortedPlayers.indexOf(currentPlayer) + (SCORES_PER_PAGE / 2) && i < sortedPlayers.size(); ++i)
-		{
-			PlayerData player = sortedPlayers.get(i);
-			Text usernameText = new Text(player.getUsername());
-			
-			if (player.equals(currentPlayer))
-			{
-				usernameText.getStyleClass().add("scoreboard_player_username_text");
-			}
-			
-			statDisplayPane.addNode(usernameText);
-			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
-			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
-		}
-		
-		pageLeftButton.setDisable(false);
-		pageRightButton.setDisable(false);
-	}
 	
 	private void displayGlobalLeaderboard(int target)
 	{
+		pageLeftButton.setDisable(false);
+		pageRightButton.setDisable(false);
+		
 		statDisplayPane.removeAllNodes();
 		statDisplayPane.setColumns(NUM_GLOBAL_SCORE_COLUMNS);
 		
@@ -221,14 +201,30 @@ public class ScoreboardMenu
 		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
 		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
 
+		// Get preliminary starting and ending indexes
 		int startingIndex = target - (SCORES_PER_PAGE / 2);
+		int endingIndex = target + (SCORES_PER_PAGE / 2);
 		
+		// Verify that starting and ending indexes are not out of bounds
 		while (startingIndex < 0)
 		{
 			++startingIndex;
+			pageLeftButton.setDisable(true);
 		}
 		
-		for (int i = startingIndex; i < target + (SCORES_PER_PAGE / 2) && i < sortedPlayers.size(); ++i)
+		while (endingIndex >= sortedPlayers.size())
+		{
+			--endingIndex;
+			pageRightButton.setDisable(true);
+		}
+			
+		// Modify endingIndex to get SCORES_PER_PAGE scores into the window if possible
+		while (endingIndex - startingIndex < SCORES_PER_PAGE && endingIndex < sortedPlayers.size())
+		{
+			++endingIndex;
+		}
+					
+		for (int i = startingIndex; i < endingIndex; ++i)
 		{
 			PlayerData player = sortedPlayers.get(i);
 			Text usernameText = new Text(player.getUsername());
@@ -242,9 +238,6 @@ public class ScoreboardMenu
 			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
 			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
 		}
-		
-		pageLeftButton.setDisable(false);
-		pageRightButton.setDisable(false);
 	}
 	
 	private void displayNoScoresMessage()
