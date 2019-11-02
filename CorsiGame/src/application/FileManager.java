@@ -27,7 +27,6 @@ public abstract class FileManager
 {
 	private static final String ENCRYPTION_KEY = "123456781234";
 	public static final String PLAYER_FILES_FOLDER = "GameFiles\\Players";
-
 	
 	public static void writeEncrypted(Object object, String path)
 	{
