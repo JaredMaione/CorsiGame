@@ -116,9 +116,9 @@ public class ScoreboardMenu
 	{
 		statDisplayPane.removeAllNodes();
 		statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
-		Node[] nodes = new Node[] {new Text(USERNAME_LABEL), new Text(currentPlayer.getUsername()),
+		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL), new Text(currentPlayer.getUsername()),
 								   new Text(CORSI_SPAN_LABEL), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
-							       new Text(NUM_GAMES_LABEL), new Text(Integer.toString(currentPlayer.getNumberOfGames()))};
+							       new Text(NUM_GAMES_LABEL), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
 	}
 	
 	private void displayGlobalLeaderboard()
