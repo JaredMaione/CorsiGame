@@ -174,7 +174,7 @@ public class GameManager
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
 		numTries = 0;
 		
-		beginGame(0);
+		beginGame(1);
 		
 	}
 	
