@@ -25,6 +25,9 @@ public class ScoreboardMenu
 	private final String USERNAME_LABEL = "Username";
 	private final String CORSI_SPAN_LABEL = "Highest Corsi Span";
 	private final String NUM_GAMES_LABEL = "Number of Games Played";
+	private final String PAGE_LEFT_LABEL = "< Page Left <";
+	private final String PAGE_RIGHT_LABEL = "> Page Right >";
+	
 	private final String NO_SCORES_MSG_TITLE = "No Scores in This Category";
 	private final String NO_SCORES_MSG = "There are no scores to be displayed in this category.";
 	
@@ -39,30 +42,54 @@ public class ScoreboardMenu
 	private Button viewGlobalLeaderboardButton;
 	private Button returnToMenuButton;
 	
+	private Button pageLeftButton;
+	private Button pageRightButton;
+	
 	private Stage stage;
 	
 	private ArrayList<PlayerData> players;
+	
+	private ArrayList<PlayerData> sortedPlayers;
+	private int scoresListTargetIndex;
+	
 	private PlayerData currentPlayer;
 	
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players, PlayerData currentPlayer)
 	{
 		this.players = players;
+		
+		sortedPlayers = new ArrayList<PlayerData>(players);
+		Collections.sort(sortedPlayers, Collections.reverseOrder());
+		scoresListTargetIndex = sortedPlayers.indexOf(currentPlayer);
+		
 		this.currentPlayer = currentPlayer;
 		mainPane = new FlowPane(Orientation.VERTICAL);
 
 		statDisplayPane = new FixedColumnGridPane();
 		
+		pageLeftButton = new Button(PAGE_LEFT_LABEL);
+		pageRightButton = new Button(PAGE_RIGHT_LABEL);
+		
+		HBox pageButtonBox = new HBox();
+		pageButtonBox.setPadding(statDisplayPane.getPadding());
+		pageButtonBox.setSpacing(BUTTON_SPACING);
+		pageButtonBox.getChildren().add(pageLeftButton);
+		pageButtonBox.getChildren().add(pageRightButton);
+		
+		pageLeftButton.setDisable(true);
+		pageRightButton.setDisable(true);
+		
 		viewPersonalScoresButton = new Button(PERSONAL_SCORES_BUTTON_LABEL);
 		viewGlobalLeaderboardButton = new Button(GLOBAL_LEADERBOARD_BUTTON_LABEL);
 		returnToMenuButton = new Button(RETURN_TO_MENU_BUTTON_LABEL);
 		
-		HBox buttonBox = new HBox();
-		buttonBox.setPadding(statDisplayPane.getPadding());
-		buttonBox.setSpacing(BUTTON_SPACING);
+		HBox navigationButtonBox = new HBox();
+		navigationButtonBox.setPadding(statDisplayPane.getPadding());
+		navigationButtonBox.setSpacing(BUTTON_SPACING);
 		
-		buttonBox.getChildren().add(viewPersonalScoresButton);
-		buttonBox.getChildren().add(viewGlobalLeaderboardButton);
-		buttonBox.getChildren().add(returnToMenuButton);
+		navigationButtonBox.getChildren().add(viewPersonalScoresButton);
+		navigationButtonBox.getChildren().add(viewGlobalLeaderboardButton);
+		navigationButtonBox.getChildren().add(returnToMenuButton);
 		
 		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
 		{
@@ -99,15 +126,31 @@ public class ScoreboardMenu
 				{
 					LoggedInMenu menu = new LoggedInMenu(stage, currentPlayer, players);
 				}
+				
+				if (e.getSource().equals(pageLeftButton))
+				{
+					scoresListTargetIndex -= SCORES_PER_PAGE / 2;
+					displayGlobalLeaderboard(scoresListTargetIndex);
+				}
+				
+				if (e.getSource().equals(pageRightButton)) 
+				{
+					scoresListTargetIndex += SCORES_PER_PAGE / 2;
+					displayGlobalLeaderboard(scoresListTargetIndex);
+				}
 			}
 		};
+		
+		pageLeftButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		pageRightButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		
 		viewPersonalScoresButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		viewGlobalLeaderboardButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 
 		mainPane.getChildren().add(statDisplayPane);
-		mainPane.getChildren().add(buttonBox);
+		mainPane.getChildren().add(pageButtonBox);
+		mainPane.getChildren().add(navigationButtonBox);
 		
 		this.stage = stage;
 		stage.setScene(new Scene(mainPane, 430, 400));
@@ -123,6 +166,9 @@ public class ScoreboardMenu
 		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
 								   new Text(CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
 							       new Text(NUM_GAMES_LABEL + ":"), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
+		
+		pageLeftButton.setDisable(true);
+		pageRightButton.setDisable(true);
 	}
 
 	
@@ -160,7 +206,47 @@ public class ScoreboardMenu
 			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
 			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
 		}
+		
+		pageLeftButton.setDisable(false);
+		pageRightButton.setDisable(false);
 	}
+	
+	private void displayGlobalLeaderboard(int target)
+	{
+		statDisplayPane.removeAllNodes();
+		statDisplayPane.setColumns(NUM_GLOBAL_SCORE_COLUMNS);
+		
+		// Add column labels
+		statDisplayPane.addNode(new Text(USERNAME_LABEL));
+		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
+		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
+
+		int startingIndex = target - (SCORES_PER_PAGE / 2);
+		
+		while (startingIndex < 0)
+		{
+			++startingIndex;
+		}
+		
+		for (int i = startingIndex; i < target + (SCORES_PER_PAGE / 2) && i < sortedPlayers.size(); ++i)
+		{
+			PlayerData player = sortedPlayers.get(i);
+			Text usernameText = new Text(player.getUsername());
+			
+			if (player.equals(currentPlayer))
+			{
+				usernameText.getStyleClass().add("scoreboard_player_username_text");
+			}
+			
+			statDisplayPane.addNode(usernameText);
+			statDisplayPane.addNode(new Text(Integer.toString(player.getMaxCorsiSpan())));
+			statDisplayPane.addNode(new Text(Integer.toString(player.getNumberOfGames())));
+		}
+		
+		pageLeftButton.setDisable(false);
+		pageRightButton.setDisable(false);
+	}
+	
 	private void displayNoScoresMessage()
 	{
 		Alert noScoresAlert = new Alert(AlertType.INFORMATION);
