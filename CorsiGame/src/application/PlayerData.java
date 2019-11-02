@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-public class PlayerData implements Serializable
+public class PlayerData implements Serializable, Comparable<PlayerData>
 {	
 	private static final long serialVersionUID = 252115055904727829L;
 	
@@ -207,5 +207,11 @@ public class PlayerData implements Serializable
 	public void addGameData(GameData data)
 	{
 		gameDataList.add(data);
+	}
+
+	@Override
+	public int compareTo(PlayerData otherPlayer) 
+	{
+		return ((Integer) getMaxCorsiSpan()).compareTo((Integer) otherPlayer.getMaxCorsiSpan());
 	}
 }
