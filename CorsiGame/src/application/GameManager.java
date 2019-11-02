@@ -49,7 +49,7 @@ public class GameManager
 	
 	private final int NUM_BLOCKS = 9;
 	
-	private final int STARTING_LEVEL = 1;
+	private final int STARTING_LEVEL = 2;
 	
 	// This value will be subtracted from the height of the scene to locate submit button
 	private final int SCENE_Y_OFFSET = 50;
@@ -140,7 +140,7 @@ public class GameManager
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickHandler);
 		
 		blocks = new ArrayList<CorsiBlock>();
-		currentLevel = 1;
+		currentLevel = STARTING_LEVEL;
 		
 		sequenceTimer = new Stopwatch();
 		gameTimer = new Stopwatch();
