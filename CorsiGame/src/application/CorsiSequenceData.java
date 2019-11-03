@@ -12,12 +12,12 @@ public class CorsiSequenceData implements Serializable
 	
 	private ArrayList<CorsiBlock> blocks;
 	private int level;
-	private int secBetweenBlinks;
-	private int blinkSeconds;
+	private double secBetweenBlinks;
+	private double blinkSeconds;
 	private boolean startSequenceTimer;
 	private double secToDelay;
 	
-	public CorsiSequenceData(ArrayList<CorsiBlock> blocks, int level, int secBetweenBlinks, int blinkSeconds, boolean startSequenceTimer, double secToDelay)
+	public CorsiSequenceData(ArrayList<CorsiBlock> blocks, int level, double secBetweenBlinks, double blinkSeconds, boolean startSequenceTimer, double secToDelay)
 	{
 		this.blocks = blocks;
 		this.level = level;
@@ -47,7 +47,7 @@ public class CorsiSequenceData implements Serializable
 		this.level = level;
 	}
 
-	public int getSecBetweenBlinks() 
+	public double getSecBetweenBlinks() 
 	{
 		return secBetweenBlinks;
 	}
@@ -57,7 +57,7 @@ public class CorsiSequenceData implements Serializable
 		this.secBetweenBlinks = secBetweenBlinks;
 	}
 
-	public int getBlinkSeconds() 
+	public double getBlinkSeconds() 
 	{
 		return blinkSeconds;
 	}
