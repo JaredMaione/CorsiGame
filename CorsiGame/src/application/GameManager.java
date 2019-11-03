@@ -29,6 +29,9 @@ public class GameManager
 	private final String PLAY_AGAIN_YES_LABEL = "Yes, play again!";
 	private final String PLAY_AGAIN_NO_LABEL = "No, return to menu";
 	
+	private final String GAME_OVER_ALERT_TITLE = "Game Over";
+	private final String GAME_OVER_ALERT_MESSAGE = "Game over. Click \"OK\" to view your score";
+	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
 	
@@ -286,14 +289,22 @@ public class GameManager
 	
 	public void processGameOver()
 	{
-		score.setCorsiSpan(currentLevel - 1);
+		if (currentLevel == STARTING_LEVEL)
+		{
+			score.setCorsiSpan(0);
+		}
+		else
+		{
+			score.setCorsiSpan(currentLevel - 1);
+		}
+		
 		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 		score.setGameDuration(gameTimer.getLastElapsedTime());
 		playerData.addGameData(score);
 		reset();
 		
-		Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
+		/*Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
 		((Button) playAgainAlert.getDialogPane().lookupButton(ButtonType.OK)).setText(PLAY_AGAIN_YES_LABEL);
 		((Button) playAgainAlert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(PLAY_AGAIN_NO_LABEL);
 		
@@ -311,7 +322,19 @@ public class GameManager
 		else
 		{
 			LoggedInMenu menu = new LoggedInMenu(stage, playerData, players);
-		}
+		}*/
+		
+		displayGameOverAlert();
+		ScoreboardMenu menu = new ScoreboardMenu(stage, players, playerData);
+	}
+	
+	private void displayGameOverAlert()
+	{
+		Alert gameOverAlert = new Alert(AlertType.INFORMATION);
+		
+		gameOverAlert.setTitle(GAME_OVER_ALERT_TITLE);
+		gameOverAlert.setHeaderText(GAME_OVER_ALERT_MESSAGE);
+		gameOverAlert.showAndWait();
 	}
 	
 	public void reset()
