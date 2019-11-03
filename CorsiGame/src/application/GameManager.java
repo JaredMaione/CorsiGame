@@ -242,9 +242,21 @@ public class GameManager
 		}
 		else
 		{
+			// Check sequence in normal order
 			for (int i = 0; i < currentLevel; ++i)
 			{
 				success = success && blocks.get(i).equals(clickedBlocks.get(i));
+			}
+			
+			if (!success)
+			{
+				success = true;
+				
+				// Check sequence in reverse order
+				for (int clickedSeqIndex = 0, seqIndex = currentLevel -1; seqIndex >= 0; ++clickedSeqIndex, --seqIndex)
+				{
+					success = success && blocks.get(seqIndex).equals(clickedBlocks.get(clickedSeqIndex));
+				}
 			}
 		}
 					
