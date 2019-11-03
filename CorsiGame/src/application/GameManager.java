@@ -32,6 +32,9 @@ public class GameManager
 	private final String GAME_OVER_ALERT_TITLE = "Game Over";
 	private final String GAME_OVER_ALERT_MESSAGE = "Game over. Click \"OK\" to view your score";
 	
+	private final double SEC_BETWEEN_BLINKS = 1;
+	private final double BLINK_DURATION = 0.5;
+	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
 	
@@ -219,7 +222,7 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, 1, 1, true, secToDelaySequence);
+		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, BLINK_DURATION, true, secToDelaySequence);
 		score.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
 		
 		double seconds = sequencePlayer.playSequence(sequenceData);
