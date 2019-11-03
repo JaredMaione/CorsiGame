@@ -301,31 +301,14 @@ public class GameManager
 		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 		score.setGameDuration(gameTimer.getLastElapsedTime());
+		
 		playerData.addGameData(score);
-		reset();
-		
-		/*Alert playAgainAlert = new Alert(AlertType.CONFIRMATION);
-		((Button) playAgainAlert.getDialogPane().lookupButton(ButtonType.OK)).setText(PLAY_AGAIN_YES_LABEL);
-		((Button) playAgainAlert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(PLAY_AGAIN_NO_LABEL);
-		
-		playAgainAlert.setTitle(PLAY_AGAIN_TITLE);
-		playAgainAlert.setHeaderText(PLAY_AGAIN_MESSAGE);
-
-		Optional<ButtonType> choice = playAgainAlert.showAndWait();
-		
 		playerData.saveToFile();
-		
-		if (choice.isPresent() && choice.get() == ButtonType.OK)
-		{
-			beginGame(1);
-		}
-		else
-		{
-			LoggedInMenu menu = new LoggedInMenu(stage, playerData, players);
-		}*/
 		
 		displayGameOverAlert();
 		ScoreboardMenu menu = new ScoreboardMenu(stage, players, playerData);
+		menu.displayScore(score);
+		reset();
 	}
 	
 	private void displayGameOverAlert()
