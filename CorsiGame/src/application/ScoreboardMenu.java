@@ -176,7 +176,7 @@ public class ScoreboardMenu
 		stage.show();
 	}
 	
-	private void displayPersonalScores()
+	public void displayPersonalScores()
 	{
 		statDisplayPane.removeAllNodes();
 		statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
@@ -188,7 +188,7 @@ public class ScoreboardMenu
 		pageRightButton.setDisable(true);
 	}
 	
-	private void displayGlobalLeaderboard(int target)
+	public void displayGlobalLeaderboard(int target)
 	{
 		pageLeftButton.setDisable(false);
 		pageRightButton.setDisable(false);
