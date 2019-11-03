@@ -23,17 +23,23 @@ public class ScoreboardMenu
 	private final String PERSONAL_SCORES_BUTTON_LABEL = "View Personal Scores";
 	private final String RETURN_TO_MENU_BUTTON_LABEL = "Return to Menu";
 	private final String USERNAME_LABEL = "Username";
-	private final String CORSI_SPAN_LABEL = "Highest Corsi Span";
+	private final String MAX_CORSI_SPAN_LABEL = "Highest Corsi Span";
 	private final String NUM_GAMES_LABEL = "Number of Games Played";
 	private final String PAGE_LEFT_LABEL = "< Page Left <";
 	private final String PAGE_RIGHT_LABEL = "> Page Right >";
 	
+	private final String CORSI_SPAN_LABEL = "Corsi Span";
+	private final String GAME_DURATION_LABEL = "Game Duration";
+
 	private final String NO_SCORES_MSG_TITLE = "No Scores in This Category";
 	private final String NO_SCORES_MSG = "There are no scores to be displayed in this category.";
 	
 	private final int BUTTON_SPACING = 4;
+	
 	private final int NUM_PERSONAL_SCORE_COLUMNS = 2;
 	private final int NUM_GLOBAL_SCORE_COLUMNS = 3;
+	private final int NUM_SINGLE_SCORE_COLUMNS = 2;
+	
 	private final int SCORES_PER_PAGE = 8;
 			
 	private FixedColumnGridPane statDisplayPane;
@@ -176,12 +182,25 @@ public class ScoreboardMenu
 		stage.show();
 	}
 	
+	public void displayScore(GameData score)
+	{
+		statDisplayPane.removeAllNodes();
+		pageLeftButton.setDisable(true);
+		pageRightButton.setDisable(true);
+		
+		statDisplayPane.setColumns(NUM_SINGLE_SCORE_COLUMNS);
+		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
+										   new Text(CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(score.getCorsiSpan())),
+										   new Text(GAME_DURATION_LABEL), new Text(score.getGameDuration().sendToString()),
+										   new Text(), new Text(score.getAvgSequenceTime().sendToString())});
+	}
+	
 	public void displayPersonalScores()
 	{
 		statDisplayPane.removeAllNodes();
 		statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
 		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
-								   new Text(CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
+								   new Text(MAX_CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
 							       new Text(NUM_GAMES_LABEL + ":"), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
 		
 		pageLeftButton.setDisable(true);
@@ -198,7 +217,7 @@ public class ScoreboardMenu
 		
 		// Add column labels
 		statDisplayPane.addNode(new Text(USERNAME_LABEL));
-		statDisplayPane.addNode(new Text(CORSI_SPAN_LABEL));
+		statDisplayPane.addNode(new Text(MAX_CORSI_SPAN_LABEL));
 		statDisplayPane.addNode(new Text(NUM_GAMES_LABEL));
 
 		// Get preliminary starting and ending indexes
