@@ -1,0 +1,62 @@
+package application;
+
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
+
+public class ItemSelectionPane<T> extends FlowPane
+{
+	private T obj;
+	
+	private boolean isSelected;
+	
+	private Text descText;
+		
+	public ItemSelectionPane(T obj, String descString)
+	{
+		super();
+		
+		this.obj = obj;
+		
+		isSelected = false;
+		
+		descText = new Text(descString);
+		
+		this.getChildren().add(descText);
+	}
+	
+	public void setSelected(boolean selected)
+	{
+		if (selected)
+		{
+			descText.getStyleClass().add("itemSelected");
+			this.getStyleClass().add("itemSelected");
+		}
+		else
+		{
+			descText.getStyleClass().remove("itemSelected");
+			this.getStyleClass().remove("itemSelected");
+		}
+		
+		isSelected = selected;
+	}
+	
+	public boolean isSelected()
+	{
+		return isSelected;
+	}
+	
+	public T getObj()
+	{
+		return obj;
+	}
+	
+	public void setObj(T incObj)
+	{
+		this.obj = incObj;
+	}
+	
+	public void setDescText(String text)
+	{
+		descText.setText(text);
+	}
+}
