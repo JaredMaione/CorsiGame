@@ -30,4 +30,8 @@
 	-fx-fill: deeppink;
 }
 
-
+.itemSelected
+{
+	-fx-background-color: blue;
+	-fx-stroke: white;
+}
