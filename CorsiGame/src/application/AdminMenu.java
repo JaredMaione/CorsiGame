@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 
 public class AdminMenu 
 {
+	private final String VIEW_SCOREBOARD_BUTTON_LABEL = "View Global Scoreboard";
+	private final String PLAYER_LOOKUP_BUTTON_LABEL = "Player Lookup";
+	private final String MENU_BUTTON_LABEL = "Return to Main Menu";
+	
 	private final int COMPONENT_SPACING = 6;
 	private final int PADDING_VALUE = 5;
 	
@@ -28,8 +32,17 @@ public class AdminMenu
 	
 	public AdminMenu(Stage stage, ArrayList<PlayerData> players)
 	{
-		HBox buttonBox = new HBox();
 		this.players = players;
+		
+		viewScoreboardButton = new Button(VIEW_SCOREBOARD_BUTTON_LABEL);
+		playerLookupButton = new Button(PLAYER_LOOKUP_BUTTON_LABEL);
+		mainMenuButton = new Button(MENU_BUTTON_LABEL);
+		
+		HBox buttonBox = new HBox();
+		buttonBox.setSpacing(COMPONENT_SPACING);
+		buttonBox.getChildren().add(viewScoreboardButton);
+		buttonBox.getChildren().add(playerLookupButton);
+		buttonBox.getChildren().add(mainMenuButton);
 		
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.setPadding(new Insets(PADDING_VALUE, PADDING_VALUE, PADDING_VALUE, PADDING_VALUE));
