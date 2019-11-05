@@ -58,7 +58,7 @@ public class AdminMenu
 				
 				if (e.getSource().equals(playerLookupButton))
 				{
-					
+					PlayerSearchMenu menu = new PlayerSearchMenu(stage, players);
 				}
 				
 				if (e.getSource().equals(mainMenuButton))
