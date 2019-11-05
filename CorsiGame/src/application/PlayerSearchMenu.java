@@ -27,6 +27,7 @@ public class PlayerSearchMenu
 	
 	private Stage stage;
 	private ArrayList<PlayerData> players;
+	private ArrayList<ItemSelectionPane<PlayerData>> playerSelectionPanes;
 	private FlowPane mainPane;
 	
 	private TextField searchField;
@@ -42,6 +43,7 @@ public class PlayerSearchMenu
 	{
 		this.stage = stage;
 		this.players = players;
+		playerSelectionPanes = new ArrayList<ItemSelectionPane<PlayerData>>();
 		
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.setHgap(COMPONENT_SPACING);
@@ -105,13 +107,13 @@ public class PlayerSearchMenu
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(searchBox);
 		
-		ArrayList<ItemSelectionPane<PlayerData>> selectionPanes = new ArrayList<ItemSelectionPane<PlayerData>>();
+		playerSelectionPanes.clear();
 		
 		for (PlayerData player : playersToDisplay)
 		{
 			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
 			mainPane.getChildren().add(pane);
-			selectionPanes.add(pane);
+			playerSelectionPanes.add(pane);
 		}
 		
 		
@@ -122,7 +124,7 @@ public class PlayerSearchMenu
 			{
 				if (e.getSource() instanceof ItemSelectionPane<?>)
 				{
-					for (ItemSelectionPane<PlayerData> pane : selectionPanes)
+					for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
 					{
 						if (e.getSource().equals(pane))
 						{
@@ -137,7 +139,7 @@ public class PlayerSearchMenu
 			}
 		};
 		
-		for (ItemSelectionPane<PlayerData> pane : selectionPanes)
+		for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
 		{
 			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
 		}
