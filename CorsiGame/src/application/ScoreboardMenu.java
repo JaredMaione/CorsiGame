@@ -61,6 +61,88 @@ public class ScoreboardMenu
 	
 	private PlayerData currentPlayer;
 	
+	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players)
+	{
+		this.players = players;
+		
+		sortedPlayers = new ArrayList<PlayerData>(players);
+		Collections.sort(sortedPlayers, Collections.reverseOrder());
+		scoresListTargetIndex = 0;
+		
+		mainPane = new FlowPane(Orientation.VERTICAL);
+
+		statDisplayPane = new FixedColumnGridPane();
+		
+		pageLeftButton = new Button(PAGE_LEFT_LABEL);
+		pageRightButton = new Button(PAGE_RIGHT_LABEL);
+		
+		HBox pageButtonBox = new HBox();
+		pageButtonBox.setPadding(statDisplayPane.getPadding());
+		pageButtonBox.setSpacing(BUTTON_SPACING);
+		pageButtonBox.getChildren().add(pageLeftButton);
+		pageButtonBox.getChildren().add(pageRightButton);
+		
+		pageLeftButton.setDisable(true);
+		pageRightButton.setDisable(true);
+		
+		returnToMenuButton = new Button(RETURN_TO_MENU_BUTTON_LABEL);
+				
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{				
+				if (e.getSource().equals(returnToMenuButton))
+				{
+					AdminMenu menu = new AdminMenu(stage, players);
+				}
+				
+				if (e.getSource().equals(pageLeftButton))
+				{
+					scoresListTargetIndex -= SCORES_PER_PAGE / 2;
+					
+					if (scoresListTargetIndex >= 0)
+					{
+						displayGlobalLeaderboard(scoresListTargetIndex);
+					}
+					else
+					{
+						scoresListTargetIndex = 0;
+					}
+				}
+				
+				if (e.getSource().equals(pageRightButton)) 
+				{
+					scoresListTargetIndex += SCORES_PER_PAGE / 2;
+					
+					if (scoresListTargetIndex < sortedPlayers.size())
+					{
+						displayGlobalLeaderboard(scoresListTargetIndex);
+					}
+					else
+					{
+						scoresListTargetIndex = sortedPlayers.size() - 1;
+					}
+				}
+			}
+		};
+		
+		pageLeftButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		pageRightButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		
+		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+
+		mainPane.getChildren().add(statDisplayPane);
+		mainPane.getChildren().add(pageButtonBox);
+		mainPane.getChildren().add(returnToMenuButton);
+		
+		this.stage = stage;
+		stage.setScene(new Scene(mainPane, 430, 375));
+		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
+		stage.show();
+	}
+	
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players, PlayerData currentPlayer)
 	{
 		this.players = players;
@@ -198,14 +280,17 @@ public class ScoreboardMenu
 	
 	public void displayPersonalScores()
 	{
-		statDisplayPane.removeAllNodes();
-		statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
-		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
-								   new Text(MAX_CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
-							       new Text(NUM_GAMES_LABEL + ":"), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
-		
-		pageLeftButton.setDisable(true);
-		pageRightButton.setDisable(true);
+		if (currentPlayer != null)
+		{
+			statDisplayPane.removeAllNodes();
+			statDisplayPane.setColumns(NUM_PERSONAL_SCORE_COLUMNS);
+			statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
+									   new Text(MAX_CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(currentPlayer.getMaxCorsiSpan())),
+								       new Text(NUM_GAMES_LABEL + ":"), new Text(Integer.toString(currentPlayer.getNumberOfGames()))});
+			
+			pageLeftButton.setDisable(true);
+			pageRightButton.setDisable(true);
+		}
 	}
 	
 	public void displayGlobalLeaderboard(int target)
