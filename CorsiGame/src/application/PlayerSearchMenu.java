@@ -105,9 +105,41 @@ public class PlayerSearchMenu
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(searchBox);
 		
+		ArrayList<ItemSelectionPane<PlayerData>> selectionPanes = new ArrayList<ItemSelectionPane<PlayerData>>();
+		
 		for (PlayerData player : playersToDisplay)
 		{
-			mainPane.getChildren().add(new ItemSelectionPane<PlayerData>(player, player.getUsername()));
+			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
+			mainPane.getChildren().add(pane);
+			selectionPanes.add(pane);
+		}
+		
+		
+		EventHandler<MouseEvent> resultClickHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource() instanceof ItemSelectionPane<?>)
+				{
+					for (ItemSelectionPane<PlayerData> pane : selectionPanes)
+					{
+						if (e.getSource().equals(pane))
+						{
+							pane.setSelected(true);
+						}
+						else
+						{
+							pane.setSelected(false);
+						}
+					}
+				}
+			}
+		};
+		
+		for (ItemSelectionPane<PlayerData> pane : selectionPanes)
+		{
+			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
 		}
 		
 		mainPane.getChildren().add(navigationBox);
