@@ -2,11 +2,13 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -66,6 +68,30 @@ public class PlayerSearchMenu
 	
 		mainPane.getChildren().add(searchBox);
 		mainPane.getChildren().add(navigationBox);
+		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(submitSearchButton))
+				{
+				}
+				
+				if (e.getSource().equals(viewPlayerButton))
+				{
+				}
+				
+				if (e.getSource().equals(backButton))
+				{
+					AdminMenu menu = new AdminMenu(stage, players);
+				}
+			}
+		};
+		
+		submitSearchButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		viewPlayerButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		backButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		
 		stage.setScene(new Scene(mainPane, 400, 300));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
