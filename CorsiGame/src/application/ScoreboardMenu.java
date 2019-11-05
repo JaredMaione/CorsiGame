@@ -28,9 +28,9 @@ public class ScoreboardMenu
 	private final String PAGE_LEFT_LABEL = "< Page Left <";
 	private final String PAGE_RIGHT_LABEL = "> Page Right >";
 	
-	private final String CORSI_SPAN_LABEL = "Corsi Span:";
-	private final String GAME_DURATION_LABEL = "Game Duration (m:s:ms):";
-	private final String AVG_SEQ_TIME_LABEL = "Average Time to Complete a Sequence (m:s:ms):";
+	private final String CORSI_SPAN_LABEL = "Corsi Span";
+	private final String GAME_DURATION_LABEL = "Game Duration (m:s:ms)";
+	private final String AVG_SEQ_TIME_LABEL = "Average Time to Complete a Sequence (m:s:ms)";
 
 	private final String NO_SCORES_MSG_TITLE = "No Scores in This Category";
 	private final String NO_SCORES_MSG = "There are no scores to be displayed in this category.";
@@ -192,8 +192,8 @@ public class ScoreboardMenu
 		statDisplayPane.setColumns(NUM_SINGLE_SCORE_COLUMNS);
 		statDisplayPane.addAll(new Node[] {new Text(USERNAME_LABEL + ":"), new Text(currentPlayer.getUsername()),
 										   new Text(CORSI_SPAN_LABEL + ":"), new Text(Integer.toString(score.getCorsiSpan())),
-										   new Text(GAME_DURATION_LABEL), new Text(score.getGameDuration().sendToString()),
-										   new Text(AVG_SEQ_TIME_LABEL), new Text(score.getAvgSequenceTime().sendToString())});
+										   new Text(GAME_DURATION_LABEL + ":"), new Text(score.getGameDuration().sendToString()),
+										   new Text(AVG_SEQ_TIME_LABEL + ":"), new Text(score.getAvgSequenceTime().sendToString())});
 	}
 	
 	public void displayPersonalScores()
