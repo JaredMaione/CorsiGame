@@ -141,6 +141,8 @@ public class ScoreboardMenu
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setResizable(false);
 		stage.show();
+		
+		displayGlobalLeaderboard(0);
 	}
 	
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players, PlayerData currentPlayer)
