@@ -20,7 +20,14 @@
 	-fx-fill: red;
 }
 
+.large_neutral_message_text
+{
+	-fx-font: 80px "Arial";
+}
+
 .scoreboard_player_username_text
 {
 	-fx-fill: deeppink;
 }
+
+

@@ -19,9 +19,11 @@ public class GameManager
 {
 	private Button submitButton;
 	private final String SUBMIT_BUTTON_LABEL = "Submit";
+	
 	private final String START_MESSAGE_TEXT = "START";
 	private final String CORRECT_MESSAGE_TEXT = "CORRECT";
-	private final String INCORRECT_MESSAGE_TEXT = "INCORRECT";
+	private final String INCORRECT_MESSAGE_TEXT = "INCORRECT";	
+	private final String READY_MESSAGE_TEXT = "READY";
 	private final String GAME_OVER_MESSAGE_TEXT = "GAME\nOVER";
 	
 	private final String PLAY_AGAIN_TITLE = "Play again?";
@@ -69,6 +71,7 @@ public class GameManager
 	private Text startMessage;
 	private Text correctMessage;
 	private Text incorrectMessage;
+	private Text readyMessage;
 	private Text gameOverMessage;
 	
 	public GameManager(Stage stage, ArrayList<PlayerData> players, PlayerData playerData)
@@ -92,6 +95,13 @@ public class GameManager
 		startMessage.setVisible(false);
 		startMessage.getStyleClass().add("large_positive_message_text");
 		gameObjects.getChildren().add(startMessage);
+		
+		readyMessage = new Text(READY_MESSAGE_TEXT);
+		readyMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 130);
+		readyMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
+		readyMessage.setVisible(false);
+		readyMessage.getStyleClass().add("large_neutral_message_text");
+		gameObjects.getChildren().add(readyMessage);
 		
 		correctMessage = new Text(CORRECT_MESSAGE_TEXT);
 		correctMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 185);
@@ -180,12 +190,12 @@ public class GameManager
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
 		numTries = 0;
 		
-		beginGame(1);
-		
+		beginGame(2.5);
 	}
 	
-	public void beginGame(int delay)
+	public void beginGame(double delay)
 	{
+		TimedMessageDisplay.displayMessage(readyMessage, 0, 0.5);
 		gameTimer.start();
 		startCurrentLevel(delay);
 	}
