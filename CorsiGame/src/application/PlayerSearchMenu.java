@@ -170,7 +170,7 @@ public class PlayerSearchMenu
 		
 		for (PlayerData player : players)
 		{
-			if (player.getUsername().contains(username))
+			if (player.getUsername().toLowerCase().contains(username.toLowerCase()))
 			{
 				matchingPlayers.add(player);
 			}
