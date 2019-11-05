@@ -36,6 +36,7 @@ public class GameManager
 	
 	private final double SEC_BETWEEN_BLINKS = 1;
 	private final double BLINK_DURATION = 0.5;
+	private final double GAME_START_DELAY = 2.5;
 	
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
@@ -190,7 +191,7 @@ public class GameManager
 		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
 		numTries = 0;
 		
-		beginGame(2.5);
+		beginGame(GAME_START_DELAY);
 	}
 	
 	public void beginGame(double delay)
@@ -313,6 +314,8 @@ public class GameManager
 		
 		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
+		
+		gameTimer.getLastElapsedTime().subtractSeconds(GAME_START_DELAY);
 		score.setGameDuration(gameTimer.getLastElapsedTime());
 		
 		playerData.addGameData(score);
