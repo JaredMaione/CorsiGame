@@ -45,6 +45,10 @@ public class ElapsedTime implements Serializable
 		ms += timeToAdd.getMS();
 	}
 	
+	public void subtractSeconds(double seconds)
+	{
+		setTime(toMS() - ((long) seconds * 1000));
+	}
 	
 	public long toMS()
 	{
