@@ -76,7 +76,7 @@ public class PlayerSearchMenu
 			{
 				if (e.getSource().equals(submitSearchButton))
 				{
-					searchForPlayer(searchField.getText().trim());
+					displayPlayers(searchForPlayer(searchField.getText().trim()));
 				}
 				
 				if (e.getSource().equals(viewPlayerButton))
@@ -98,6 +98,19 @@ public class PlayerSearchMenu
 		stage.setScene(new Scene(mainPane, 400, 300));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.show();
+	}
+	
+	private void displayPlayers(ArrayList<PlayerData> playersToDisplay)
+	{
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(searchBox);
+		
+		for (PlayerData player : playersToDisplay)
+		{
+			mainPane.getChildren().add(new ItemSelectionPane<PlayerData>(player, player.getUsername()));
+		}
+		
+		mainPane.getChildren().add(navigationBox);
 	}
 	
 	private ArrayList<PlayerData> searchForPlayer(String username)
