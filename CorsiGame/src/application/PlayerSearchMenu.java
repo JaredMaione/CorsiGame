@@ -34,6 +34,7 @@ public class PlayerSearchMenu
 	private Button backButton;
 	
 	private HBox searchBox;
+	private HBox navigationBox;
 
 	public PlayerSearchMenu(Stage stage, ArrayList<PlayerData> players)
 	{
@@ -52,10 +53,19 @@ public class PlayerSearchMenu
 
 		searchBox.getChildren().add(new Text(SEARCH_FIELD_LABEL));
 		searchBox.getChildren().add(searchField);
-		
 		searchBox.getChildren().add(submitSearchButton);
 		
+		navigationBox = new HBox();
+		navigationBox.setSpacing(COMPONENT_SPACING);
+		
+		viewPlayerButton = new Button(VIEW_PLAYER_BUTTON_LABEL);
+		backButton = new Button(BACK_BUTTON_LABEL);
+		
+		navigationBox.getChildren().add(viewPlayerButton);
+		navigationBox.getChildren().add(backButton);
+	
 		mainPane.getChildren().add(searchBox);
+		mainPane.getChildren().add(navigationBox);
 		
 		stage.setScene(new Scene(mainPane, 400, 300));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
