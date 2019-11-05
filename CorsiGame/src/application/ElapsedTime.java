@@ -14,7 +14,11 @@ public class ElapsedTime implements Serializable
 	
 	public ElapsedTime(long timeInMS)
 	{
-		// THIS NEEDS TESTING
+		setTime(timeInMS);
+	}
+	
+	private void setTime(long timeInMS)
+	{
 		seconds = (int) (timeInMS / 1000);
 		ms = (int) (timeInMS % 1000);
 		
@@ -40,6 +44,7 @@ public class ElapsedTime implements Serializable
 		seconds += timeToAdd.getSeconds();
 		ms += timeToAdd.getMS();
 	}
+	
 	
 	public long toMS()
 	{
