@@ -2,10 +2,12 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -44,6 +46,32 @@ public class AdminMenu
 		buttonBox.getChildren().add(playerLookupButton);
 		buttonBox.getChildren().add(mainMenuButton);
 		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(viewScoreboardButton))
+				{
+					ScoreboardMenu menu = new ScoreboardMenu(stage, players);
+				}
+				
+				if (e.getSource().equals(playerLookupButton))
+				{
+					
+				}
+				
+				if (e.getSource().equals(mainMenuButton))
+				{
+					MainMenu menu = new MainMenu(stage);
+				}
+			}
+		};
+		
+		viewScoreboardButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		playerLookupButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		mainMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.setPadding(new Insets(PADDING_VALUE, PADDING_VALUE, PADDING_VALUE, PADDING_VALUE));
 		mainPane.getChildren().add(new GameInformationHeader());
@@ -52,6 +80,7 @@ public class AdminMenu
 		mainPane.getChildren().add(buttonBox);
 		
 		this.stage = stage;
-		stage.setScene(new Scene(mainPane, 360, 120));
+		stage.setScene(new Scene(mainPane, 400, 120));
+		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	}
 }
