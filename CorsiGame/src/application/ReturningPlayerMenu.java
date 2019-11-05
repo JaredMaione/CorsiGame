@@ -26,6 +26,9 @@ public class ReturningPlayerMenu
 	private final String ERROR_TITLE = "Error";
 	private final String INVALID_CREDENTIALS_MESSAGE = "Invalid username and/or password! Please try again.";
 	
+	private final String ADMIN_USERNAME = "admin";
+	private final String ADMIN_PASSWORD = "CS3160";
+	
 	private final int ENTER_KEY_CODE = 13;
 	
 	private TextField usernameField;
@@ -106,6 +109,10 @@ public class ReturningPlayerMenu
 		if (player != null)
 		{
 			LoggedInMenu menu = new LoggedInMenu(stage, player, playersList);
+		}
+		else if (usernameField.getText().equals(ADMIN_USERNAME) && passwordField.getText().trim().equals(ADMIN_PASSWORD))
+		{
+			AdminMenu menu = new AdminMenu(stage, playersList);
 		}
 		else
 		{
