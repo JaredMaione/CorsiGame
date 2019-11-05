@@ -8,6 +8,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -24,6 +25,7 @@ public class PlayerSearchMenu
 	
 	private final int COMPONENT_SPACING = 6;
 	private final int PADDING_VALUE = 5;
+	private final int ENTER_KEY_CODE = 13;
 	
 	private Stage stage;
 	private ArrayList<PlayerData> players;
@@ -96,6 +98,21 @@ public class PlayerSearchMenu
 		submitSearchButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		viewPlayerButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		backButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		
+		
+		EventHandler<KeyEvent> enterKeyHandler = new EventHandler<KeyEvent>()
+		{
+			@Override
+			public void handle(KeyEvent e) 
+			{
+				if (e.getCharacter().toCharArray()[0] == ENTER_KEY_CODE)
+				{
+					displayPlayers(searchForPlayer(searchField.getText().trim()));
+				}
+			}
+		};
+		
+		searchField.addEventFilter(KeyEvent.KEY_TYPED, enterKeyHandler);
 		
 		stage.setScene(new Scene(mainPane, 400, 300));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
