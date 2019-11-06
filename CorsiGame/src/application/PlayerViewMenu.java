@@ -7,6 +7,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -37,6 +38,8 @@ public class PlayerViewMenu
 		this.stage = stage;
 		this.player = player;
 		
+		games = new ArrayList<ItemSelectionPane<GameData>>();
+		
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.setHgap(COMPONENT_SPACING);
 		mainPane.setPadding(new Insets(PADDING_VALUE, PADDING_VALUE, PADDING_VALUE, PADDING_VALUE));
@@ -48,7 +51,8 @@ public class PlayerViewMenu
 		gameDataListPane = new FlowPane(Orientation.VERTICAL);
 		
 		ScrollPane pane = new ScrollPane();
-		pane.setPrefSize(100, 200);
+		pane.setPrefSize(100, 100);
+		pane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		
 		for (GameData gameData : player.getGameDataList())
 		{
@@ -59,7 +63,7 @@ public class PlayerViewMenu
 		
 		pane.setContent(gameDataListPane);
 		
-		mainPane.getChildren().add(gameDataListPane);
+		mainPane.getChildren().add(pane);
 		
 		HBox buttonBox = new HBox();
 		buttonBox.setSpacing(COMPONENT_SPACING);
@@ -70,7 +74,7 @@ public class PlayerViewMenu
 		
 		mainPane.getChildren().add(buttonBox);
 		
-		stage.setScene(new Scene(mainPane, 360, 250));
+		stage.setScene(new Scene(mainPane, 420, 250));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 		stage.show();
