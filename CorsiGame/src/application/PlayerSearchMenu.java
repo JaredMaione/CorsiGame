@@ -85,7 +85,11 @@ public class PlayerSearchMenu
 				
 				if (e.getSource().equals(viewPlayerButton))
 				{
-					
+					PlayerData player = getSelectedPlayer();
+					if (player != null)
+					{
+						PlayerViewMenu menu = new PlayerViewMenu(stage, player);
+					}
 				}
 				
 				if (e.getSource().equals(backButton))
@@ -117,6 +121,20 @@ public class PlayerSearchMenu
 		stage.setScene(new Scene(mainPane, 400, 300));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.show();
+	}
+	
+	private PlayerData getSelectedPlayer()
+	{
+		for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
+		{
+			if (pane.isSelected())
+			{
+				return pane.getObj();
+			}
+		}
+		
+		return null;
+		
 	}
 	
 	private void displayPlayers(ArrayList<PlayerData> playersToDisplay)
