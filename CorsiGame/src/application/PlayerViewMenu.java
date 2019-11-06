@@ -104,6 +104,7 @@ public class PlayerViewMenu
 		ScrollPane pane = new ScrollPane();
 		pane.setPrefSize(100, 100);
 		pane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		pane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		for (GameData gameData : player.getGameDataList())
 		{
