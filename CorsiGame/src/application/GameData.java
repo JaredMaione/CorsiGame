@@ -1,6 +1,7 @@
 package application;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class GameData implements Serializable
@@ -14,6 +15,7 @@ public class GameData implements Serializable
 	private ArrayList<ElapsedTime> sequenceTimes;
 	private ElapsedTime gameDuration;
 	private ArrayList<TimestampedAction> gameActions;
+	private Date gameDate;
 	
 	public GameData()
 	{
@@ -22,6 +24,7 @@ public class GameData implements Serializable
 		gameDuration = new ElapsedTime(0);
 		avgSequenceTime = new ElapsedTime(0);
 		gameActions = new ArrayList<TimestampedAction>();
+		gameDate = new Date(LocalDate.now());
 	}
 	
 	public String sendToString()
@@ -78,6 +81,11 @@ public class GameData implements Serializable
 			
 			return new ElapsedTime(timeInMS);
 		}
+	}
+	
+	public Date getGameDate()
+	{
+		return gameDate;
 	}
 	
 	public int getCorsiSpan() 
