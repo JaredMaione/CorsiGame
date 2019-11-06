@@ -2,12 +2,14 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -27,7 +29,7 @@ public class PlayerViewMenu
 	private Button viewReplayButton;
 	private Button returnToMenuButton;
 	
-	private ArrayList<ItemSelectionPane<GameData>> games;
+	private ArrayList<ItemSelectionPane<GameData>> gameSelectionPanes;
 
 	private FlowPane mainPane;
 	private FlowPane gameDataListPane;
@@ -38,7 +40,7 @@ public class PlayerViewMenu
 		this.stage = stage;
 		this.player = player;
 		
-		games = new ArrayList<ItemSelectionPane<GameData>>();
+		gameSelectionPanes = new ArrayList<ItemSelectionPane<GameData>>();
 		
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.setHgap(COMPONENT_SPACING);
@@ -47,6 +49,55 @@ public class PlayerViewMenu
 		viewGameStatsButton = new Button(VIEW_STATS_BUTTON_LABEL);
 		viewReplayButton = new Button(VIEW_REPLAY_BUTTON_LABEL);
 		returnToMenuButton = new Button(MENU_BUTTON_LABEL);
+		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource().equals(viewGameStatsButton))
+				{
+				
+				}
+				
+				if (e.getSource().equals(viewReplayButton))
+				{
+					
+				}
+				
+				if (e.getSource().equals(returnToMenuButton))
+				{
+					MainMenu menu = new MainMenu(stage);
+				}
+			}
+		};
+		
+		EventHandler<MouseEvent> resultClickHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				if (e.getSource() instanceof ItemSelectionPane<?>)
+				{
+					for (ItemSelectionPane<GameData> pane : gameSelectionPanes)
+					{
+						if (e.getSource().equals(pane))
+						{
+							pane.setSelected(true);
+						}
+						else
+						{
+							pane.setSelected(false);
+						}
+					}
+				}
+			}
+		};
+		
+		for (ItemSelectionPane<GameData> pane : gameSelectionPanes)
+		{
+			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
+		}
 		
 		gameDataListPane = new FlowPane(Orientation.VERTICAL);
 		
@@ -57,7 +108,7 @@ public class PlayerViewMenu
 		for (GameData gameData : player.getGameDataList())
 		{
 			ItemSelectionPane<GameData> gameSelectionPane = new ItemSelectionPane<GameData>(gameData, gameData.getGameDate().toFormattedString());
-			games.add(gameSelectionPane);
+			gameSelectionPanes.add(gameSelectionPane);
 			gameDataListPane.getChildren().add(gameSelectionPane);
 		}
 		
