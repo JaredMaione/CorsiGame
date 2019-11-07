@@ -32,6 +32,11 @@ public class Time implements Serializable
 		this.min = min;
 		this.sec = sec;
 	}
+	
+	public String sendToString()
+	{
+		return hr + ":" + min + ":" + sec;
+	}
 
 	public int getHr() 
 	{
