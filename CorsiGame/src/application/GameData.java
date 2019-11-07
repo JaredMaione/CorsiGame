@@ -16,6 +16,7 @@ public class GameData implements Serializable
 	private ElapsedTime gameDuration;
 	private ArrayList<TimestampedAction> gameActions;
 	private Date gameDate;
+	private Time gameStartTime;
 	
 	public GameData()
 	{
@@ -25,6 +26,7 @@ public class GameData implements Serializable
 		avgSequenceTime = new ElapsedTime(0);
 		gameActions = new ArrayList<TimestampedAction>();
 		gameDate = new Date(LocalDate.now());
+		gameStartTime = new Time();
 	}
 	
 	public String sendToString()
@@ -86,6 +88,11 @@ public class GameData implements Serializable
 	public Date getGameDate()
 	{
 		return gameDate;
+	}
+	
+	public Time getGameStartTime()
+	{
+		return gameStartTime;
 	}
 	
 	public int getCorsiSpan() 
