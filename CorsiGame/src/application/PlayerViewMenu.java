@@ -57,7 +57,12 @@ public class PlayerViewMenu
 			{
 				if (e.getSource().equals(viewGameStatsButton))
 				{
-				
+					GameData game = getSelectedGame();
+					
+					if (game != null)
+					{
+						ScoreboardMenu menu = new ScoreboardMenu(stage, player, game);
+					}
 				}
 				
 				if (e.getSource().equals(viewReplayButton))
@@ -72,7 +77,22 @@ public class PlayerViewMenu
 			}
 		};
 		
-		EventHandler<MouseEvent> resultClickHandler = new EventHandler<MouseEvent>()
+		viewGameStatsButton = new Button(VIEW_STATS_BUTTON_LABEL);
+		viewReplayButton = new Button(VIEW_REPLAY_BUTTON_LABEL);
+		returnToMenuButton = new Button(MENU_BUTTON_LABEL);
+		
+		viewGameStatsButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		viewReplayButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+		
+		gameDataListPane = new FlowPane(Orientation.VERTICAL);
+		
+		ScrollPane pane = new ScrollPane();
+		pane.setPrefSize(100, 100);
+		pane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		pane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		
+		EventHandler<MouseEvent> itemClickHandler = new EventHandler<MouseEvent>()
 		{
 			@Override
 			public void handle(MouseEvent e) 
@@ -94,23 +114,12 @@ public class PlayerViewMenu
 			}
 		};
 		
-		for (ItemSelectionPane<GameData> pane : gameSelectionPanes)
-		{
-			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
-		}
-		
-		gameDataListPane = new FlowPane(Orientation.VERTICAL);
-		
-		ScrollPane pane = new ScrollPane();
-		pane.setPrefSize(100, 100);
-		pane.setHbarPolicy(ScrollBarPolicy.NEVER);
-		pane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		
 		for (GameData gameData : player.getGameDataList())
 		{
 			ItemSelectionPane<GameData> gameSelectionPane = new ItemSelectionPane<GameData>(gameData, 
 															gameData.getGameDate().toFormattedString() + " " + 
 															gameData.getGameStartTime().sendToString());
+			gameSelectionPane.addEventFilter(MouseEvent.MOUSE_CLICKED, itemClickHandler);
 			gameSelectionPanes.add(gameSelectionPane);
 			gameDataListPane.getChildren().add(gameSelectionPane);
 		}
@@ -133,4 +142,17 @@ public class PlayerViewMenu
 
 		stage.show();
 	} 
+	
+	public GameData getSelectedGame()
+	{
+		for (ItemSelectionPane<GameData> pane : gameSelectionPanes)
+		{
+			if (pane.isSelected())
+			{
+				return pane.getObj();
+			}
+		}
+		
+		return null;
+	}
 }
