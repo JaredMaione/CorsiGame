@@ -97,7 +97,7 @@ public class ScoreboardMenu
 		mainPane.getChildren().add(returnToMenuButton);
 		
 		this.stage = stage;
-		stage.setScene(new Scene(mainPane, 430, 375));
+		stage.setScene(new Scene(mainPane, 430, 200));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setResizable(false);
 		stage.show();
