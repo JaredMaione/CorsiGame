@@ -61,6 +61,51 @@ public class ScoreboardMenu
 	
 	private PlayerData currentPlayer;
 	
+	// Constructor to be used in PlayerViewMenu
+	public ScoreboardMenu(Stage stage, PlayerData player, GameData game)
+	{
+		this.players = new ArrayList<PlayerData>();
+		this.currentPlayer = player;
+
+		sortedPlayers = new ArrayList<PlayerData>(players);
+		scoresListTargetIndex = 0;
+		
+		mainPane = new FlowPane(Orientation.VERTICAL);
+
+		statDisplayPane = new FixedColumnGridPane();
+		
+		pageLeftButton = new Button(PAGE_LEFT_LABEL);
+		pageRightButton = new Button(PAGE_RIGHT_LABEL);
+		
+		returnToMenuButton = new Button(RETURN_TO_MENU_BUTTON_LABEL);
+				
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{				
+				if (e.getSource().equals(returnToMenuButton))
+				{
+					PlayerViewMenu menu = new PlayerViewMenu(stage, currentPlayer);
+				}
+			}
+		};
+		
+		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
+
+		mainPane.getChildren().add(statDisplayPane);
+		mainPane.getChildren().add(returnToMenuButton);
+		
+		this.stage = stage;
+		stage.setScene(new Scene(mainPane, 430, 375));
+		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setResizable(false);
+		stage.show();
+		
+		displayScore(game);
+	}
+	
+	// Constructor to be used for global AdminMenu scoreboard
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players)
 	{
 		this.players = players;
@@ -145,6 +190,7 @@ public class ScoreboardMenu
 		displayGlobalLeaderboard(0);
 	}
 	
+	// Constructor to be used when player is logged in
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players, PlayerData currentPlayer)
 	{
 		this.players = players;
