@@ -15,7 +15,6 @@ public class Time implements Serializable
 	
 	public Time()
 	{
-		//'10:15:30'
 		String dateString = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
 		
 		hr = Integer.parseInt(dateString.substring(0, dateString.indexOf(":")));
