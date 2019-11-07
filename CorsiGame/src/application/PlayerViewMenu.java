@@ -108,7 +108,9 @@ public class PlayerViewMenu
 		
 		for (GameData gameData : player.getGameDataList())
 		{
-			ItemSelectionPane<GameData> gameSelectionPane = new ItemSelectionPane<GameData>(gameData, gameData.getGameDate().toFormattedString());
+			ItemSelectionPane<GameData> gameSelectionPane = new ItemSelectionPane<GameData>(gameData, 
+															gameData.getGameDate().toFormattedString() + " " + 
+															gameData.getGameStartTime().sendToString());
 			gameSelectionPanes.add(gameSelectionPane);
 			gameDataListPane.getChildren().add(gameSelectionPane);
 		}
