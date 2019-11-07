@@ -24,6 +24,7 @@ public class PlayerViewMenu
 	private final int PADDING_VALUE = 5;
 	
 	private PlayerData player;
+	private ArrayList<PlayerData> players;
 	
 	private Button viewGameStatsButton;
 	private Button viewReplayButton;
@@ -35,10 +36,11 @@ public class PlayerViewMenu
 	private FlowPane gameDataListPane;
 	private Stage stage;
 
-	public PlayerViewMenu(Stage stage, PlayerData player)
+	public PlayerViewMenu(Stage stage, PlayerData player, ArrayList<PlayerData> players)
 	{
 		this.stage = stage;
 		this.player = player;
+		this.players = players;
 		
 		gameSelectionPanes = new ArrayList<ItemSelectionPane<GameData>>();
 		
@@ -72,7 +74,7 @@ public class PlayerViewMenu
 				
 				if (e.getSource().equals(returnToMenuButton))
 				{
-					MainMenu menu = new MainMenu(stage);
+					PlayerSearchMenu menu = new PlayerSearchMenu(stage, players);
 				}
 			}
 		};

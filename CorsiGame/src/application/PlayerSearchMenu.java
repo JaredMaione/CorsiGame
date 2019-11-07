@@ -7,7 +7,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -40,6 +42,8 @@ public class PlayerSearchMenu
 	
 	private HBox searchBox;
 	private HBox navigationBox;
+	
+	private ScrollPane searchResultsScrollPane;
 
 	public PlayerSearchMenu(Stage stage, ArrayList<PlayerData> players)
 	{
@@ -69,8 +73,14 @@ public class PlayerSearchMenu
 		
 		navigationBox.getChildren().add(viewPlayerButton);
 		navigationBox.getChildren().add(backButton);
+		
+		searchResultsScrollPane = new ScrollPane();
+		searchResultsScrollPane.setPrefSize(100, 100);
+		searchResultsScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		searchResultsScrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 	
 		mainPane.getChildren().add(searchBox);
+		mainPane.getChildren().add(searchResultsScrollPane);
 		mainPane.getChildren().add(navigationBox);
 		
 		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
@@ -88,7 +98,7 @@ public class PlayerSearchMenu
 					PlayerData player = getSelectedPlayer();
 					if (player != null)
 					{
-						PlayerViewMenu menu = new PlayerViewMenu(stage, player);
+						PlayerViewMenu menu = new PlayerViewMenu(stage, player, players);
 					}
 				}
 				
@@ -139,15 +149,17 @@ public class PlayerSearchMenu
 	
 	private void displayPlayers(ArrayList<PlayerData> playersToDisplay)
 	{
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(searchBox);
+		FlowPane playerDisplayPane = new FlowPane(Orientation.VERTICAL);
+		
+		
+		playerDisplayPane.getChildren().clear();
 		
 		playerSelectionPanes.clear();
 		
 		for (PlayerData player : playersToDisplay)
 		{
 			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
-			mainPane.getChildren().add(pane);
+			playerDisplayPane.getChildren().add(pane);
 			playerSelectionPanes.add(pane);
 		}
 		
@@ -179,7 +191,49 @@ public class PlayerSearchMenu
 			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
 		}
 		
-		mainPane.getChildren().add(navigationBox);
+		searchResultsScrollPane.setContent(playerDisplayPane);
+		
+//		mainPane.getChildren().clear();
+//		mainPane.getChildren().add(searchBox);
+//		
+//		playerSelectionPanes.clear();
+//		
+//		for (PlayerData player : playersToDisplay)
+//		{
+//			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
+//			mainPane.getChildren().add(pane);
+//			playerSelectionPanes.add(pane);
+//		}
+//		
+//		
+//		EventHandler<MouseEvent> resultClickHandler = new EventHandler<MouseEvent>()
+//		{
+//			@Override
+//			public void handle(MouseEvent e) 
+//			{
+//				if (e.getSource() instanceof ItemSelectionPane<?>)
+//				{
+//					for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
+//					{
+//						if (e.getSource().equals(pane))
+//						{
+//							pane.setSelected(true);
+//						}
+//						else
+//						{
+//							pane.setSelected(false);
+//						}
+//					}
+//				}
+//			}
+//		};
+//		
+//		for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
+//		{
+//			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
+//		}
+//		
+//		mainPane.getChildren().add(navigationBox);
 	}
 	
 	private ArrayList<PlayerData> searchForPlayer(String username)

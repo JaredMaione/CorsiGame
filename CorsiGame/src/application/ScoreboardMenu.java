@@ -86,7 +86,7 @@ public class ScoreboardMenu
 			{				
 				if (e.getSource().equals(returnToMenuButton))
 				{
-					PlayerViewMenu menu = new PlayerViewMenu(stage, currentPlayer);
+					PlayerViewMenu menu = new PlayerViewMenu(stage, currentPlayer, players);
 				}
 			}
 		};
