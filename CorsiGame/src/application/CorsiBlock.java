@@ -39,6 +39,11 @@ public class CorsiBlock extends Rectangle implements Serializable
 		this.setHeight(sideLength);
 	}
 	
+	public Position getPosition()
+	{
+		return position;
+	}
+	
 	public void refreshPosition()
 	{
 		this.setX(position.getX());
