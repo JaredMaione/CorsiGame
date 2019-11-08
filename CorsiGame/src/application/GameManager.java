@@ -195,6 +195,8 @@ public class GameManager
 					{
 						evaluatePerformance();
 					}
+					
+					gameData.addTimestampedAction(new SubmitClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
 				}
 			}
 		};
