@@ -301,7 +301,7 @@ public class GameManager
 		clickedBlocks.clear();
 	}
 	
-	public void processGameOver()
+	private void processGameOver()
 	{
 		if (currentLevel == STARTING_LEVEL)
 		{
@@ -336,7 +336,7 @@ public class GameManager
 		gameOverAlert.showAndWait();
 	}
 	
-	public void reset()
+	private void reset()
 	{
 		score = new GameData();
 		clickedBlocks.clear();
