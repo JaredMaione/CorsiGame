@@ -37,6 +37,7 @@ public class GameManager
 	protected final double SEC_BETWEEN_BLINKS = 1;
 	protected final double BLINK_DURATION = 0.5;
 	protected final double GAME_START_DELAY = 2.5;
+	protected final int MOUSE_CAPTURE_INTERVAL_MS = 100;
 	
 	protected ArrayList<CorsiBlock> blocks;
 	protected ArrayList<CorsiBlock> clickedBlocks;
@@ -74,6 +75,8 @@ public class GameManager
 	protected Text incorrectMessage;
 	protected Text readyMessage;
 	protected Text gameOverMessage;
+	
+	protected Stopwatch mouseCaptureStopwatch;
 	
 	public GameManager(Stage stage)
 	{
@@ -145,6 +148,8 @@ public class GameManager
 		gameData = new GameData();
 		
 		numTries = 0;
+		
+		mouseCaptureStopwatch = new Stopwatch();
 	}
 	
 	public GameManager(Stage stage, ArrayList<PlayerData> players, PlayerData playerData)
@@ -161,7 +166,12 @@ public class GameManager
 			@Override
 			public void handle(MouseEvent e)
 			{
-				gameData.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
+				if (mouseCaptureStopwatch.getMSFromStart() >= MOUSE_CAPTURE_INTERVAL_MS)
+				{
+					gameData.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
+					mouseCaptureStopwatch.reset();
+					mouseCaptureStopwatch.start();
+				}
 			}
 		};
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_MOVED, mouseMoveHandler);
@@ -205,129 +215,13 @@ public class GameManager
 		numTries = 0;
 		
 		beginGame(GAME_START_DELAY);
-		
-		
-		/*gameObjects = new Group();
-		
-		stage.setScene(new Scene(gameObjects, 800, 600));
-		stage.setResizable(false);
-		stage.show();
-		this.stage = stage;
-		
-		this.playerData = playerData;
-		
-		this.players = players;
-		
-		gameObjects.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-		startMessage = new Text(START_MESSAGE_TEXT);
-		startMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 130);
-		startMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
-		startMessage.setVisible(false);
-		startMessage.getStyleClass().add("large_positive_message_text");
-		gameObjects.getChildren().add(startMessage);
-		
-		readyMessage = new Text(READY_MESSAGE_TEXT);
-		readyMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 130);
-		readyMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
-		readyMessage.setVisible(false);
-		readyMessage.getStyleClass().add("large_neutral_message_text");
-		gameObjects.getChildren().add(readyMessage);
-		
-		correctMessage = new Text(CORRECT_MESSAGE_TEXT);
-		correctMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 185);
-		correctMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
-		correctMessage.setVisible(false);
-		correctMessage.getStyleClass().add("large_positive_message_text");
-		gameObjects.getChildren().add(correctMessage);
-		
-		incorrectMessage = new Text(INCORRECT_MESSAGE_TEXT);
-		incorrectMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 205);
-		incorrectMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
-		incorrectMessage.setVisible(false);
-		incorrectMessage.getStyleClass().add("large_negative_message_text");
-		gameObjects.getChildren().add(incorrectMessage);
-		
-		gameOverMessage = new Text(GAME_OVER_MESSAGE_TEXT);
-		gameOverMessage.setLayoutX((gameObjects.getScene().getWidth() / 2) - 130);
-		gameOverMessage.setLayoutY(gameObjects.getScene().getHeight() / 2);
-		gameOverMessage.setVisible(false);
-		gameOverMessage.getStyleClass().add("large_negative_message_text");
-		gameObjects.getChildren().add(gameOverMessage);
-		
-		
-		submitButton = new Button(SUBMIT_BUTTON_LABEL);
-		submitButton.setLayoutX(0);
-		submitButton.setLayoutY(gameObjects.getScene().getHeight() - (SCENE_Y_OFFSET - 15));
-		
-		gameObjects.getChildren().add(submitButton);
-		
-		EventHandler<MouseEvent> mouseMoveHandler = new EventHandler<MouseEvent>()
-		{
-
-			@Override
-			public void handle(MouseEvent e)
-			{
-				score.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
-			}
-		};
-		stage.getScene().addEventFilter(MouseEvent.MOUSE_MOVED, mouseMoveHandler);
-		
-		
-		EventHandler<MouseEvent> mouseClickHandler = new EventHandler<MouseEvent>()
-		{
-
-			@Override
-			public void handle(MouseEvent e)
-			{
-	
-				score.addTimestampedAction(new MouseClickAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
-			}
-		};
-		stage.getScene().addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickHandler);
-		
-		blocks = new ArrayList<CorsiBlock>();
-		currentLevel = STARTING_LEVEL;
-		
-		sequenceTimer = new Stopwatch();
-		gameTimer = new Stopwatch();
-		
-		sequencePlayer = new CorsiSequencePlayer(sequenceTimer);
-	
-		clickedBlocks = new ArrayList<CorsiBlock>();
-		
-		score = new GameData();
-
-		clickHandler = new EventHandler<MouseEvent>()
-		{
-			@Override
-			public void handle(MouseEvent e)
-			{
-				if (e.getSource() instanceof CorsiBlock)
-				{
-					handleBlockClicked((CorsiBlock) e.getSource());
-					score.addTimestampedAction(new BlockClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount(), (CorsiBlock) e.getSource()));
-				}
-				else if (e.getSource().equals(submitButton))
-				{
-					if (clickedBlocks.size() != 0)
-					{
-						evaluatePerformance();
-					}
-				}
-			}
-		};
-		
-		submitButton.addEventFilter(MouseEvent.MOUSE_CLICKED, clickHandler);
-		numTries = 0;
-		
-		beginGame(GAME_START_DELAY);*/
 	}
 	
 	public void beginGame(double delay)
 	{
 		TimedMessageDisplay.displayMessage(readyMessage, 0, 0.5);
 		gameTimer.start();
+		mouseCaptureStopwatch.start();
 		startCurrentLevel(delay);
 	}
 	
@@ -471,6 +365,7 @@ public class GameManager
 		gameData = new GameData();
 		clickedBlocks.clear();
 		gameTimer.reset();
+		mouseCaptureStopwatch.reset();
 		sequenceTimer.reset();
 		clearBlocks();
 		currentLevel = STARTING_LEVEL;
