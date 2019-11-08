@@ -51,7 +51,7 @@ public class GameManager
 	
 	private int currentLevel;
 	
-	private CorsiSequencePlayer sequencePlayer;
+	protected CorsiSequencePlayer sequencePlayer;
 	
 	// All blocks will be added to this node
 	protected Group gameObjects;
