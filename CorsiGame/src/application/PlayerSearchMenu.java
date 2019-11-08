@@ -192,48 +192,6 @@ public class PlayerSearchMenu
 		}
 		
 		searchResultsScrollPane.setContent(playerDisplayPane);
-		
-//		mainPane.getChildren().clear();
-//		mainPane.getChildren().add(searchBox);
-//		
-//		playerSelectionPanes.clear();
-//		
-//		for (PlayerData player : playersToDisplay)
-//		{
-//			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
-//			mainPane.getChildren().add(pane);
-//			playerSelectionPanes.add(pane);
-//		}
-//		
-//		
-//		EventHandler<MouseEvent> resultClickHandler = new EventHandler<MouseEvent>()
-//		{
-//			@Override
-//			public void handle(MouseEvent e) 
-//			{
-//				if (e.getSource() instanceof ItemSelectionPane<?>)
-//				{
-//					for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
-//					{
-//						if (e.getSource().equals(pane))
-//						{
-//							pane.setSelected(true);
-//						}
-//						else
-//						{
-//							pane.setSelected(false);
-//						}
-//					}
-//				}
-//			}
-//		};
-//		
-//		for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
-//		{
-//			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
-//		}
-//		
-//		mainPane.getChildren().add(navigationBox);
 	}
 	
 	private ArrayList<PlayerData> searchForPlayer(String username)
