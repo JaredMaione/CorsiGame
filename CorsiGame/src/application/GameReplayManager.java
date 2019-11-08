@@ -13,7 +13,7 @@ public class GameReplayManager extends GameManager
 	private final int CURSOR_RADIUS = 4;
 
 	private ArrayList<TimestampedAction> actionQueue;
-	private ArrayList<TimestampedAction> actionBuffer;
+	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private int actionIndex;
 	private Stopwatch replayStopwatch;
 	private Circle cursor;
@@ -24,9 +24,10 @@ public class GameReplayManager extends GameManager
 		this.playerData = playerData;
 		this.players = players;
 		this.gameData = gameData;
+		
+		rebuiltBlocks = new ArrayList<CorsiBlock>();
 
 		actionQueue = gameData.getGameActions();
-		actionBuffer = new ArrayList<TimestampedAction>();
 		actionIndex = 0;
 		replayStopwatch = new Stopwatch();
 		cursor = new Circle(CURSOR_RADIUS);
@@ -74,18 +75,18 @@ public class GameReplayManager extends GameManager
 						blocks = ((SequenceInitiationAction) currentAction).getSequence().getBlocks();
 						
 						// Reconstruct all blocks due to serialization not preserving correct information
-						ArrayList<CorsiBlock> refreshedBlocks = new ArrayList<CorsiBlock>();
-						for (CorsiBlock block : blocks)
+						rebuiltBlocks = new ArrayList<CorsiBlock>();
+						for (CorsiBlock deserializedBlock : blocks)
 						{
-							block.refreshPosition();
-							CorsiBlock rebuiltBlock = new CorsiBlock(block.getX(), block.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
-							refreshedBlocks.add(rebuiltBlock);
+							deserializedBlock.refreshPosition();
+							CorsiBlock rebuiltBlock = new CorsiBlock(deserializedBlock.getX(), deserializedBlock.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
+							rebuiltBlocks.add(rebuiltBlock);
 							gameObjects.getChildren().add(rebuiltBlock);
-							System.out.println("Adding a block at " + block.getX() + "," + block.getY());							
+							System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
 						}
 						
 						// Rebuild sequence data object
-						CorsiSequenceData sequenceData = new CorsiSequenceData(refreshedBlocks, 
+						CorsiSequenceData sequenceData = new CorsiSequenceData(rebuiltBlocks, 
 								((SequenceInitiationAction) currentAction).getSequence().getLevel(), 
 								SEC_BETWEEN_BLINKS, 
 								BLINK_DURATION, 
@@ -114,5 +115,16 @@ public class GameReplayManager extends GameManager
 		};
 
 		gameTimer.start();
+	}
+	
+	private void clearBlocks()
+	{
+		for (CorsiBlock block : rebuiltBlocks)
+		{
+			gameObjects.getChildren().remove(block);
+		}
+		
+		rebuiltBlocks = new ArrayList<CorsiBlock>();
+		blocks = new ArrayList<CorsiBlock>();
 	}
 }
