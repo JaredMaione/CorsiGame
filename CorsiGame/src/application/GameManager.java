@@ -37,7 +37,7 @@ public class GameManager
 	protected final double SEC_BETWEEN_BLINKS = 1;
 	protected final double BLINK_DURATION = 0.5;
 	protected final double GAME_START_DELAY = 2.5;
-	protected final int MOUSE_CAPTURE_INTERVAL_MS = 100;
+	protected final int MOUSE_CAPTURE_INTERVAL_MS = 75;
 	
 	protected ArrayList<CorsiBlock> blocks;
 	protected ArrayList<CorsiBlock> clickedBlocks;
