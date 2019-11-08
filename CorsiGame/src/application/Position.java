@@ -9,26 +9,26 @@ public class Position implements Serializable
 	private double x;
 	private double y;
 	
-	public Position(double mouseX, double mouseY)
+	public Position(double x, double y)
 	{
-		x = mouseX;
-		y = mouseY;
+		this.x = x;
+		this.y = y;
 	}
 	
-	public void set(double mouseX, double mouseY)
+	public void set(double x, double y)
 	{
-		x = mouseX;
-		y = mouseY;
+		this.x = x;
+		this.y = y;
 	}
 	
-	public void setX(double mouseX)
+	public void setX(double x)
 	{
-		x = mouseX;
+		this.x = x;
 	}
 	
-	public void setY(double mouseY)
+	public void setY(double y)
 	{
-		y = mouseY;
+		this.y = y;
 	}
 	
 	public double getX()
