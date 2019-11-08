@@ -69,7 +69,13 @@ public class PlayerViewMenu
 				
 				if (e.getSource().equals(viewReplayButton))
 				{
+					GameData game = getSelectedGame();
 					
+					if (game != null)
+					{
+						GameReplayManager replayManager = new GameReplayManager(stage, game, player, players);
+					}
+
 				}
 				
 				if (e.getSource().equals(returnToMenuButton))
