@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GameReplayManager extends GameManager
@@ -71,14 +72,28 @@ public class GameReplayManager extends GameManager
 						++numTries;
 						
 						blocks = ((SequenceInitiationAction) currentAction).getSequence().getBlocks();
-						System.out.println(blocks.size());
+						
+						// Reconstruct all blocks due to serialization not preserving correct information
+						ArrayList<CorsiBlock> refreshedBlocks = new ArrayList<CorsiBlock>();
 						for (CorsiBlock block : blocks)
 						{
-							System.out.println("Adding a block at" + block.getX());
-							gameObjects.getChildren().add(block);
+							block.refreshPosition();
+							CorsiBlock rebuiltBlock = new CorsiBlock(block.getX(), block.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
+							refreshedBlocks.add(rebuiltBlock);
+							gameObjects.getChildren().add(rebuiltBlock);
+							System.out.println("Adding a block at " + block.getX() + "," + block.getY());							
 						}
 						
-						double seconds = sequencePlayer.playSequence(((SequenceInitiationAction) currentAction).getSequence());
+						// Rebuild sequence data object
+						CorsiSequenceData sequenceData = new CorsiSequenceData(refreshedBlocks, 
+								((SequenceInitiationAction) currentAction).getSequence().getLevel(), 
+								SEC_BETWEEN_BLINKS, 
+								BLINK_DURATION, 
+								false, 
+								((SequenceInitiationAction) currentAction).getSequence().getSecToDelay());
+						
+						
+						double seconds = sequencePlayer.playSequence(sequenceData);
 						TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 						System.out.println("InitAction");
 					}
