@@ -35,7 +35,8 @@ public class GameManager
 	private final String GAME_OVER_ALERT_MESSAGE = "Game over. Click \"OK\" to view your score";
 	
 	protected final double SEC_BETWEEN_BLINKS = 1;
-	protected final double BLINK_DURATION = 0.5;
+	protected final double SEQUENCE_BLOCK_BLINK_DURATION = 0.5;
+	protected final double CLICKED_BLOCK_BLINK_DURATION = 0.1;
 	protected final double GAME_START_DELAY = 2.5;
 	protected final int MOUSE_CAPTURE_INTERVAL_MS = 75;
 	
@@ -257,7 +258,7 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, BLINK_DURATION, false, secToDelaySequence);
+		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, SEQUENCE_BLOCK_BLINK_DURATION, false, secToDelaySequence);
 		gameData.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
 		
 		double seconds = sequencePlayer.playSequence(sequenceData);
@@ -268,7 +269,7 @@ public class GameManager
 	{
 		if (block.isClickable()) 
 		{
-			block.blink(0.1);
+			block.blink(CLICKED_BLOCK_BLINK_DURATION);
 			clickedBlocks.add(block);
 		}
 	}
