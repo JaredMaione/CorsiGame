@@ -38,13 +38,13 @@ public class GameManager
 	private final double BLINK_DURATION = 0.5;
 	private final double GAME_START_DELAY = 2.5;
 	
-	private ArrayList<CorsiBlock> blocks;
-	private ArrayList<CorsiBlock> clickedBlocks;
+	protected ArrayList<CorsiBlock> blocks;
+	protected ArrayList<CorsiBlock> clickedBlocks;
 	
 	protected PlayerData playerData;
 	protected ArrayList<PlayerData> players;
 	
-	private Stopwatch sequenceTimer;
+	protected Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
 	
 	protected GameData gameData;
@@ -56,24 +56,24 @@ public class GameManager
 	// All blocks will be added to this node
 	protected Group gameObjects;
 	
-	private final int NUM_BLOCKS = 9;
+	protected final int NUM_BLOCKS = 9;
 	
 	private final int STARTING_LEVEL = 2;
 	
 	// This value will be subtracted from the height of the scene to locate submit button
-	private final int SCENE_Y_OFFSET = 50;
+	protected final int SCENE_Y_OFFSET = 50;
 	
 	private EventHandler<MouseEvent> clickHandler;
 	
-	private int numTries;
+	protected int numTries;
 	
 	private Stage stage;
 	
-	private Text startMessage;
-	private Text correctMessage;
-	private Text incorrectMessage;
-	private Text readyMessage;
-	private Text gameOverMessage;
+	protected Text startMessage;
+	protected Text correctMessage;
+	protected Text incorrectMessage;
+	protected Text readyMessage;
+	protected Text gameOverMessage;
 	
 	public GameManager(Stage stage)
 	{
@@ -331,7 +331,7 @@ public class GameManager
 		startCurrentLevel(delay);
 	}
 	
-	private void clearBlocks()
+	protected void clearBlocks()
 	{
 		for (CorsiBlock block : blocks)
 		{
@@ -363,14 +363,14 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 		
-		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, BLINK_DURATION, true, secToDelaySequence);
+		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, BLINK_DURATION, false, secToDelaySequence);
 		gameData.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
 		
 		double seconds = sequencePlayer.playSequence(sequenceData);
 		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 	}
 	
-	private void handleBlockClicked(CorsiBlock block)
+	protected void handleBlockClicked(CorsiBlock block)
 	{
 		if (block.isClickable()) 
 		{
@@ -379,7 +379,7 @@ public class GameManager
 		}
 	}
 	
-	private void evaluatePerformance()
+	protected void evaluatePerformance()
 	{
 		boolean success = true;
 		
@@ -466,7 +466,7 @@ public class GameManager
 		gameOverAlert.showAndWait();
 	}
 	
-	private void reset()
+	protected void reset()
 	{
 		gameData = new GameData();
 		clickedBlocks.clear();
