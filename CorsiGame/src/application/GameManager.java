@@ -338,7 +338,7 @@ public class GameManager
 			gameObjects.getChildren().remove(block);
 		}
 		
-		blocks.clear();
+		blocks = new ArrayList<CorsiBlock>();
 	}
 	
 	private void startCurrentLevel(double secToDelaySequence)
