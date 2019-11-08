@@ -3,6 +3,7 @@ package application;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -59,10 +60,26 @@ public class GameReplayManager extends GameManager
 					}
 					else if (currentAction instanceof MouseAction)
 					{
+						cursor.setCenterX(((MouseAction) currentAction).getMousePosition().getX());
+						cursor.setCenterY(((MouseAction) currentAction).getMousePosition().getY());
 						System.out.println("Mouse moved to " + ((MouseAction) currentAction).getMousePosition().getX() + " " + ((MouseAction) currentAction).getMousePosition().getY());
 					}
 					else if (currentAction instanceof SequenceInitiationAction)
 					{
+						clearBlocks();
+						
+						++numTries;
+						
+						blocks = ((SequenceInitiationAction) currentAction).getSequence().getBlocks();
+						System.out.println(blocks.size());
+						for (CorsiBlock block : blocks)
+						{
+							System.out.println("Adding a block at" + block.getX());
+							gameObjects.getChildren().add(block);
+						}
+						
+						double seconds = sequencePlayer.playSequence(((SequenceInitiationAction) currentAction).getSequence());
+						TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 						System.out.println("InitAction");
 					}
 					else if (currentAction instanceof SubmitClickedAction)
