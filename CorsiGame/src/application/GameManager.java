@@ -331,7 +331,7 @@ public class GameManager
 		startCurrentLevel(delay);
 	}
 	
-	protected void clearBlocks()
+	private void clearBlocks()
 	{
 		for (CorsiBlock block : blocks)
 		{
