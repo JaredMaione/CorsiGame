@@ -16,6 +16,8 @@ public class CorsiBlock extends Rectangle implements Serializable
 	private boolean isLit;
 	private Stopwatch blinkStopwatch;
 	
+	private Position position;
+	
 	public CorsiBlock()
 	{
 		super();
@@ -24,6 +26,7 @@ public class CorsiBlock extends Rectangle implements Serializable
 		setFill(UNLIT_COLOR);
 		
 		blinkStopwatch = new Stopwatch();
+		position = new Position(0, 0);
 	}
 	
 	public CorsiBlock(double x, double y,  double sideLength)
@@ -31,6 +34,7 @@ public class CorsiBlock extends Rectangle implements Serializable
 		this();
 		this.setX(x);
 		this.setY(y);
+		this.position.set(x, y);
 		this.setWidth(sideLength);
 		this.setHeight(sideLength);
 	}
