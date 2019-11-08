@@ -34,9 +34,9 @@ public class GameManager
 	private final String GAME_OVER_ALERT_TITLE = "Game Over";
 	private final String GAME_OVER_ALERT_MESSAGE = "Game over. Click \"OK\" to view your score";
 	
-	private final double SEC_BETWEEN_BLINKS = 1;
-	private final double BLINK_DURATION = 0.5;
-	private final double GAME_START_DELAY = 2.5;
+	protected final double SEC_BETWEEN_BLINKS = 1;
+	protected final double BLINK_DURATION = 0.5;
+	protected final double GAME_START_DELAY = 2.5;
 	
 	protected ArrayList<CorsiBlock> blocks;
 	protected ArrayList<CorsiBlock> clickedBlocks;
