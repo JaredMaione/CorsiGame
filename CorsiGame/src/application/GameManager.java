@@ -41,20 +41,20 @@ public class GameManager
 	private ArrayList<CorsiBlock> blocks;
 	private ArrayList<CorsiBlock> clickedBlocks;
 	
-	private PlayerData playerData;
-	private ArrayList<PlayerData> players;
+	protected PlayerData playerData;
+	protected ArrayList<PlayerData> players;
 	
 	private Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
 	
-	private GameData score;
+	protected GameData gameData;
 	
 	private int currentLevel;
 	
 	private CorsiSequencePlayer sequencePlayer;
 	
 	// All blocks will be added to this node
-	private Group gameObjects;
+	protected Group gameObjects;
 	
 	private final int NUM_BLOCKS = 9;
 	
@@ -142,7 +142,7 @@ public class GameManager
 	
 		clickedBlocks = new ArrayList<CorsiBlock>();
 		
-		score = new GameData();
+		gameData = new GameData();
 		
 		numTries = 0;
 	}
@@ -161,7 +161,7 @@ public class GameManager
 			@Override
 			public void handle(MouseEvent e)
 			{
-				score.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
+				gameData.addTimestampedAction(new MouseAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY())));
 			}
 		};
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_MOVED, mouseMoveHandler);
@@ -174,7 +174,7 @@ public class GameManager
 			public void handle(MouseEvent e)
 			{
 	
-				score.addTimestampedAction(new MouseClickAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
+				gameData.addTimestampedAction(new MouseClickAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
 			}
 		};
 		stage.getScene().addEventFilter(MouseEvent.MOUSE_CLICKED, mouseClickHandler);
@@ -187,7 +187,7 @@ public class GameManager
 				if (e.getSource() instanceof CorsiBlock)
 				{
 					handleBlockClicked((CorsiBlock) e.getSource());
-					score.addTimestampedAction(new BlockClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount(), (CorsiBlock) e.getSource()));
+					gameData.addTimestampedAction(new BlockClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount(), (CorsiBlock) e.getSource()));
 				}
 				else if (e.getSource().equals(submitButton))
 				{
@@ -346,7 +346,7 @@ public class GameManager
 		if (sequenceTimer.isRunning())
 		{
 			sequenceTimer.stop();
-			score.addToAvgSequenceTime(sequenceTimer.getLastElapsedTime());
+			gameData.addToAvgSequenceTime(sequenceTimer.getLastElapsedTime());
 			sequenceTimer.reset();
 		}
 		
@@ -362,7 +362,7 @@ public class GameManager
 		}
 		
 		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, BLINK_DURATION, true, secToDelaySequence);
-		score.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
+		gameData.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
 		
 		double seconds = sequencePlayer.playSequence(sequenceData);
 		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
@@ -433,25 +433,25 @@ public class GameManager
 	{
 		if (currentLevel == STARTING_LEVEL)
 		{
-			score.setCorsiSpan(0);
+			gameData.setCorsiSpan(0);
 		}
 		else
 		{
-			score.setCorsiSpan(currentLevel - 1);
+			gameData.setCorsiSpan(currentLevel - 1);
 		}
 		
-		score.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
+		gameData.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 		
 		gameTimer.getLastElapsedTime().subtractSeconds(GAME_START_DELAY);
-		score.setGameDuration(gameTimer.getLastElapsedTime());
+		gameData.setGameDuration(gameTimer.getLastElapsedTime());
 		
-		playerData.addGameData(score);
+		playerData.addGameData(gameData);
 		playerData.saveToFile();
 		
 		displayGameOverAlert();
 		ScoreboardMenu menu = new ScoreboardMenu(stage, players, playerData);
-		menu.displayScore(score);
+		menu.displayScore(gameData);
 		reset();
 	}
 	
@@ -466,7 +466,7 @@ public class GameManager
 	
 	private void reset()
 	{
-		score = new GameData();
+		gameData = new GameData();
 		clickedBlocks.clear();
 		gameTimer.reset();
 		sequenceTimer.reset();
