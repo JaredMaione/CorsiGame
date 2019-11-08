@@ -13,13 +13,13 @@ public class GameReplayManager extends GameManager
 	private final int CURSOR_RADIUS = 4;
 
 	private ArrayList<TimestampedAction> actionQueue;
-	
+
 	// Test
 	private ArrayList<TimestampedAction> threadOneActions;
 	private ArrayList<TimestampedAction> threadTwoActions;
 	private int threadOneActionIndex;
 	private int threadTwoActionIndex;
-	
+
 	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private Stopwatch replayStopwatch;
 	private Circle cursor;
@@ -30,7 +30,7 @@ public class GameReplayManager extends GameManager
 		this.playerData = playerData;
 		this.players = players;
 		this.gameData = gameData;
-		
+
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
 
 		actionQueue = gameData.getGameActions();
@@ -38,12 +38,12 @@ public class GameReplayManager extends GameManager
 		cursor = new Circle(CURSOR_RADIUS);
 
 		gameObjects.getChildren().add(cursor);
-		
+
 		threadOneActions = new ArrayList<TimestampedAction>();
 		threadTwoActions = new ArrayList<TimestampedAction>();
 		threadOneActionIndex = 0;
 		threadTwoActionIndex = 0;
-		
+
 		for (TimestampedAction action : actionQueue)
 		{
 			if (threadOneActions.size() <= threadTwoActions.size())
@@ -62,7 +62,7 @@ public class GameReplayManager extends GameManager
 	private void beginSimulation()
 	{
 		replayStopwatch.start();
-		
+
 		AnimationTimer threadOne = new AnimationTimer()
 		{
 			@Override
@@ -76,7 +76,7 @@ public class GameReplayManager extends GameManager
 			}
 
 		};
-		
+
 		AnimationTimer threadTwo = new AnimationTimer()
 		{
 			@Override
@@ -92,15 +92,24 @@ public class GameReplayManager extends GameManager
 			}
 
 		};
-		
+
 		threadOne.start();
 		threadTwo.start();
 	}
-	
+
 	private void handleAction(TimestampedAction currentAction)
 	{
 		if (currentAction instanceof BlockClickedAction)
 		{
+			CorsiBlock clickedBlock = ((BlockClickedAction) currentAction).getBlock();
+
+			for (CorsiBlock rebuiltBlock : rebuiltBlocks)
+			{
+				if (clickedBlock.getPosition().equals(rebuiltBlock.getPosition()))
+				{
+					rebuiltBlock.blink(CLICKED_BLOCK_BLINK_DURATION);
+				}
+			}
 			System.out.println("BlockAction");
 		}
 		else if (currentAction instanceof MouseClickAction)
@@ -116,9 +125,9 @@ public class GameReplayManager extends GameManager
 		else if (currentAction instanceof SequenceInitiationAction)
 		{
 			clearBlocks();
-									
+
 			blocks = ((SequenceInitiationAction) currentAction).getSequence().getBlocks();
-			
+
 			// Reconstruct all blocks due to serialization not preserving correct information
 			rebuiltBlocks = new ArrayList<CorsiBlock>();
 			for (CorsiBlock deserializedBlock : blocks)
@@ -129,16 +138,16 @@ public class GameReplayManager extends GameManager
 				gameObjects.getChildren().add(rebuiltBlock);
 				System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
 			}
-			
+
 			// Rebuild sequence data object
 			CorsiSequenceData sequenceData = new CorsiSequenceData(rebuiltBlocks, 
 					((SequenceInitiationAction) currentAction).getSequence().getLevel(), 
 					SEC_BETWEEN_BLINKS, 
-					BLINK_DURATION, 
+					SEQUENCE_BLOCK_BLINK_DURATION, 
 					false, 
 					((SequenceInitiationAction) currentAction).getSequence().getSecToDelay());
-			
-			
+
+
 			double seconds = sequencePlayer.playSequence(sequenceData);
 			TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 			System.out.println("InitAction");
@@ -153,14 +162,14 @@ public class GameReplayManager extends GameManager
 		}
 
 	}
-	
+
 	private void clearBlocks()
 	{
 		for (CorsiBlock block : rebuiltBlocks)
 		{
 			gameObjects.getChildren().remove(block);
 		}
-		
+
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
 		blocks = new ArrayList<CorsiBlock>();
 	}
