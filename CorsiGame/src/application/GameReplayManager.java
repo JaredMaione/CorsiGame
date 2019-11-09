@@ -22,7 +22,7 @@ public class GameReplayManager extends GameManager
 	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private Stopwatch replayStopwatch;
 	private Circle cursor;
-	
+
 	public GameReplayManager(Stage stage, GameData gameData, PlayerData playerData, ArrayList<PlayerData> players)
 	{
 		super(stage);
@@ -54,11 +54,63 @@ public class GameReplayManager extends GameManager
 				threadTwoActions.add(action);
 			}
 		}
-		
+
 		TimedMessageDisplay.displayMessage(readyMessage, 0, 0.5);
 		beginSimulation();
 	}
-	
+
+	private void beginSimulation()
+	{
+		replayStopwatch.start();
+
+		AnimationTimer threadOne = new AnimationTimer()
+		{
+			@Override
+			public void handle(long arg0) 
+			{
+				if (threadOneActionIndex >= threadOneActions.size())
+				{
+					this.stop();
+				}
+				else
+				{
+
+					if (replayStopwatch.getMSFromStart() >= threadOneActions.get(threadOneActionIndex).getMSFromStart())
+					{
+						evaluateAction(threadOneActions.get(threadOneActionIndex));
+						++threadOneActionIndex;
+					}
+				}
+			}
+
+		};
+
+		AnimationTimer threadTwo = new AnimationTimer()
+		{
+			@Override
+			public void handle(long arg0) 
+			{
+				if (threadTwoActionIndex >= threadTwoActions.size()) 
+				{
+					this.stop();
+				}
+				else
+				{
+					if (replayStopwatch.getMSFromStart() >= threadTwoActions.get(threadTwoActionIndex).getMSFromStart())
+					{
+						evaluateAction(threadTwoActions.get(threadTwoActionIndex));
+						++threadTwoActionIndex;
+					}
+				}
+
+			}
+
+		};
+
+		threadOne.start();
+		threadTwo.start();
+	}
+
 	private void evaluateAction(TimestampedAction currentAction)
 	{
 		if (currentAction instanceof BlockClickedAction)
@@ -99,11 +151,11 @@ public class GameReplayManager extends GameManager
 			System.out.println("GameEnd");
 		}
 	}
-	
+
 	private void handleSubmitClickedAction()
 	{
 		boolean success = true;
-		
+
 		if (clickedBlocks.size() == 0 || clickedBlocks.size() != currentLevel)
 		{
 			success = false;
@@ -115,11 +167,11 @@ public class GameReplayManager extends GameManager
 			{
 				success = success && rebuiltBlocks.get(i).equals(clickedBlocks.get(i));
 			}
-			
+
 			if (!success)
 			{
 				success = true;
-				
+
 				// Check sequence in reverse order
 				for (int clickedSeqIndex = 0, seqIndex = currentLevel -1; seqIndex >= 0; ++clickedSeqIndex, --seqIndex)
 				{
@@ -127,7 +179,7 @@ public class GameReplayManager extends GameManager
 				}
 			}
 		}
-					
+
 		if (success)
 		{
 			++currentLevel;
@@ -146,10 +198,10 @@ public class GameReplayManager extends GameManager
 				//processGameOver();
 			}
 		}
-		
+
 		clickedBlocks.clear();
 	}
-	
+
 	private void handleSequenceInitiationAction(SequenceInitiationAction action)
 	{
 		clearBlocks();
@@ -183,47 +235,6 @@ public class GameReplayManager extends GameManager
 		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 		System.out.println("InitAction");
 	}
-
-
-	private void beginSimulation()
-	{
-		replayStopwatch.start();
-
-		AnimationTimer threadOne = new AnimationTimer()
-		{
-			@Override
-			public void handle(long arg0) 
-			{
-				if (replayStopwatch.getMSFromStart() >= threadOneActions.get(threadOneActionIndex).getMSFromStart())
-				{
-					evaluateAction(threadOneActions.get(threadOneActionIndex));
-					++threadOneActionIndex;
-				}
-			}
-
-		};
-
-		AnimationTimer threadTwo = new AnimationTimer()
-		{
-			@Override
-			public void handle(long arg0) 
-			{
-
-				if (replayStopwatch.getMSFromStart() >= threadTwoActions.get(threadTwoActionIndex).getMSFromStart())
-				{
-					evaluateAction(threadTwoActions.get(threadTwoActionIndex));
-					++threadTwoActionIndex;
-				}
-
-			}
-
-		};
-
-		threadOne.start();
-		threadTwo.start();
-	}
-
-	
 
 	private void clearBlocks()
 	{
