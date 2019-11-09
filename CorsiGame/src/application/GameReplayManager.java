@@ -10,8 +10,6 @@ import javafx.stage.Stage;
 
 public class GameReplayManager extends GameManager
 {
-	private final int CURSOR_RADIUS = 4;
-
 	private ArrayList<TimestampedAction> actionQueue;
 
 	private ArrayList<TimestampedAction> threadOneActions;
@@ -21,7 +19,7 @@ public class GameReplayManager extends GameManager
 
 	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private Stopwatch replayStopwatch;
-	private Circle cursor;
+	private ReplayCursor cursor;
 
 	public GameReplayManager(Stage stage, GameData gameData, PlayerData playerData, ArrayList<PlayerData> players)
 	{
@@ -34,7 +32,8 @@ public class GameReplayManager extends GameManager
 
 		actionQueue = gameData.getGameActions();
 		replayStopwatch = new Stopwatch();
-		cursor = new Circle(CURSOR_RADIUS);
+		
+		cursor = new ReplayCursor();
 
 		gameObjects.getChildren().add(cursor);
 
@@ -130,6 +129,7 @@ public class GameReplayManager extends GameManager
 		}
 		else if (currentAction instanceof MouseClickAction)
 		{
+			cursor.blink();
 			System.out.println("ClickAction");
 		}
 		else if (currentAction instanceof MouseAction)
