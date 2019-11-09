@@ -54,8 +54,50 @@ public class GameReplayManager extends GameManager
 				threadTwoActions.add(action);
 			}
 		}
-
+		
+		TimedMessageDisplay.displayMessage(readyMessage, 0, 0.5);
 		beginSimulation();
+	}
+	
+	private void evaluateAction(TimestampedAction currentAction)
+	{
+		if (currentAction instanceof BlockClickedAction)
+		{
+			CorsiBlock clickedBlock = ((BlockClickedAction) currentAction).getBlock();
+
+			for (CorsiBlock rebuiltBlock : rebuiltBlocks)
+			{
+				if (clickedBlock.getPosition().equals(rebuiltBlock.getPosition()))
+				{
+					rebuiltBlock.blink(CLICKED_BLOCK_BLINK_DURATION);
+					clickedBlocks.add(rebuiltBlock);
+				}
+			}
+			System.out.println("BlockAction");
+		}
+		else if (currentAction instanceof SubmitClickedAction)
+		{
+			handleSubmitClickedAction();
+			System.out.println("SubmitAction");
+		}
+		else if (currentAction instanceof MouseClickAction)
+		{
+			System.out.println("ClickAction");
+		}
+		else if (currentAction instanceof MouseAction)
+		{
+			cursor.setCenterX(((MouseAction) currentAction).getMousePosition().getX());
+			cursor.setCenterY(((MouseAction) currentAction).getMousePosition().getY());
+			System.out.println("Mouse moved to " + ((MouseAction) currentAction).getMousePosition().getX() + " " + ((MouseAction) currentAction).getMousePosition().getY());
+		}
+		else if (currentAction instanceof SequenceInitiationAction)
+		{
+			handleSequenceInitiationAction((SequenceInitiationAction) currentAction);
+		}
+		else if (currentAction instanceof GameEndAction)
+		{
+			System.out.println("GameEnd");
+		}
 	}
 	
 	private void handleSubmitClickedAction()
@@ -108,52 +150,6 @@ public class GameReplayManager extends GameManager
 		clickedBlocks.clear();
 	}
 	
-	private void evaluatePerformance()
-	{
-		
-	}
-	
-	private void handleAction(TimestampedAction currentAction)
-	{
-		if (currentAction instanceof BlockClickedAction)
-		{
-			CorsiBlock clickedBlock = ((BlockClickedAction) currentAction).getBlock();
-
-			for (CorsiBlock rebuiltBlock : rebuiltBlocks)
-			{
-				if (clickedBlock.getPosition().equals(rebuiltBlock.getPosition()))
-				{
-					rebuiltBlock.blink(CLICKED_BLOCK_BLINK_DURATION);
-					clickedBlocks.add(rebuiltBlock);
-				}
-			}
-			System.out.println("BlockAction");
-		}
-		else if (currentAction instanceof SubmitClickedAction)
-		{
-			handleSubmitClickedAction();
-			System.out.println("SubmitAction");
-		}
-		else if (currentAction instanceof MouseClickAction)
-		{
-			System.out.println("ClickAction");
-		}
-		else if (currentAction instanceof MouseAction)
-		{
-			cursor.setCenterX(((MouseAction) currentAction).getMousePosition().getX());
-			cursor.setCenterY(((MouseAction) currentAction).getMousePosition().getY());
-			System.out.println("Mouse moved to " + ((MouseAction) currentAction).getMousePosition().getX() + " " + ((MouseAction) currentAction).getMousePosition().getY());
-		}
-		else if (currentAction instanceof SequenceInitiationAction)
-		{
-			handleSequenceInitiationAction((SequenceInitiationAction) currentAction);
-		}
-		else if (currentAction instanceof GameEndAction)
-		{
-			System.out.println("GameEnd");
-		}
-	}
-	
 	private void handleSequenceInitiationAction(SequenceInitiationAction action)
 	{
 		clearBlocks();
@@ -200,7 +196,7 @@ public class GameReplayManager extends GameManager
 			{
 				if (replayStopwatch.getMSFromStart() >= threadOneActions.get(threadOneActionIndex).getMSFromStart())
 				{
-					handleAction(threadOneActions.get(threadOneActionIndex));
+					evaluateAction(threadOneActions.get(threadOneActionIndex));
 					++threadOneActionIndex;
 				}
 			}
@@ -215,7 +211,7 @@ public class GameReplayManager extends GameManager
 
 				if (replayStopwatch.getMSFromStart() >= threadTwoActions.get(threadTwoActionIndex).getMSFromStart())
 				{
-					handleAction(threadTwoActions.get(threadTwoActionIndex));
+					evaluateAction(threadTwoActions.get(threadTwoActionIndex));
 					++threadTwoActionIndex;
 				}
 
