@@ -10,7 +10,8 @@ public class ReplayCursor extends Circle
 {
 	private final static int CURSOR_RADIUS = 4;
 	private final double CURSOR_BLINK_TIME = 0.1;
-	private final Paint BLINK_COLOR = Paint.valueOf("Green");
+	private final Paint NORMAL_COLOR = Paint.valueOf("black");
+	private final Paint BLINK_COLOR = Paint.valueOf("#00FF40");
 	
 	private Stopwatch cursorBlinkStopwatch;
 
@@ -34,6 +35,7 @@ public class ReplayCursor extends Circle
 				if ((((double) cursorBlinkStopwatch.getMSFromStart()) / 1000.0) >= CURSOR_BLINK_TIME)
 				{
 					cursorBlinkStopwatch.reset();
+					setFill(NORMAL_COLOR);
 					this.stop();
 				}
 			}
