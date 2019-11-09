@@ -51,7 +51,7 @@ public class GameManager
 	
 	protected GameData gameData;
 	
-	private int currentLevel;
+	protected int currentLevel;
 	
 	protected CorsiSequencePlayer sequencePlayer;
 	
