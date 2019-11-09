@@ -74,7 +74,6 @@ public class GameReplayManager extends GameManager
 				}
 				else
 				{
-
 					if (replayStopwatch.getMSFromStart() >= threadOneActions.get(threadOneActionIndex).getMSFromStart())
 					{
 						evaluateAction(threadOneActions.get(threadOneActionIndex));
@@ -82,7 +81,6 @@ public class GameReplayManager extends GameManager
 					}
 				}
 			}
-
 		};
 
 		AnimationTimer threadTwo = new AnimationTimer()
@@ -102,9 +100,7 @@ public class GameReplayManager extends GameManager
 						++threadTwoActionIndex;
 					}
 				}
-
 			}
-
 		};
 
 		threadOne.start();
@@ -221,6 +217,10 @@ public class GameReplayManager extends GameManager
 			gameObjects.getChildren().add(rebuiltBlock);
 			System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
 		}
+		
+		// Remove and add cursor to ensure that it draws above blocks
+		gameObjects.getChildren().remove(cursor);
+		gameObjects.getChildren().add(cursor);
 
 		// Rebuild sequence data object
 		CorsiSequenceData sequenceData = new CorsiSequenceData(rebuiltBlocks, 
