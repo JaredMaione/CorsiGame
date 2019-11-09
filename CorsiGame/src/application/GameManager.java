@@ -69,7 +69,7 @@ public class GameManager
 	
 	protected int numTries;
 	
-	private Stage stage;
+	protected Stage stage;
 	
 	protected Text startMessage;
 	protected Text correctMessage;
