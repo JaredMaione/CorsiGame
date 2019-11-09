@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class GameManager 
 {
-	private Button submitButton;
+	protected Button submitButton;
 	private final String SUBMIT_BUTTON_LABEL = "Submit";
 	
 	private final String START_MESSAGE_TEXT = "START";
