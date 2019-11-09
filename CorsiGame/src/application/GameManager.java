@@ -274,7 +274,7 @@ public class GameManager
 		}
 	}
 	
-	protected void evaluatePerformance()
+	private void evaluatePerformance()
 	{
 		boolean success = true;
 		
