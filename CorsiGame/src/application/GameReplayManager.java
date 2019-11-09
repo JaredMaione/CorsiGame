@@ -3,6 +3,8 @@ package application;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -10,6 +12,7 @@ import javafx.stage.Stage;
 
 public class GameReplayManager extends GameManager
 {
+	private final String SIMULATION_FINISHED_MESSAGE = "Simulation complete. Click \"OK\" to return to menu."; 
 	private ArrayList<TimestampedAction> actionQueue;
 
 	private ArrayList<TimestampedAction> threadOneActions;
@@ -144,8 +147,17 @@ public class GameReplayManager extends GameManager
 		}
 		else if (currentAction instanceof GameEndAction)
 		{
-			System.out.println("GameEnd");
+			handleGameEndAction();
 		}
+	}
+	
+	private void handleGameEndAction()
+	{
+		Alert noScoresAlert = new Alert(AlertType.INFORMATION);
+		noScoresAlert.setTitle(SIMULATION_FINISHED_MESSAGE);
+		noScoresAlert.showAndWait();
+		
+		PlayerViewMenu menu = new PlayerViewMenu(stage, playerData, players);
 	}
 
 	private void handleSubmitClickedAction()
@@ -191,7 +203,6 @@ public class GameReplayManager extends GameManager
 			else
 			{
 				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
-				//processGameOver();
 			}
 		}
 
