@@ -58,7 +58,7 @@ public class GameReplayManager extends GameManager
 		beginSimulation();
 	}
 	
-	private void evaluatePerformance()
+	private void handleSubmitClickedAction()
 	{
 		boolean success = true;
 		
@@ -108,6 +108,11 @@ public class GameReplayManager extends GameManager
 		clickedBlocks.clear();
 	}
 	
+	private void evaluatePerformance()
+	{
+		
+	}
+	
 	private void handleAction(TimestampedAction currentAction)
 	{
 		if (currentAction instanceof BlockClickedAction)
@@ -126,7 +131,7 @@ public class GameReplayManager extends GameManager
 		}
 		else if (currentAction instanceof SubmitClickedAction)
 		{
-			evaluatePerformance();
+			handleSubmitClickedAction();
 			System.out.println("SubmitAction");
 		}
 		else if (currentAction instanceof MouseClickAction)
@@ -155,6 +160,7 @@ public class GameReplayManager extends GameManager
 
 		blocks = action.getSequence().getBlocks();
 		currentLevel = action.getSequence().getLevel();
+		System.out.println(currentLevel);
 		++numTries;
 
 		// Reconstruct all blocks due to serialization not preserving correct information
