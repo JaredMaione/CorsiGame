@@ -3,8 +3,10 @@ package application;
 import java.util.ArrayList;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -12,7 +14,9 @@ import javafx.stage.Stage;
 
 public class GameReplayManager extends GameManager
 {
-	private final String SIMULATION_FINISHED_MESSAGE = "Simulation complete. Click \"OK\" to return to menu."; 
+	private final String MENU_BUTTON_LABEL = "Return to Menu";
+	private final int MENU_BUTTON_OFFSET = 50;
+	
 	private ArrayList<TimestampedAction> actionQueue;
 
 	private ArrayList<TimestampedAction> threadOneActions;
@@ -23,6 +27,8 @@ public class GameReplayManager extends GameManager
 	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private Stopwatch replayStopwatch;
 	private ReplayCursor cursor;
+	
+	private Button returnToMenuButton;
 
 	public GameReplayManager(Stage stage, GameData gameData, PlayerData playerData, ArrayList<PlayerData> players)
 	{
@@ -37,8 +43,22 @@ public class GameReplayManager extends GameManager
 		replayStopwatch = new Stopwatch();
 		
 		cursor = new ReplayCursor();
-
 		gameObjects.getChildren().add(cursor);
+
+		returnToMenuButton = new Button(MENU_BUTTON_LABEL);
+		returnToMenuButton.setLayoutX((stage.getScene().getWidth() / 2) - MENU_BUTTON_OFFSET);
+		returnToMenuButton.setLayoutY(stage.getScene().getHeight() / 2);
+		
+		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
+		{
+			@Override
+			public void handle(MouseEvent e) 
+			{
+				PlayerViewMenu menu = new PlayerViewMenu(stage, playerData, players);
+			}
+		};
+		
+		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 
 		threadOneActions = new ArrayList<TimestampedAction>();
 		threadTwoActions = new ArrayList<TimestampedAction>();
@@ -153,11 +173,10 @@ public class GameReplayManager extends GameManager
 	
 	private void handleGameEndAction()
 	{
-		Alert noScoresAlert = new Alert(AlertType.INFORMATION);
-		noScoresAlert.setTitle(SIMULATION_FINISHED_MESSAGE);
-		noScoresAlert.showAndWait();
-		
-		PlayerViewMenu menu = new PlayerViewMenu(stage, playerData, players);
+		clearBlocks();
+		gameObjects.getChildren().remove(submitButton);
+		gameObjects.getChildren().remove(cursor);
+		gameObjects.getChildren().add(returnToMenuButton);
 	}
 
 	private void handleSubmitClickedAction()
