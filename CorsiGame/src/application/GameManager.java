@@ -202,12 +202,13 @@ public class GameManager
 				}
 				else if (e.getSource().equals(submitButton))
 				{
+					gameData.addTimestampedAction(new SubmitClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
+					
 					if (clickedBlocks.size() != 0)
 					{
 						evaluatePerformance();
 					}
 					
-					gameData.addTimestampedAction(new SubmitClickedAction(gameTimer.getMSFromStart(), new Position(e.getX(), e.getY()), e.getClickCount()));
 				}
 			}
 		};
