@@ -14,7 +14,6 @@ public class GameReplayManager extends GameManager
 
 	private ArrayList<TimestampedAction> actionQueue;
 
-	// Test
 	private ArrayList<TimestampedAction> threadOneActions;
 	private ArrayList<TimestampedAction> threadTwoActions;
 	private int threadOneActionIndex;
@@ -23,7 +22,7 @@ public class GameReplayManager extends GameManager
 	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private Stopwatch replayStopwatch;
 	private Circle cursor;
-
+	
 	public GameReplayManager(Stage stage, GameData gameData, PlayerData playerData, ArrayList<PlayerData> players)
 	{
 		super(stage);
@@ -58,6 +57,131 @@ public class GameReplayManager extends GameManager
 
 		beginSimulation();
 	}
+	
+	private void evaluatePerformance()
+	{
+		boolean success = true;
+		
+		if (clickedBlocks.size() == 0 || clickedBlocks.size() != currentLevel)
+		{
+			success = false;
+		}
+		else
+		{
+			// Check sequence in normal order
+			for (int i = 0; i < currentLevel; ++i)
+			{
+				success = success && rebuiltBlocks.get(i).equals(clickedBlocks.get(i));
+			}
+			
+			if (!success)
+			{
+				success = true;
+				
+				// Check sequence in reverse order
+				for (int clickedSeqIndex = 0, seqIndex = currentLevel -1; seqIndex >= 0; ++clickedSeqIndex, --seqIndex)
+				{
+					success = success && rebuiltBlocks.get(seqIndex).equals(clickedBlocks.get(clickedSeqIndex));
+				}
+			}
+		}
+					
+		if (success)
+		{
+			++currentLevel;
+			numTries = 0;
+			TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
+		}
+		else
+		{
+			if (numTries < 2)
+			{
+				TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
+			}
+			else
+			{
+				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
+				//processGameOver();
+			}
+		}
+		
+		clickedBlocks.clear();
+	}
+	
+	private void handleAction(TimestampedAction currentAction)
+	{
+		if (currentAction instanceof BlockClickedAction)
+		{
+			CorsiBlock clickedBlock = ((BlockClickedAction) currentAction).getBlock();
+
+			for (CorsiBlock rebuiltBlock : rebuiltBlocks)
+			{
+				if (clickedBlock.getPosition().equals(rebuiltBlock.getPosition()))
+				{
+					rebuiltBlock.blink(CLICKED_BLOCK_BLINK_DURATION);
+					clickedBlocks.add(rebuiltBlock);
+				}
+			}
+			System.out.println("BlockAction");
+		}
+		else if (currentAction instanceof SubmitClickedAction)
+		{
+			evaluatePerformance();
+			System.out.println("SubmitAction");
+		}
+		else if (currentAction instanceof MouseClickAction)
+		{
+			System.out.println("ClickAction");
+		}
+		else if (currentAction instanceof MouseAction)
+		{
+			cursor.setCenterX(((MouseAction) currentAction).getMousePosition().getX());
+			cursor.setCenterY(((MouseAction) currentAction).getMousePosition().getY());
+			System.out.println("Mouse moved to " + ((MouseAction) currentAction).getMousePosition().getX() + " " + ((MouseAction) currentAction).getMousePosition().getY());
+		}
+		else if (currentAction instanceof SequenceInitiationAction)
+		{
+			handleSequenceInitiationAction((SequenceInitiationAction) currentAction);
+		}
+		else if (currentAction instanceof GameEndAction)
+		{
+			System.out.println("GameEnd");
+		}
+	}
+	
+	private void handleSequenceInitiationAction(SequenceInitiationAction action)
+	{
+		clearBlocks();
+
+		blocks = action.getSequence().getBlocks();
+		currentLevel = action.getSequence().getLevel();
+		++numTries;
+
+		// Reconstruct all blocks due to serialization not preserving correct information
+		rebuiltBlocks = new ArrayList<CorsiBlock>();
+		for (CorsiBlock deserializedBlock : blocks)
+		{
+			deserializedBlock.refreshPosition();
+			CorsiBlock rebuiltBlock = new CorsiBlock(deserializedBlock.getX(), deserializedBlock.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
+			rebuiltBlocks.add(rebuiltBlock);
+			gameObjects.getChildren().add(rebuiltBlock);
+			System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
+		}
+
+		// Rebuild sequence data object
+		CorsiSequenceData sequenceData = new CorsiSequenceData(rebuiltBlocks, 
+				action.getSequence().getLevel(), 
+				SEC_BETWEEN_BLINKS, 
+				SEQUENCE_BLOCK_BLINK_DURATION, 
+				false, 
+				action.getSequence().getSecToDelay());
+
+
+		double seconds = sequencePlayer.playSequence(sequenceData);
+		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
+		System.out.println("InitAction");
+	}
+
 
 	private void beginSimulation()
 	{
@@ -97,71 +221,7 @@ public class GameReplayManager extends GameManager
 		threadTwo.start();
 	}
 
-	private void handleAction(TimestampedAction currentAction)
-	{
-		if (currentAction instanceof BlockClickedAction)
-		{
-			CorsiBlock clickedBlock = ((BlockClickedAction) currentAction).getBlock();
-
-			for (CorsiBlock rebuiltBlock : rebuiltBlocks)
-			{
-				if (clickedBlock.getPosition().equals(rebuiltBlock.getPosition()))
-				{
-					rebuiltBlock.blink(CLICKED_BLOCK_BLINK_DURATION);
-				}
-			}
-			System.out.println("BlockAction");
-		}
-		else if (currentAction instanceof MouseClickAction)
-		{
-			System.out.println("ClickAction");
-		}
-		else if (currentAction instanceof MouseAction)
-		{
-			cursor.setCenterX(((MouseAction) currentAction).getMousePosition().getX());
-			cursor.setCenterY(((MouseAction) currentAction).getMousePosition().getY());
-			System.out.println("Mouse moved to " + ((MouseAction) currentAction).getMousePosition().getX() + " " + ((MouseAction) currentAction).getMousePosition().getY());
-		}
-		else if (currentAction instanceof SequenceInitiationAction)
-		{
-			clearBlocks();
-
-			blocks = ((SequenceInitiationAction) currentAction).getSequence().getBlocks();
-
-			// Reconstruct all blocks due to serialization not preserving correct information
-			rebuiltBlocks = new ArrayList<CorsiBlock>();
-			for (CorsiBlock deserializedBlock : blocks)
-			{
-				deserializedBlock.refreshPosition();
-				CorsiBlock rebuiltBlock = new CorsiBlock(deserializedBlock.getX(), deserializedBlock.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
-				rebuiltBlocks.add(rebuiltBlock);
-				gameObjects.getChildren().add(rebuiltBlock);
-				System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
-			}
-
-			// Rebuild sequence data object
-			CorsiSequenceData sequenceData = new CorsiSequenceData(rebuiltBlocks, 
-					((SequenceInitiationAction) currentAction).getSequence().getLevel(), 
-					SEC_BETWEEN_BLINKS, 
-					SEQUENCE_BLOCK_BLINK_DURATION, 
-					false, 
-					((SequenceInitiationAction) currentAction).getSequence().getSecToDelay());
-
-
-			double seconds = sequencePlayer.playSequence(sequenceData);
-			TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
-			System.out.println("InitAction");
-		}
-		else if (currentAction instanceof SubmitClickedAction)
-		{
-			System.out.println("SubmitAction");
-		}
-		else if (currentAction instanceof GameEndAction)
-		{
-			System.out.println("GameEnd");
-		}
-
-	}
+	
 
 	private void clearBlocks()
 	{
