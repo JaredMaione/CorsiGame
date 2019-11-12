@@ -4,7 +4,7 @@ public class MouseAction extends TimestampedAction
 {
 	private static final long serialVersionUID = 1731036758250251218L;
 	
-	protected Position mousePosition;
+	private Position mousePosition;
 	
 	public MouseAction(long msFromStart, Position mousePosition)
 	{
