@@ -10,7 +10,8 @@ public class PlayerData implements Serializable, Comparable<PlayerData>
 {	
 	private static final long serialVersionUID = 252115055904727829L;
 	
-	public static final String FILE_IDENTIFIER = "PLAYER_DATA";
+	public static final String PLAYERS_FOLDER_NAME = "Players"; 
+	
 	private String username;
 	private String password;
 	private Date dob;
@@ -46,8 +47,7 @@ public class PlayerData implements Serializable, Comparable<PlayerData>
 	
 	public String sendToString()
 	{
-		String dataString = FILE_IDENTIFIER + "\n" + 
-			   username + "\n" +
+		String dataString = username + "\n" +
 			   password + "\n" +
 			   dob.toFormattedString() + "\n" + 
 			   city + "\n" +
