@@ -372,6 +372,11 @@ public class GameManager
 		clearBlocks();
 		currentLevel = STARTING_LEVEL;
 	}
+	
+	public ArrayList<PlayerData> getPlayers()
+	{
+		return players;
+	}
 
 	public PlayerData getPlayerData()
 	{
@@ -391,6 +396,11 @@ public class GameManager
 	public ArrayList<CorsiBlock> getClickedBlocks()
 	{
 		return clickedBlocks;
+	}
+	
+	public void setPlayers(ArrayList<PlayerData> players)
+	{
+		this.players = players;
 	}
 
 	public void setBlocks(ArrayList<CorsiBlock> blocks)
