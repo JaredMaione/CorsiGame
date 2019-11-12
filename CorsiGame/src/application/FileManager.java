@@ -1,32 +1,31 @@
 package application;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public abstract class FileManager 
 {
 	private static final String ENCRYPTION_KEY = "123456781234";
+	
 	public static final String PLAYER_FILES_FOLDER = "GameFiles\\Players";
+	
+	private static final String EXCEPTION_ALERT_TITLE = "Error!";
 	
 	public static void writeEncrypted(Object object, String path)
 	{
@@ -41,7 +40,7 @@ public abstract class FileManager
 		} 
 		catch (IOException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) 
 		{
-			e.printStackTrace();
+			displayErrorDialogBox(e.getMessage());
 		}
 	}
 	
@@ -61,7 +60,7 @@ public abstract class FileManager
 		} 
 		catch (IOException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException e) 
 		{
-			e.printStackTrace();
+			displayErrorDialogBox(e.getMessage());
 		}
 	}
 	
@@ -83,7 +82,7 @@ public abstract class FileManager
 		} 
 		catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IOException | ClassNotFoundException e) 
 		{
-			e.printStackTrace();
+			displayErrorDialogBox(e.getMessage());
 		}
 		
 		return objectToReturn;
@@ -114,9 +113,18 @@ public abstract class FileManager
 		} 
 		catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IOException e) 
 		{
-			e.printStackTrace();
+			displayErrorDialogBox(e.getMessage());
 		}
 		
 		return "";
+	}
+	
+	private static void displayErrorDialogBox(String message)
+	{
+		Alert exceptionAlert = new Alert(AlertType.INFORMATION);
+
+		exceptionAlert.setTitle(EXCEPTION_ALERT_TITLE);
+		exceptionAlert.setHeaderText(message);
+		exceptionAlert.showAndWait();
 	}
 }
