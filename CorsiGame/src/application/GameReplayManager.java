@@ -174,7 +174,7 @@ public class GameReplayManager extends GameManager
 	private void handleGameEndAction()
 	{
 		clearBlocks();
-		gameObjects.getChildren().remove(submitButton);
+		gameObjects.getChildren().remove(getSubmitButton());
 		gameObjects.getChildren().remove(cursor);
 		gameObjects.getChildren().add(returnToMenuButton);
 	}
