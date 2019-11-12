@@ -140,7 +140,7 @@ public class GameReplayManager extends GameManager
 				if (clickedBlock.getPosition().equals(rebuiltBlock.getPosition()))
 				{
 					rebuiltBlock.blink(CLICKED_BLOCK_BLINK_DURATION);
-					clickedBlocks.add(rebuiltBlock);
+					getClickedBlocks().add(rebuiltBlock);
 				}
 			}
 			System.out.println("BlockAction");
@@ -183,7 +183,7 @@ public class GameReplayManager extends GameManager
 	{
 		boolean success = true;
 
-		if (clickedBlocks.size() == 0 || clickedBlocks.size() != currentLevel)
+		if (getClickedBlocks().size() == 0 || getClickedBlocks().size() != currentLevel)
 		{
 			success = false;
 		}
@@ -192,7 +192,7 @@ public class GameReplayManager extends GameManager
 			// Check sequence in normal order
 			for (int i = 0; i < currentLevel; ++i)
 			{
-				success = success && rebuiltBlocks.get(i).equals(clickedBlocks.get(i));
+				success = success && rebuiltBlocks.get(i).equals(getClickedBlocks().get(i));
 			}
 
 			if (!success)
@@ -202,7 +202,7 @@ public class GameReplayManager extends GameManager
 				// Check sequence in reverse order
 				for (int clickedSeqIndex = 0, seqIndex = currentLevel -1; seqIndex >= 0; ++clickedSeqIndex, --seqIndex)
 				{
-					success = success && rebuiltBlocks.get(seqIndex).equals(clickedBlocks.get(clickedSeqIndex));
+					success = success && rebuiltBlocks.get(seqIndex).equals(getClickedBlocks().get(clickedSeqIndex));
 				}
 			}
 		}
@@ -225,21 +225,21 @@ public class GameReplayManager extends GameManager
 			}
 		}
 
-		clickedBlocks.clear();
+		getClickedBlocks().clear();
 	}
 
 	private void handleSequenceInitiationAction(SequenceInitiationAction action)
 	{
 		clearBlocks();
 
-		blocks = action.getSequence().getBlocks();
+		setBlocks(action.getSequence().getBlocks());
 		currentLevel = action.getSequence().getLevel();
 		System.out.println(currentLevel);
 		++numTries;
 
 		// Reconstruct all blocks due to serialization not preserving correct information
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
-		for (CorsiBlock deserializedBlock : blocks)
+		for (CorsiBlock deserializedBlock : getBlocks())
 		{
 			deserializedBlock.refreshPosition();
 			CorsiBlock rebuiltBlock = new CorsiBlock(deserializedBlock.getX(), deserializedBlock.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
@@ -274,6 +274,6 @@ public class GameReplayManager extends GameManager
 		}
 
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
-		blocks = new ArrayList<CorsiBlock>();
+		setBlocks(new ArrayList<CorsiBlock>());
 	}
 }
