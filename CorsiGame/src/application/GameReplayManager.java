@@ -34,7 +34,7 @@ public class GameReplayManager extends GameManager
 	{
 		super(stage);
 		setPlayerData(playerData);
-		this.players = players;
+		setPlayers(players);
 		this.gameData = gameData;
 
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
