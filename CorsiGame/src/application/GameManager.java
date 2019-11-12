@@ -67,17 +67,17 @@ public class GameManager
 
 	private EventHandler<MouseEvent> clickHandler;
 
-	protected int numTries;
+	private int numTries;
 
-	protected Stage stage;
+	private Stage stage;
 
-	protected Text startMessage;
-	protected Text correctMessage;
-	protected Text incorrectMessage;
-	protected Text readyMessage;
-	protected Text gameOverMessage;
+	private Text startMessage;
+	private Text correctMessage;
+	private Text incorrectMessage;
+	private Text readyMessage;
+	private Text gameOverMessage;
 
-	protected Stopwatch mouseCaptureStopwatch;
+	private Stopwatch mouseCaptureStopwatch;
 
 	public GameManager(Stage stage)
 	{
@@ -465,5 +465,85 @@ public class GameManager
 	public void setGameObjects(Group gameObjects) 
 	{
 		this.gameObjects = gameObjects;
+	}
+
+	public int getNumTries() 
+	{
+		return numTries;
+	}
+
+	public void setNumTries(int numTries) 
+	{
+		this.numTries = numTries;
+	}
+
+	public Stage getStage() 
+	{
+		return stage;
+	}
+
+	public void setStage(Stage stage) 
+	{
+		this.stage = stage;
+	}
+
+	public Text getStartMessage() 
+	{
+		return startMessage;
+	}
+
+	public void setStartMessage(Text startMessage) 
+	{
+		this.startMessage = startMessage;
+	}
+
+	public Text getCorrectMessage() 
+	{
+		return correctMessage;
+	}
+
+	public void setCorrectMessage(Text correctMessage) 
+	{
+		this.correctMessage = correctMessage;
+	}
+
+	public Text getIncorrectMessage() 
+	{
+		return incorrectMessage;
+	}
+
+	public void setIncorrectMessage(Text incorrectMessage) 
+	{
+		this.incorrectMessage = incorrectMessage;
+	}
+
+	public Text getReadyMessage() 
+	{
+		return readyMessage;
+	}
+
+	public void setReadyMessage(Text readyMessage) 
+	{
+		this.readyMessage = readyMessage;
+	}
+
+	public Text getGameOverMessage() 
+	{
+		return gameOverMessage;
+	}
+
+	public void setGameOverMessage(Text gameOverMessage) 
+	{
+		this.gameOverMessage = gameOverMessage;
+	}
+
+	public Stopwatch getMouseCaptureStopwatch() 
+	{
+		return mouseCaptureStopwatch;
+	}
+
+	public void setMouseCaptureStopwatch(Stopwatch mouseCaptureStopwatch) 
+	{
+		this.mouseCaptureStopwatch = mouseCaptureStopwatch;
 	}
 }
