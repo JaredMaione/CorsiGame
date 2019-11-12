@@ -33,7 +33,7 @@ public class GameReplayManager extends GameManager
 	public GameReplayManager(Stage stage, GameData gameData, PlayerData playerData, ArrayList<PlayerData> players)
 	{
 		super(stage);
-		this.playerData = playerData;
+		setPlayerData(playerData);
 		this.players = players;
 		this.gameData = gameData;
 
