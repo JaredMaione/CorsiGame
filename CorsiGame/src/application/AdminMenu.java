@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class handles the administrator menu, where the admin can view player scores and game replays
 public class AdminMenu 
 {
 	private final String VIEW_SCOREBOARD_BUTTON_LABEL = "View Global Scoreboard";
