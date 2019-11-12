@@ -46,17 +46,17 @@ public class GameManager
 	private PlayerData playerData;
 	private ArrayList<PlayerData> players;
 
-	protected Stopwatch sequenceTimer;
+	private Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
 
-	protected GameData gameData;
+	private GameData gameData;
 
-	protected int currentLevel;
+	private int currentLevel;
 
-	protected CorsiSequencePlayer sequencePlayer;
+	private CorsiSequencePlayer sequencePlayer;
 
 	// All blocks will be added to this node
-	protected Group gameObjects;
+	private Group gameObjects;
 
 	protected final int NUM_BLOCKS = 9;
 
@@ -416,5 +416,54 @@ public class GameManager
 	public void setPlayerData(PlayerData playerData)
 	{
 		this.playerData = playerData;
+	}
+
+	public Stopwatch getSequenceTimer() 
+	{
+		return sequenceTimer;
+	}
+
+	public void setSequenceTimer(Stopwatch sequenceTimer) 
+	{
+		this.sequenceTimer = sequenceTimer;
+	}
+
+	public GameData getGameData() 
+	{
+		return gameData;
+	}
+
+	public void setGameData(GameData gameData) 
+	{
+		this.gameData = gameData;
+	}
+
+	public int getCurrentLevel() {
+		return currentLevel;
+	}
+
+	public void setCurrentLevel(int currentLevel) 
+	{
+		this.currentLevel = currentLevel;
+	}
+
+	public CorsiSequencePlayer getSequencePlayer() 
+	{
+		return sequencePlayer;
+	}
+
+	public void setSequencePlayer(CorsiSequencePlayer sequencePlayer) 
+	{
+		this.sequencePlayer = sequencePlayer;
+	}
+
+	public Group getGameObjects() 
+	{
+		return gameObjects;
+	}
+
+	public void setGameObjects(Group gameObjects) 
+	{
+		this.gameObjects = gameObjects;
 	}
 }
