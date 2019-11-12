@@ -1,5 +1,7 @@
 package application;
 
+// This class logs the moment when the player clicks on a block
+// It is a subclass of MouseAction, which is a subclass of TimestampedAction
 public class BlockClickedAction extends MouseClickAction
 {
 	private static final long serialVersionUID = -3919053914713999810L;
