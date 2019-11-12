@@ -1,15 +1,11 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -43,12 +39,14 @@ public class AdminMenu
 		playerLookupButton = new Button(PLAYER_LOOKUP_BUTTON_LABEL);
 		mainMenuButton = new Button(MENU_BUTTON_LABEL);
 		
+		// Configure box to hold all buttons
 		HBox buttonBox = new HBox();
 		buttonBox.setSpacing(COMPONENT_SPACING);
 		buttonBox.getChildren().add(viewScoreboardButton);
 		buttonBox.getChildren().add(playerLookupButton);
 		buttonBox.getChildren().add(mainMenuButton);
 		
+		// Configure event handler for all buttons
 		EventHandler<MouseEvent> buttonHandler = new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -75,6 +73,7 @@ public class AdminMenu
 		playerLookupButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 		mainMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 
+		// Configure main FlowPane and add children
 		mainPane = new FlowPane(Orientation.VERTICAL);
 		mainPane.setPadding(new Insets(PADDING_VALUE, PADDING_VALUE, PADDING_VALUE, PADDING_VALUE));
 		mainPane.getChildren().add(new GameInformationHeader());
@@ -85,5 +84,6 @@ public class AdminMenu
 		this.stage = stage;
 		stage.setScene(new Scene(mainPane, 400, 120));
 		stage.getScene().getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.show();
 	}
 }
