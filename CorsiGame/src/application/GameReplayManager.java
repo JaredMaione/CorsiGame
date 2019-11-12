@@ -77,7 +77,7 @@ public class GameReplayManager extends GameManager
 			}
 		}
 
-		TimedMessageDisplay.displayMessage(readyMessage, 0, 0.5);
+		TimedMessageDisplay.displayMessage(getReadyMessage(), 0, 0.5);
 		beginSimulation();
 	}
 
@@ -210,18 +210,18 @@ public class GameReplayManager extends GameManager
 		if (success)
 		{
 			setCurrentLevel(getCurrentLevel() + 1);
-			numTries = 0;
-			TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
+			setNumTries(0);
+			TimedMessageDisplay.displayMessage(getCorrectMessage(), 0, 2);
 		}
 		else
 		{
-			if (numTries < 2)
+			if (getNumTries() < 2)
 			{
-				TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
+				TimedMessageDisplay.displayMessage(getIncorrectMessage(), 0, 2);
 			}
 			else
 			{
-				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
+				TimedMessageDisplay.displayMessage(getGameOverMessage(), 0, 0.5);
 			}
 		}
 
@@ -235,7 +235,7 @@ public class GameReplayManager extends GameManager
 		setBlocks(action.getSequence().getBlocks());
 		setCurrentLevel(action.getSequence().getLevel());
 		System.out.println(getCurrentLevel());
-		++numTries;
+		setNumTries(getNumTries() + 1);
 
 		// Reconstruct all blocks due to serialization not preserving correct information
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
@@ -262,7 +262,7 @@ public class GameReplayManager extends GameManager
 
 
 		double seconds = getSequencePlayer().playSequence(sequenceData);
-		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
+		TimedMessageDisplay.displayMessage(getStartMessage(), seconds, 0.2);
 		System.out.println("InitAction");
 	}
 
