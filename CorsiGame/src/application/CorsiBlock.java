@@ -6,9 +6,14 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+// This class is a clickable rectangle which may be placed on the screen
+// It inherits from the JavaFX rectangle class and thus works with other JavaFX components
+// It can blink when clicked, but does not have its own event handler
+// The blink method should be called by the event handler
 public class CorsiBlock extends Rectangle implements Serializable
 {
 	private static final long serialVersionUID = 8373831206086832375L;
+	
 	private final BlockColor LIT_COLOR = BlockColor.RED;
 	private final BlockColor UNLIT_COLOR = BlockColor.BLUE;
 	
