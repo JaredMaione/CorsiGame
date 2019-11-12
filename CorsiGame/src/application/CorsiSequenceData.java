@@ -3,6 +3,8 @@ package application;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+// This class stores all information about a sequence for use later
+// It can be used to reconstruct a generated sequence
 public class CorsiSequenceData implements Serializable
 {
 	private static final long serialVersionUID = -2483897520589617244L;
@@ -11,7 +13,11 @@ public class CorsiSequenceData implements Serializable
 	private int level;
 	private double secBetweenBlinks;
 	private double blinkSeconds;
+	
+	// Whether or not this sequence will start the
+	// argument sequence timer once it is finished
 	private boolean startSequenceTimer;
+	
 	private double secToDelay;
 	
 	public CorsiSequenceData(ArrayList<CorsiBlock> blocks, int level, double secBetweenBlinks, double blinkSeconds, boolean startSequenceTimer, double secToDelay)
