@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class GameManager 
 {
-	protected Button submitButton;
+	private Button submitButton;
 	private final String SUBMIT_BUTTON_LABEL = "Submit";
 	
 	private final String START_MESSAGE_TEXT = "START";
@@ -371,6 +371,11 @@ public class GameManager
 		sequenceTimer.reset();
 		clearBlocks();
 		currentLevel = STARTING_LEVEL;
+	}
+	
+	public Button getSubmitButton()
+	{
+		return submitButton;
 	}
 	
 	public ArrayList<CorsiBlock> getBlocks()
