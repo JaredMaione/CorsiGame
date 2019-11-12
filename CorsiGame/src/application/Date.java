@@ -5,9 +5,6 @@ import java.time.LocalDate;
 
 public class Date implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7576121268789295899L;
 
 	private int month;
