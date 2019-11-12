@@ -1,14 +1,14 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
-import javafx.scene.text.Text;
 
+// This class will play a CorsiSequence based on several parameters
 public class CorsiSequencePlayer 
 {
 	private Stopwatch stopwatch;
 	private Stopwatch sequenceTimer;
+	
 	private int blockIndex;
 	
 	public CorsiSequencePlayer(Stopwatch sequenceTimer)
@@ -18,13 +18,16 @@ public class CorsiSequencePlayer
 		this.sequenceTimer = sequenceTimer;
 	}
 	
+	// This method plays a sequence
+	// It returns a very accurate estimate of the amount of time it will
+	// take the sequence to play from start to finish
 	public double playSequence(ArrayList<CorsiBlock> blocks, int level, double secBetweenBlinks, double blinkSeconds, boolean startSequenceTimer, double secToDelay)
 	{	
 		blockIndex = 0;
 		
 		if (blocks.size() > 0)
 		{
-			// Lock out all blocks
+			// Lock out all blocks to prevent user from clicking them early
 			for (CorsiBlock block : blocks)
 			{
 				block.setClickable(false);
@@ -40,6 +43,7 @@ public class CorsiSequencePlayer
 					{
 						stopwatch.reset();
 						
+						// Unlock all blocks after the sequence is over and begin sequence timer (if applicable
 						if (blockIndex == level - 1 || blockIndex == blocks.size())
 						{
 							this.stop();
@@ -58,6 +62,7 @@ public class CorsiSequencePlayer
 							return;
 						}
 						
+						// Handle to next block in sequence
 						++blockIndex;
 						blocks.get(blockIndex).blink(blinkSeconds);
 						stopwatch.start();
@@ -65,9 +70,10 @@ public class CorsiSequencePlayer
 				}
 			};
 			
+			// This timer delays the start of the sequence to allow for a message to be displayed
+			// by another class
 			AnimationTimer delayTimer = new AnimationTimer()
 			{
-
 				@Override
 				public void handle(long now) 
 				{
@@ -94,16 +100,20 @@ public class CorsiSequencePlayer
 		return 0;
 	}
 	
+	// Plays a sequence based off of an existing CorsiSequenceData object
 	public double playSequence(CorsiSequenceData data)
 	{
 		return playSequence(data.getBlocks(), data.getLevel(), data.getSecBetweenBlinks(), data.getBlinkSeconds(), data.isStartSequenceTimer(), data.getSecToDelay());
 	}
 	
+	// This method estimates the amount of time it will take to play a sequence from beginning to end 
 	private double estimateSequenceTime(int level, double secBetweenBlinks, double blinkSeconds)
 	{
 		return (blinkSeconds + secBetweenBlinks) * level;
 	}
 	
+	// This method estimates the amount of time it will take to play a sequence, including any delay before the sequence
+	// begins playing
 	private double estimateSequenceTime(int level, double secBetweenBlinks, double blinkSeconds, double secToDelay)
 	{
 		return estimateSequenceTime(level, secBetweenBlinks, blinkSeconds) + secToDelay;
