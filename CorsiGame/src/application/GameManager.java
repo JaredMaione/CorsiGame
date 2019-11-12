@@ -40,8 +40,8 @@ public class GameManager
 	protected final double GAME_START_DELAY = 2.5;
 	protected final int MOUSE_CAPTURE_INTERVAL_MS = 75;
 	
-	protected ArrayList<CorsiBlock> blocks;
-	protected ArrayList<CorsiBlock> clickedBlocks;
+	private ArrayList<CorsiBlock> blocks;
+	private ArrayList<CorsiBlock> clickedBlocks;
 	
 	protected PlayerData playerData;
 	protected ArrayList<PlayerData> players;
@@ -371,5 +371,25 @@ public class GameManager
 		sequenceTimer.reset();
 		clearBlocks();
 		currentLevel = STARTING_LEVEL;
+	}
+	
+	public ArrayList<CorsiBlock> getBlocks()
+	{
+		return blocks;
+	}
+	
+	public ArrayList<CorsiBlock> getClickedBlocks()
+	{
+		return clickedBlocks;
+	}
+	
+	public void setBlocks(ArrayList<CorsiBlock> blocks)
+	{
+		this.blocks = blocks;
+	}
+	
+	public void setClickedBlocks(ArrayList<CorsiBlock> clickedBlocks)
+	{
+		this.clickedBlocks = clickedBlocks;
 	}
 }
