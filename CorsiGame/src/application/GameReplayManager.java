@@ -35,7 +35,7 @@ public class GameReplayManager extends GameManager
 		super(stage);
 		setPlayerData(playerData);
 		setPlayers(players);
-		this.gameData = gameData;
+		setGameData(gameData);
 
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
 
@@ -43,7 +43,7 @@ public class GameReplayManager extends GameManager
 		replayStopwatch = new Stopwatch();
 		
 		cursor = new ReplayCursor();
-		gameObjects.getChildren().add(cursor);
+		getGameObjects().getChildren().add(cursor);
 
 		returnToMenuButton = new Button(MENU_BUTTON_LABEL);
 		returnToMenuButton.setLayoutX((stage.getScene().getWidth() / 2) - MENU_BUTTON_OFFSET);
@@ -174,23 +174,23 @@ public class GameReplayManager extends GameManager
 	private void handleGameEndAction()
 	{
 		clearBlocks();
-		gameObjects.getChildren().remove(getSubmitButton());
-		gameObjects.getChildren().remove(cursor);
-		gameObjects.getChildren().add(returnToMenuButton);
+		getGameObjects().getChildren().remove(getSubmitButton());
+		getGameObjects().getChildren().remove(cursor);
+		getGameObjects().getChildren().add(returnToMenuButton);
 	}
 
 	private void handleSubmitClickedAction()
 	{
 		boolean success = true;
 
-		if (getClickedBlocks().size() == 0 || getClickedBlocks().size() != currentLevel)
+		if (getClickedBlocks().size() == 0 || getClickedBlocks().size() != getCurrentLevel())
 		{
 			success = false;
 		}
 		else
 		{
 			// Check sequence in normal order
-			for (int i = 0; i < currentLevel; ++i)
+			for (int i = 0; i < getCurrentLevel(); ++i)
 			{
 				success = success && rebuiltBlocks.get(i).equals(getClickedBlocks().get(i));
 			}
@@ -200,7 +200,7 @@ public class GameReplayManager extends GameManager
 				success = true;
 
 				// Check sequence in reverse order
-				for (int clickedSeqIndex = 0, seqIndex = currentLevel -1; seqIndex >= 0; ++clickedSeqIndex, --seqIndex)
+				for (int clickedSeqIndex = 0, seqIndex = getCurrentLevel() -1; seqIndex >= 0; ++clickedSeqIndex, --seqIndex)
 				{
 					success = success && rebuiltBlocks.get(seqIndex).equals(getClickedBlocks().get(clickedSeqIndex));
 				}
@@ -209,7 +209,7 @@ public class GameReplayManager extends GameManager
 
 		if (success)
 		{
-			++currentLevel;
+			setCurrentLevel(getCurrentLevel() + 1);
 			numTries = 0;
 			TimedMessageDisplay.displayMessage(correctMessage, 0, 2);
 		}
@@ -233,8 +233,8 @@ public class GameReplayManager extends GameManager
 		clearBlocks();
 
 		setBlocks(action.getSequence().getBlocks());
-		currentLevel = action.getSequence().getLevel();
-		System.out.println(currentLevel);
+		setCurrentLevel(action.getSequence().getLevel());
+		System.out.println(getCurrentLevel());
 		++numTries;
 
 		// Reconstruct all blocks due to serialization not preserving correct information
@@ -244,13 +244,13 @@ public class GameReplayManager extends GameManager
 			deserializedBlock.refreshPosition();
 			CorsiBlock rebuiltBlock = new CorsiBlock(deserializedBlock.getX(), deserializedBlock.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
 			rebuiltBlocks.add(rebuiltBlock);
-			gameObjects.getChildren().add(rebuiltBlock);
+			getGameObjects().getChildren().add(rebuiltBlock);
 			System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
 		}
 		
 		// Remove and add cursor to ensure that it draws above blocks
-		gameObjects.getChildren().remove(cursor);
-		gameObjects.getChildren().add(cursor);
+		getGameObjects().getChildren().remove(cursor);
+		getGameObjects().getChildren().add(cursor);
 
 		// Rebuild sequence data object
 		CorsiSequenceData sequenceData = new CorsiSequenceData(rebuiltBlocks, 
@@ -261,7 +261,7 @@ public class GameReplayManager extends GameManager
 				action.getSequence().getSecToDelay());
 
 
-		double seconds = sequencePlayer.playSequence(sequenceData);
+		double seconds = getSequencePlayer().playSequence(sequenceData);
 		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
 		System.out.println("InitAction");
 	}
@@ -270,7 +270,7 @@ public class GameReplayManager extends GameManager
 	{
 		for (CorsiBlock block : rebuiltBlocks)
 		{
-			gameObjects.getChildren().remove(block);
+			getGameObjects().getChildren().remove(block);
 		}
 
 		rebuiltBlocks = new ArrayList<CorsiBlock>();
