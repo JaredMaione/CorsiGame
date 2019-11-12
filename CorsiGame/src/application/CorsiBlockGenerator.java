@@ -2,6 +2,8 @@ package application;
 
 import java.util.ArrayList;
 
+// This class is responsible for generating CorsiBlocks to be used in the game
+// It generates blocks with random positions based on given max x and y values
 public abstract class CorsiBlockGenerator 
 {
 	public static final int BLOCK_SIDE_LENGTH = 20;
@@ -15,7 +17,7 @@ public abstract class CorsiBlockGenerator
 			double x = 0.0;
 			double y = 0.0;
 			
-			// Verify that block is spawning in an open space (must be 2 or more blocks away from all others)
+			// Verify that block is spawning in an open space (must be a certain distance away from all others)
 			boolean validLocation = false;
 			while (!validLocation)
 			{
@@ -24,6 +26,7 @@ public abstract class CorsiBlockGenerator
 				
 				validLocation = true;
 				
+				// Check generated position with other blocks
 				for (CorsiBlock block : blocks)
 				{
 					double blockX = block.getX();
