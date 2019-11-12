@@ -44,7 +44,7 @@ public class GameManager
 	private ArrayList<CorsiBlock> clickedBlocks;
 
 	private PlayerData playerData;
-	protected ArrayList<PlayerData> players;
+	private ArrayList<PlayerData> players;
 
 	protected Stopwatch sequenceTimer;
 	private Stopwatch gameTimer;
