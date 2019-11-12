@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
@@ -112,14 +113,17 @@ public class MainMenu
 		
 		if (!playerFolder.exists())
 		{
-			playerFolder.mkdir();
+			playerFolder.mkdirs();
 		}
 		
-		for (File file : playerFolder.listFiles())
+		if (playerFolder.listFiles() != null)
 		{
-			if (file.getName().substring(file.getName().indexOf("."), file.getName().length()).equals(".ser"))
+			for (File file : playerFolder.listFiles())
 			{
-				players.add((PlayerData) FileManager.decryptAndReadObj(file.getAbsolutePath()));
+				if (file.getName().substring(file.getName().indexOf("."), file.getName().length()).equals(".ser"))
+				{
+					players.add((PlayerData) FileManager.decryptAndReadObj(file.getAbsolutePath()));
+				}
 			}
 		}
 				
