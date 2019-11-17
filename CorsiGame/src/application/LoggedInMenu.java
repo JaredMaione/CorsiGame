@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -13,6 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class manages the menu the player interacts with once they are logged in
+// It can transition to the game, scoreboard menu, or main menu
 public class LoggedInMenu 
 {
 	private final String PLAY_BUTTON_LABEL = "Play Game";
