@@ -1,11 +1,11 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.StringReader;
 import java.util.ArrayList;
 
+// This class keeps track of all relevant data for a single player
+// It implements Comparable<PlayerData> to allow PlayerData objects to be
+// compared by high score.
 public class PlayerData implements Serializable, Comparable<PlayerData>
 {	
 	private static final long serialVersionUID = 252115055904727829L;
@@ -66,42 +66,6 @@ public class PlayerData implements Serializable, Comparable<PlayerData>
 	public void saveToFile()
 	{
 		FileManager.writeEncrypted(this, System.getProperty("user.dir") + "\\" + FileManager.PLAYER_FILES_FOLDER + "\\" + username + ".ser");
-	}
-	
-	public void readFromString(String data)
-	{
-		try 
-		{
-			BufferedReader dataReader = new BufferedReader(new StringReader(data));
-						
-			username = dataReader.readLine();
-			password = dataReader.readLine();
-			dob = new Date(dataReader.readLine());
-			city = dataReader.readLine();
-			state = dataReader.readLine();
-			country = dataReader.readLine();
-			diagnosis = dataReader.readLine();
-			
-			if (username == null ||
-				password == null ||
-				dob == null ||
-				city == null ||
-				state == null ||
-				country == null ||
-				diagnosis == null)
-			{
-				System.out.println("Error");
-			}
-		} 
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		} 
-		catch (UnableToParseDateException e) 
-		{
-			dob = new Date(0, 0, 0);
-			e.printStackTrace();
-		}
 	}
 	
 	public int getMaxCorsiSpan()
