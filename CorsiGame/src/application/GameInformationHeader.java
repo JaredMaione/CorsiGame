@@ -4,6 +4,10 @@ import javafx.geometry.Orientation;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+// This class displays the game name and author in appropriate title format
+// It can be added to other JavaFX layout managers
+// Styling is done via the application.css CSS file
+// The stylesheet must be added to the parent Node for formatting to appear
 public class GameInformationHeader extends FlowPane
 {
 	private final String GAME_TITLE = "Corsi Task";
