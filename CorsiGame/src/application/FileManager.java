@@ -22,12 +22,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 // This class is responsible for reading, writing, encrypting, and decrypting files
-// It uses AES encryption
+// It uses AES encryption where applicable
 public final class FileManager 
 {
 	private static final String ENCRYPTION_KEY = "123456781234";
 	
-	public static final String PLAYER_FILES_FOLDER = "GameFiles\\Players";
+	public static final String GAME_FILES_FOLDER = "GameFiles";
+	public static final String PLAYER_FILES_FOLDER = GAME_FILES_FOLDER + "\\Players";//"GameFiles\\Players";
+	public static final String INFO_FILES_FOLDER = GAME_FILES_FOLDER + "\\Info"; 
 	
 	private static final String EXCEPTION_ALERT_TITLE = "Error!";
 	
