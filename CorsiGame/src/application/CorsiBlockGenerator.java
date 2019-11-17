@@ -4,9 +4,14 @@ import java.util.ArrayList;
 
 // This class is responsible for generating CorsiBlocks to be used in the game
 // It generates blocks with random positions based on given max x and y values
-public abstract class CorsiBlockGenerator 
+public final class CorsiBlockGenerator 
 {
 	public static final int BLOCK_SIDE_LENGTH = 20;
+	
+	private CorsiBlockGenerator()
+	{
+		
+	}
 	
 	public static ArrayList<CorsiBlock> generateBlocks(int numBlocks, int maxX, int maxY)
 	{
