@@ -1,11 +1,12 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
+// This class provides a user-friendly way to organize JavaFX nodes in a rigidly defined grid
+// with a specified number of columns and rows 
 public class FixedColumnGridPane extends GridPane 
 {
 	private final int[] paddingData = {5, 5, 10, 15};
