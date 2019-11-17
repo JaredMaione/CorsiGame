@@ -2,6 +2,7 @@ package application;
 
 import java.io.Serializable;
 
+// This class stores x and y coordinates for a point on an xy coordinate plane
 public class Position implements Serializable
 {
 	private static final long serialVersionUID = -4072427736021987251L;
