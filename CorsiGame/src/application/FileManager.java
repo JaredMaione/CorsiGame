@@ -1,9 +1,12 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,6 +34,35 @@ public final class FileManager
 	private FileManager()
 	{
 		
+	}
+	
+	public static String readTextFile(String path)
+	{
+		try 
+		{
+			String textToReturn = "";
+			
+			BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
+			
+			String line = reader.readLine();
+			
+			while (line != null)
+			{
+				textToReturn += line;
+				line = reader.readLine();
+			}
+			
+			reader.close();
+			
+			return textToReturn;
+			
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	public static void writeEncrypted(Object object, String path)
