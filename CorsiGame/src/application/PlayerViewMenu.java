@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -14,6 +13,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+// This class manages the menu from which the admin can examine the games played
+// by a specific player
+// It can display the stats for a specified game or begin a replay
 public class PlayerViewMenu 
 {
 	private final String VIEW_STATS_BUTTON_LABEL = "View Selected Game Stats";
@@ -100,6 +102,7 @@ public class PlayerViewMenu
 		pane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		pane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
+		// Handler for selecting a game via its ItemSelectionPane<GameData>
 		EventHandler<MouseEvent> itemClickHandler = new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -122,6 +125,8 @@ public class PlayerViewMenu
 			}
 		};
 		
+		// Create ItemSelectionPane<GameData) objects for each of the player's games
+		// and add them to the menu
 		for (GameData gameData : player.getGameDataList())
 		{
 			ItemSelectionPane<GameData> gameSelectionPane = new ItemSelectionPane<GameData>(gameData, 
@@ -151,6 +156,7 @@ public class PlayerViewMenu
 		stage.show();
 	} 
 	
+	// Returns the GameData object whose ItemSelectionPane is selected
 	public GameData getSelectedGame()
 	{
 		for (ItemSelectionPane<GameData> pane : gameSelectionPanes)
