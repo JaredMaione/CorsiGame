@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -17,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class manages the menu by which the administer can search for a specific player
 public class PlayerSearchMenu 
 {
 	private final String SEARCH_FIELD_LABEL = "Enter player username:";
@@ -133,6 +133,7 @@ public class PlayerSearchMenu
 		stage.show();
 	}
 	
+	// Returns the PlayerData object whose ItemSelectionPane is currently selected
 	private PlayerData getSelectedPlayer()
 	{
 		for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
@@ -144,26 +145,18 @@ public class PlayerSearchMenu
 		}
 		
 		return null;
-		
 	}
 	
+	// Creates ItemSelectionPanes for all players to be displayed and adds them to the menu
 	private void displayPlayers(ArrayList<PlayerData> playersToDisplay)
 	{
 		FlowPane playerDisplayPane = new FlowPane(Orientation.VERTICAL);
-		
 		
 		playerDisplayPane.getChildren().clear();
 		
 		playerSelectionPanes.clear();
 		
-		for (PlayerData player : playersToDisplay)
-		{
-			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
-			playerDisplayPane.getChildren().add(pane);
-			playerSelectionPanes.add(pane);
-		}
-		
-		
+		// Mouse click handler for pane selection
 		EventHandler<MouseEvent> resultClickHandler = new EventHandler<MouseEvent>()
 		{
 			@Override
@@ -186,9 +179,12 @@ public class PlayerSearchMenu
 			}
 		};
 		
-		for (ItemSelectionPane<PlayerData> pane : playerSelectionPanes)
+		for (PlayerData player : playersToDisplay)
 		{
+			ItemSelectionPane<PlayerData> pane = new ItemSelectionPane<PlayerData>(player, player.getUsername());
+			playerDisplayPane.getChildren().add(pane);
 			pane.addEventFilter(MouseEvent.MOUSE_CLICKED, resultClickHandler);
+			playerSelectionPanes.add(pane);
 		}
 		
 		searchResultsScrollPane.setContent(playerDisplayPane);
