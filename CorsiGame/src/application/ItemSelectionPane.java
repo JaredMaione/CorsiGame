@@ -3,12 +3,16 @@ package application;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
+// This pane can be highlighted and selected, and the object
+// which it refers to can be returned
+// It requires application.css to be added to the parent Node
 public class ItemSelectionPane<T> extends FlowPane
 {
 	private T obj;
 	
 	private boolean isSelected;
 	
+	// The text which will be displayed as the item's label
 	private Text descText;
 		
 	public ItemSelectionPane(T obj, String descString)
