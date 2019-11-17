@@ -1,5 +1,7 @@
 package application;
 
+// This class keeps track of when and where a mouse click occurs
+// It also can store the click count of the MouseEvent in question
 public class MouseClickAction extends MouseAction
 {
 	private static final long serialVersionUID = 6702552219772516694L;
