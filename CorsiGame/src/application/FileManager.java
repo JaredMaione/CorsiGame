@@ -15,17 +15,23 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public abstract class FileManager 
+// This class is responsible for reading, writing, encrypting, and decrypting files
+// It uses AES encryption
+public final class FileManager 
 {
 	private static final String ENCRYPTION_KEY = "123456781234";
 	
 	public static final String PLAYER_FILES_FOLDER = "GameFiles\\Players";
 	
 	private static final String EXCEPTION_ALERT_TITLE = "Error!";
+	
+	private FileManager()
+	{
+		
+	}
 	
 	public static void writeEncrypted(Object object, String path)
 	{
