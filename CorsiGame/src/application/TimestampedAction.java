@@ -2,6 +2,7 @@ package application;
 
 import java.io.Serializable;
 
+// The base class for all actions which can be saved for game replay
 public abstract class TimestampedAction implements Serializable
 {
 	private static final long serialVersionUID = -3686299188586827656L;
