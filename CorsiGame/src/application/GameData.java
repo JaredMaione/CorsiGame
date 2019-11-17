@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+// This class keeps track of all relevant data from a single
+// game played by a single user
 public class GameData implements Serializable
 {
 	private static final long serialVersionUID = -4433645078534843484L;
@@ -11,8 +13,14 @@ public class GameData implements Serializable
 	public static final String FILE_IDENTIFIER = "GAME_DATA";
 	
 	private int corsiSpan;
+	
+	// The average time to complete a sequence based on all sequences played
+	// in the game
 	private ElapsedTime avgSequenceTime;
+	
+	// The time to complete each sequence played during the game
 	private ArrayList<ElapsedTime> sequenceTimes;
+	
 	private ElapsedTime gameDuration;
 	private ArrayList<TimestampedAction> gameActions;
 	private Date gameDate;
@@ -43,8 +51,6 @@ public class GameData implements Serializable
 		
 		returnString += avgSequenceTime.sendToString() + "\n-";
 		
-
-		
 		return returnString;
 	}
 	
@@ -56,7 +62,7 @@ public class GameData implements Serializable
 	public void addToAvgSequenceTime(ElapsedTime time)
 	{
 		sequenceTimes.add(time);
-		avgSequenceTime = calculateAverage();
+		avgSequenceTime = calculateAvgSequenceTime();
 	}
 	
 	public ElapsedTime getAvgSequenceTime()
@@ -64,7 +70,7 @@ public class GameData implements Serializable
 		return avgSequenceTime;
 	}
 	
-	private ElapsedTime calculateAverage()
+	private ElapsedTime calculateAvgSequenceTime()
 	{
 		if (sequenceTimes == null || sequenceTimes.size() == 0)
 		{
