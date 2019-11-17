@@ -38,13 +38,13 @@ public final class FileManager
 		
 	}
 	
-	public static String readTextFile(String path)
+	public static String readTextFile(File file)
 	{
 		try 
 		{
 			String textToReturn = "";
 			
-			BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
+			BufferedReader reader = new BufferedReader(new FileReader(file));
 			
 			String line = reader.readLine();
 			
