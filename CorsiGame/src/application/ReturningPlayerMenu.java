@@ -1,7 +1,6 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -15,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class is responsible for the menu where players can log in to the game
 public class ReturningPlayerMenu 
 {
 	private final String USERNAME_FIELD_LABEL = "Username:";
@@ -26,7 +26,7 @@ public class ReturningPlayerMenu
 	private final String ERROR_TITLE = "Error";
 	private final String INVALID_CREDENTIALS_MESSAGE = "Invalid username and/or password! Please try again.";
 	
-	private final String ADMIN_USERNAME = "admin";
+	public static final String ADMIN_USERNAME = "admin";
 	private final String ADMIN_PASSWORD = "CS3160";
 	
 	private final int ENTER_KEY_CODE = 13;
@@ -70,7 +70,7 @@ public class ReturningPlayerMenu
 			{
 				if (e.getSource().equals(submitButton))
 				{
-					authenticateInput();
+					attemptLogin();
 				}
 				
 				if (e.getSource().equals(cancelButton))
@@ -80,6 +80,8 @@ public class ReturningPlayerMenu
 			}
 		};
 		
+		// This handler allows the enter key to do the same thing as submitButton
+		// provided that the passwordField has focus
 		EventHandler<KeyEvent> enterKeyHandler = new EventHandler<KeyEvent>()
 		{
 			@Override
@@ -87,7 +89,7 @@ public class ReturningPlayerMenu
 			{
 				if (e.getCharacter().toCharArray()[0] == ENTER_KEY_CODE)
 				{
-					authenticateInput();
+					attemptLogin();
 				}
 			}
 		};
@@ -102,7 +104,9 @@ public class ReturningPlayerMenu
 		stage.show();
 	}
 	
-	private void authenticateInput()
+	// This method logs the player in, provided that their credentials are correct
+	// If their credentials are invalid, a dialog box is displayed
+	private void attemptLogin()
 	{
 		PlayerData player = matchCredentialsToPlayer(usernameField.getText().trim(), passwordField.getText().trim());
 		
@@ -123,6 +127,8 @@ public class ReturningPlayerMenu
 		}
 	}
 	
+	// Returns for the player whose credentials match the argument username and password
+	// If not found, return null
 	private PlayerData matchCredentialsToPlayer(String username, String password)
 	{
 		for (PlayerData player : playersList)
