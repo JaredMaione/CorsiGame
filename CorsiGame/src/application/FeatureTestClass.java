@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+// This class is to be used as a sandbox for testing features which
+// may be implemented. It is NOT to be used in the final product
 public class FeatureTestClass
 {
 
