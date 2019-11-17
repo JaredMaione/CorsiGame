@@ -1,20 +1,18 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
-import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class is responsible for running the game
+// It saves game data to a GameData object for analysis later
 public class GameManager 
 {
 	private Button submitButton;
@@ -25,11 +23,6 @@ public class GameManager
 	private final String INCORRECT_MESSAGE_TEXT = "INCORRECT";	
 	private final String READY_MESSAGE_TEXT = "READY";
 	private final String GAME_OVER_MESSAGE_TEXT = "GAME\nOVER";
-
-	private final String PLAY_AGAIN_TITLE = "Play again?";
-	private final String PLAY_AGAIN_MESSAGE = "Would you like to play again?";
-	private final String PLAY_AGAIN_YES_LABEL = "Yes, play again!";
-	private final String PLAY_AGAIN_NO_LABEL = "No, return to menu";
 
 	private final String GAME_OVER_ALERT_TITLE = "Game Over";
 	private final String GAME_OVER_ALERT_MESSAGE = "Game over. Click \"OK\" to view your score";
@@ -128,7 +121,6 @@ public class GameManager
 		gameOverMessage.setVisible(false);
 		gameOverMessage.getStyleClass().add("large_negative_message_text");
 		gameObjects.getChildren().add(gameOverMessage);
-
 
 		submitButton = new Button(SUBMIT_BUTTON_LABEL);
 		submitButton.setLayoutX(0);
@@ -241,6 +233,7 @@ public class GameManager
 	{
 		clearBlocks();
 
+		// Reset sequence timer for the new level
 		if (sequenceTimer.isRunning())
 		{
 			sequenceTimer.stop();
@@ -259,11 +252,16 @@ public class GameManager
 			gameObjects.getChildren().add(block);
 		}
 
+		// Save sequence in a CorsiSequenceData object to be added to the action queue in GameData
 		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, SEQUENCE_BLOCK_BLINK_DURATION, false, secToDelaySequence);
+		
 		gameData.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
 
-		double seconds = sequencePlayer.playSequence(sequenceData);
-		TimedMessageDisplay.displayMessage(startMessage, seconds, 0.2);
+		// Play the sequence and store the estimated time to finish playing
+		double secondsToDelayStartMessage = sequencePlayer.playSequence(sequenceData);
+		
+		// Display the start message after delaying for the specified time
+		TimedMessageDisplay.displayMessage(startMessage, secondsToDelayStartMessage, 0.2);
 	}
 
 	protected void handleBlockClicked(CorsiBlock block)
@@ -312,11 +310,13 @@ public class GameManager
 		}
 		else
 		{
+			// If this is the player's first failure on this sequence, give another chance
 			if (numTries < 2)
 			{
 				TimedMessageDisplay.displayMessage(incorrectMessage, 0, 2);
 				startCurrentLevel(3);
 			}
+			// If this is the player's seconds attempt at this sequence, end the game
 			else
 			{
 				TimedMessageDisplay.displayMessage(gameOverMessage, 0, 0.5);
@@ -327,6 +327,7 @@ public class GameManager
 		clickedBlocks.clear();
 	}
 
+	// Handle the end of the game and save required information
 	private void processGameOver()
 	{
 		if (currentLevel == STARTING_LEVEL)
@@ -341,13 +342,17 @@ public class GameManager
 		gameData.addTimestampedAction(new GameEndAction(gameTimer.getMSFromStart()));
 		gameTimer.stop();
 
+		// Subtract off however long the start of the game is delayed for accuracy
 		gameTimer.getLastElapsedTime().subtractSeconds(GAME_START_DELAY);
+		
 		gameData.setGameDuration(gameTimer.getLastElapsedTime());
 
 		playerData.addGameData(gameData);
 		playerData.saveToFile();
 
 		displayGameOverAlert();
+		
+		// Transition to scoreboard
 		ScoreboardMenu menu = new ScoreboardMenu(stage, players, playerData);
 		menu.displayScore(gameData);
 		reset();
@@ -362,7 +367,8 @@ public class GameManager
 		gameOverAlert.showAndWait();
 	}
 
-	protected void reset()
+	// Reset all data and progress
+	public void reset()
 	{
 		gameData = new GameData();
 		clickedBlocks.clear();
