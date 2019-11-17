@@ -1,25 +1,22 @@
 package application;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+// This class manages the main menu, which is the first window the user
+// sees upon launching the game
+// The player can navigate from the main menu into player registration, player login,
+// or help menu
 public class MainMenu 
 {
 	private BorderPane mainPane;
@@ -105,6 +102,7 @@ public class MainMenu
 		stage.show();
 	}
 	
+	// This method loads all PlayerData files into memory via the FileManager utility class
 	private ArrayList<PlayerData> loadPlayers()
 	{
 		ArrayList<PlayerData> players = new ArrayList<PlayerData>();
