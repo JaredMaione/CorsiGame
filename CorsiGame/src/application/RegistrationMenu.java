@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -24,15 +26,13 @@ import javafx.stage.Stage;
 // it to file
 public class RegistrationMenu 
 {	
+	private final String TERMS_FILE_NAME = "terms.txt";
 	private final String USERNAME_FIELD_LABEL = "Username:";
 	private final String DOB_FIELD_LABEL = "Date of Birth:";
 	private final String CITY_FIELD_LABEL = "City:";
 	private final String STATE_FIELD_LABEL = "State, Province, or Region:";
 	private final String COUNTRY_FIELD_LABEL = "Country:";
 	private final String DIAGNOSIS_FIELD_LABEL = "Diagnosis (optional):";
-	private final String TERMS_LABEL = "By clicking \"Submit\", you consent to the storage and analysis of all information provided. You " +
-									   "also consent to the analysis of any and all game activity. If you click \"Cancel\", no information " +
-									   	"will be stored and you will be returned to the main menu.";
 	private final String PASSWORD_LABEL = "Password:";
 	private final String PASSWORD_LABEL_CONFIRM = "Confirm password:";
 	
@@ -97,7 +97,26 @@ public class RegistrationMenu
 		
 		mainPane.getChildren().add(formPane);
 		
-		Text termsText = new Text(TERMS_LABEL);
+		// Load terms of use from file
+		File termsFolder = new File(System.getProperty("user.dir") + "\\" + FileManager.INFO_FILES_FOLDER);
+		termsFolder.mkdirs();
+		
+		File termsFile = new File(termsFolder.getAbsolutePath() + "\\" + TERMS_FILE_NAME);
+		
+		if (!termsFile.exists())
+		{
+			try 
+			{
+				termsFile.createNewFile();
+			} 
+			catch (IOException e1) 
+			{
+				e1.printStackTrace();
+			}
+		}
+		
+		Text termsText = new Text(FileManager.readTextFile(termsFile));
+		
 		termsText.setWrappingWidth(350);
 		mainPane.getChildren().add(termsText);
 		
