@@ -78,6 +78,11 @@ public class MainMenu
 				{
 					ReturningPlayerMenu menu = new ReturningPlayerMenu(stage, players);
 				}
+				
+				if (e.getSource().equals(helpButton))
+				{
+					HelpMenu menu = new HelpMenu(stage);
+				}
 			}
 		};
 		
