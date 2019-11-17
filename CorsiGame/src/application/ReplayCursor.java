@@ -1,21 +1,24 @@
 package application;
 
-import com.sun.prism.paint.Color;
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
+// This class represents the "cursor" which indicates the player's mouse position
+// during game replays
+// It can blink to simulate a click
 public class ReplayCursor extends Circle 
 {
-	private final static int CURSOR_RADIUS = 4;
+	private static final int CURSOR_RADIUS = 4;
 	private final double CURSOR_BLINK_TIME = 0.1;
+	
 	private final Paint NORMAL_COLOR = Paint.valueOf("black");
+	
+	// This color code corresponds to a light green
 	private final Paint BLINK_COLOR = Paint.valueOf("#00FF40");
 	
 	private Stopwatch cursorBlinkStopwatch;
 
-			
 	public ReplayCursor()
 	{
 		super(CURSOR_RADIUS);
