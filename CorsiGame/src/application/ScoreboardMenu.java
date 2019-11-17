@@ -1,9 +1,7 @@
 package application;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -17,6 +15,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class manages the scoreboard. It can be configured
+// to display personal score data, or allow the user to compare their
+// score with other players
 public class ScoreboardMenu 
 {
 	private final String GLOBAL_LEADERBOARD_BUTTON_LABEL = "View Global Leaderboard";
@@ -61,7 +62,7 @@ public class ScoreboardMenu
 	
 	private PlayerData currentPlayer;
 	
-	// Constructor to be used in PlayerViewMenu
+	// Constructor to be used in PlayerViewMenu (for a single game played by a single player)
 	public ScoreboardMenu(Stage stage, PlayerData player, GameData game)
 	{
 		this.players = new ArrayList<PlayerData>();
@@ -106,6 +107,7 @@ public class ScoreboardMenu
 	}
 	
 	// Constructor to be used for global AdminMenu scoreboard
+	// This hides personal score information button (no player is logged in)
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players)
 	{
 		this.players = players;
@@ -191,6 +193,7 @@ public class ScoreboardMenu
 	}
 	
 	// Constructor to be used when player is logged in
+	// This will allow the player to view the global scoreboard or their own score information
 	public ScoreboardMenu(Stage stage, ArrayList<PlayerData> players, PlayerData currentPlayer)
 	{
 		this.players = players;
@@ -376,7 +379,8 @@ public class ScoreboardMenu
 		{
 			++endingIndex;
 		}
-					
+		
+		// Add information for all players which are on this page
 		for (int i = startingIndex; i < endingIndex; ++i)
 		{
 			PlayerData player = sortedPlayers.get(i);
