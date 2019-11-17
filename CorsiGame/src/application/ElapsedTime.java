@@ -2,6 +2,9 @@ package application;
 
 import java.io.Serializable;
 
+// This class represents a finite period of time
+// It tracks minutes, seconds, and milliseconds
+// Time can be converted to milliseconds
 public class ElapsedTime implements Serializable
 {
 	private static final long serialVersionUID = 2164275180143319116L;
