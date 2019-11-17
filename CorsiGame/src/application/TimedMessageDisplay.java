@@ -1,11 +1,17 @@
 package application;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.Group;
 import javafx.scene.text.Text;
 
-public abstract class TimedMessageDisplay
+// Makes argument Text object visible for a specified amount of time, then hides it again
+// Can delay message display by passing non-zero value to constructor argument delayToStart
+public final class TimedMessageDisplay
 {
+	private TimedMessageDisplay()
+	{
+		
+	}
+	
 	public static void displayMessage(Text message, double delayToStart, double secVisible)
 	{
 		Stopwatch stopwatch = new Stopwatch();
@@ -32,5 +38,4 @@ public abstract class TimedMessageDisplay
 		
 		timer.start();
 	}
-
 }
