@@ -1,9 +1,7 @@
 package application;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -21,6 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// This class handles registration of a new player
+// It creates a PlayerData object upon form submission and saves
+// it to file
 public class RegistrationMenu 
 {	
 	private final String USERNAME_FIELD_LABEL = "Username:";
@@ -116,6 +117,7 @@ public class RegistrationMenu
 					}
 					else
 					{
+						// Display a dialog box informing the user that the input data is not valid
 						Alert invalidDataAlert = new Alert(AlertType.INFORMATION);
 						invalidDataAlert.setTitle(ERROR_TITLE);
 						invalidDataAlert.setHeaderText(INVALID_INPUT_MESSAGE);
@@ -157,7 +159,6 @@ public class RegistrationMenu
 		
 		mainPane.addEventFilter(KeyEvent.KEY_TYPED, enterKeyHandler);
 		
-		
 		HBox buttonBox = new HBox();
 		buttonBox.setSpacing(3);
 		buttonBox.getChildren().add(submitButton);
@@ -169,6 +170,7 @@ public class RegistrationMenu
 		stage.show();
 	}
 	
+	// Saves this PlayerData file and transitions to LoggedInMenu
 	private void createProfileAndLogin()
 	{
 		PlayerData player = new PlayerData();
@@ -201,6 +203,11 @@ public class RegistrationMenu
 	
 	private boolean usernameUnique()
 	{
+		if (usernameField.getText().trim().equals(ReturningPlayerMenu.ADMIN_USERNAME))
+		{
+			return false;
+		}
+		
 		for (PlayerData existingPlayer : players)
 		{
 			if (usernameField.getText().trim().equals(existingPlayer.getUsername()))
