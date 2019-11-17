@@ -1,17 +1,14 @@
 package application;
 
 import java.util.ArrayList;
-
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+// This class is responsible for running game replays
+// It inherits much of its functionality from GameManager
 public class GameReplayManager extends GameManager
 {
 	private final String MENU_BUTTON_LABEL = "Return to Menu";
@@ -19,11 +16,19 @@ public class GameReplayManager extends GameManager
 	
 	private ArrayList<TimestampedAction> actionQueue;
 
+	// For efficiency, all TimestampedActions from the GameData object
+	// are split into two ArrayLists and processed on two separate threads
+	// concurrently
 	private ArrayList<TimestampedAction> threadOneActions;
 	private ArrayList<TimestampedAction> threadTwoActions;
 	private int threadOneActionIndex;
 	private int threadTwoActionIndex;
 
+	// This list stores blocks which have been re-instantiated based off
+	// of stored blocks
+	
+	// This was necessary because CorsiBlocks cannot deserialize everything
+	// from their parent Rectangle class
 	private ArrayList<CorsiBlock> rebuiltBlocks;
 	private Stopwatch replayStopwatch;
 	private ReplayCursor cursor;
@@ -65,6 +70,7 @@ public class GameReplayManager extends GameManager
 		threadOneActionIndex = 0;
 		threadTwoActionIndex = 0;
 
+		// Split actions into two lists
 		for (TimestampedAction action : actionQueue)
 		{
 			if (threadOneActions.size() <= threadTwoActions.size())
@@ -85,6 +91,8 @@ public class GameReplayManager extends GameManager
 	{
 		replayStopwatch.start();
 
+		// Start both threads
+		
 		AnimationTimer threadOne = new AnimationTimer()
 		{
 			@Override
@@ -129,6 +137,7 @@ public class GameReplayManager extends GameManager
 		threadTwo.start();
 	}
 
+	// Handles an argument action depending on its type
 	private void evaluateAction(TimestampedAction currentAction)
 	{
 		if (currentAction instanceof BlockClickedAction)
@@ -143,23 +152,19 @@ public class GameReplayManager extends GameManager
 					getClickedBlocks().add(rebuiltBlock);
 				}
 			}
-			System.out.println("BlockAction");
 		}
 		else if (currentAction instanceof SubmitClickedAction)
 		{
 			handleSubmitClickedAction();
-			System.out.println("SubmitAction");
 		}
 		else if (currentAction instanceof MouseClickAction)
 		{
 			cursor.blink();
-			System.out.println("ClickAction");
 		}
 		else if (currentAction instanceof MouseAction)
 		{
 			cursor.setCenterX(((MouseAction) currentAction).getMousePosition().getX());
 			cursor.setCenterY(((MouseAction) currentAction).getMousePosition().getY());
-			System.out.println("Mouse moved to " + ((MouseAction) currentAction).getMousePosition().getX() + " " + ((MouseAction) currentAction).getMousePosition().getY());
 		}
 		else if (currentAction instanceof SequenceInitiationAction)
 		{
@@ -215,6 +220,8 @@ public class GameReplayManager extends GameManager
 		}
 		else
 		{
+			// Display either incorrect message or game over message depending
+			// on how many attempts the player made
 			if (getNumTries() < 2)
 			{
 				TimedMessageDisplay.displayMessage(getIncorrectMessage(), 0, 2);
@@ -234,7 +241,6 @@ public class GameReplayManager extends GameManager
 
 		setBlocks(action.getSequence().getBlocks());
 		setCurrentLevel(action.getSequence().getLevel());
-		System.out.println(getCurrentLevel());
 		setNumTries(getNumTries() + 1);
 
 		// Reconstruct all blocks due to serialization not preserving correct information
@@ -245,7 +251,6 @@ public class GameReplayManager extends GameManager
 			CorsiBlock rebuiltBlock = new CorsiBlock(deserializedBlock.getX(), deserializedBlock.getY(), CorsiBlockGenerator.BLOCK_SIDE_LENGTH);
 			rebuiltBlocks.add(rebuiltBlock);
 			getGameObjects().getChildren().add(rebuiltBlock);
-			System.out.println("Adding a block at " + deserializedBlock.getX() + "," + deserializedBlock.getY());							
 		}
 		
 		// Remove and add cursor to ensure that it draws above blocks
@@ -261,9 +266,8 @@ public class GameReplayManager extends GameManager
 				action.getSequence().getSecToDelay());
 
 
-		double seconds = getSequencePlayer().playSequence(sequenceData);
-		TimedMessageDisplay.displayMessage(getStartMessage(), seconds, 0.2);
-		System.out.println("InitAction");
+		double secondsToDelayStartMessage = getSequencePlayer().playSequence(sequenceData);
+		TimedMessageDisplay.displayMessage(getStartMessage(), secondsToDelayStartMessage, 0.2);
 	}
 
 	private void clearBlocks()
