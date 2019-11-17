@@ -3,6 +3,8 @@ package application;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+// This class stores a date's month, day, and year
+// Can be constructed from a String, LocalDate, or integer values for month, day, and year
 public class Date implements Serializable
 {
 	private static final long serialVersionUID = 7576121268789295899L;
