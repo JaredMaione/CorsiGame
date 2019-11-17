@@ -2,6 +2,9 @@ package application;
 
 import java.io.Serializable;
 
+// This class is a stopwatch which can be started, stopped, and reset
+// just like a real life stopwatch
+// Once the watch is stopped, it uses an ElapsedTime object to track the time which has gone by
 public class Stopwatch implements Serializable
 {
 	private static final long serialVersionUID = -6833815408946316276L;
