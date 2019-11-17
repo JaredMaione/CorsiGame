@@ -1,7 +1,7 @@
 package application;
 
-import java.util.ArrayList;
-
+// This class keeps track of when a sequence was started
+// It also stores the sequence itself
 public class SequenceInitiationAction extends TimestampedAction
 {
 	private static final long serialVersionUID = 5317944950267416564L;
