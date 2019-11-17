@@ -9,9 +9,7 @@ import java.util.ArrayList;
 public class PlayerData implements Serializable, Comparable<PlayerData>
 {	
 	private static final long serialVersionUID = 252115055904727829L;
-	
-	public static final String PLAYERS_FOLDER_NAME = "Players"; 
-	
+		
 	private String username;
 	private String password;
 	private Date dob;
