@@ -1,10 +1,10 @@
 package application;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// This class stores information about a specific time of day in 24-hour format
 public class Time implements Serializable
 {
 	private static final long serialVersionUID = 6858418072454255473L;
@@ -13,6 +13,7 @@ public class Time implements Serializable
 	private int min;
 	private int sec;
 	
+	// In default constructor, initialize to the current time of day
 	public Time()
 	{
 		String dateString = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_TIME);
