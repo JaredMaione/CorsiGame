@@ -51,6 +51,7 @@ public final class FileManager
 			while (line != null)
 			{
 				textToReturn += line;
+				textToReturn += "\n";
 				line = reader.readLine();
 			}
 			
