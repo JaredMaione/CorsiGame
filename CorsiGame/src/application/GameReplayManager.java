@@ -17,12 +17,11 @@ public class GameReplayManager extends GameManager
 	private ArrayList<TimestampedAction> actionQueue;
 
 	// For efficiency, all TimestampedActions from the GameData object
-	// are split into two ArrayLists and processed on two separate threads
-	// concurrently
-	private ArrayList<TimestampedAction> threadOneActions;
-	private ArrayList<TimestampedAction> threadTwoActions;
-	private int threadOneActionIndex;
-	private int threadTwoActionIndex;
+	// are split into two ArrayLists and processed by two separate timers
+	private ArrayList<TimestampedAction> timerOneActions;
+	private ArrayList<TimestampedAction> timerTwoActions;
+	private int timerOneActionIndex;
+	private int timerTwoActionIndex;
 
 	// This list stores blocks which have been re-instantiated based off
 	// of stored blocks
@@ -65,21 +64,21 @@ public class GameReplayManager extends GameManager
 		
 		returnToMenuButton.addEventFilter(MouseEvent.MOUSE_CLICKED, buttonHandler);
 
-		threadOneActions = new ArrayList<TimestampedAction>();
-		threadTwoActions = new ArrayList<TimestampedAction>();
-		threadOneActionIndex = 0;
-		threadTwoActionIndex = 0;
+		timerOneActions = new ArrayList<TimestampedAction>();
+		timerTwoActions = new ArrayList<TimestampedAction>();
+		timerOneActionIndex = 0;
+		timerTwoActionIndex = 0;
 
 		// Split actions into two lists
 		for (TimestampedAction action : actionQueue)
 		{
-			if (threadOneActions.size() <= threadTwoActions.size())
+			if (timerOneActions.size() <= timerTwoActions.size())
 			{
-				threadOneActions.add(action);
+				timerOneActions.add(action);
 			}
 			else
 			{
-				threadTwoActions.add(action);
+				timerTwoActions.add(action);
 			}
 		}
 
@@ -91,50 +90,50 @@ public class GameReplayManager extends GameManager
 	{
 		replayStopwatch.start();
 
-		// Start both threads
+		// Start both timers
 		
-		AnimationTimer threadOne = new AnimationTimer()
+		AnimationTimer timerOne = new AnimationTimer()
 		{
 			@Override
 			public void handle(long arg0) 
 			{
-				if (threadOneActionIndex >= threadOneActions.size())
+				if (timerOneActionIndex >= timerOneActions.size())
 				{
 					this.stop();
 				}
 				else
 				{
-					if (replayStopwatch.getMSFromStart() >= threadOneActions.get(threadOneActionIndex).getMSFromStart())
+					if (replayStopwatch.getMSFromStart() >= timerOneActions.get(timerOneActionIndex).getMSFromStart())
 					{
-						evaluateAction(threadOneActions.get(threadOneActionIndex));
-						++threadOneActionIndex;
+						evaluateAction(timerOneActions.get(timerOneActionIndex));
+						++timerOneActionIndex;
 					}
 				}
 			}
 		};
 
-		AnimationTimer threadTwo = new AnimationTimer()
+		AnimationTimer timerTwo = new AnimationTimer()
 		{
 			@Override
 			public void handle(long arg0) 
 			{
-				if (threadTwoActionIndex >= threadTwoActions.size()) 
+				if (timerTwoActionIndex >= timerTwoActions.size()) 
 				{
 					this.stop();
 				}
 				else
 				{
-					if (replayStopwatch.getMSFromStart() >= threadTwoActions.get(threadTwoActionIndex).getMSFromStart())
+					if (replayStopwatch.getMSFromStart() >= timerTwoActions.get(timerTwoActionIndex).getMSFromStart())
 					{
-						evaluateAction(threadTwoActions.get(threadTwoActionIndex));
-						++threadTwoActionIndex;
+						evaluateAction(timerTwoActions.get(timerTwoActionIndex));
+						++timerTwoActionIndex;
 					}
 				}
 			}
 		};
 
-		threadOne.start();
-		threadTwo.start();
+		timerOne.start();
+		timerTwo.start();
 	}
 
 	// Handles an argument action depending on its type
