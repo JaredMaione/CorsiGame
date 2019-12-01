@@ -252,7 +252,7 @@ public class GameManager
 		}
 
 		// Save sequence in a CorsiSequenceData object to be added to the action queue in GameData
-		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, SEQUENCE_BLOCK_BLINK_DURATION, false, secToDelaySequence);
+		CorsiSequenceData sequenceData = new CorsiSequenceData(blocks, currentLevel, SEC_BETWEEN_BLINKS, SEQUENCE_BLOCK_BLINK_DURATION, true, secToDelaySequence);
 		
 		gameData.addTimestampedAction(new SequenceInitiationAction(gameTimer.getMSFromStart(), sequenceData));
 
