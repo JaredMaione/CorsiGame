@@ -17,7 +17,8 @@ A player's score is the longest sequence that they can remember and correctly re
 - Game replays
 - Leaderboards
 - Administrator menu
-
+- Random block placement
+- Pattern generation
 
 ## Dependencies
 This application uses JavaFX for its user interface
