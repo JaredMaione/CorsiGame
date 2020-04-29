@@ -13,8 +13,8 @@ A player's score is the longest sequence that they can remember and correctly re
 
 ## Features
 - Player profiles with scorekeeping
-- Player information is encrypted
-- Game replay
+- Player information is encrypted for security
+- Game replays
 - Leaderboards
 - Administrator menu
 
