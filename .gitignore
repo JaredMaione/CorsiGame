@@ -2,3 +2,5 @@
 *.iml
 .DS_STORE
 target/
+out/
+CorsiGame/GameFiles/
