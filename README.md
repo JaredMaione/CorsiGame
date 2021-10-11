@@ -1,11 +1,10 @@
 # CorsiGame
 
-## Description
+## About
 
-A computerized version of the Corsi test, created for my CS3160 final project.
+A computerized version of the Corsi test, created in 2019 for my Concepts of Programming Languages class.
 
 The Corsi task is a game designed to measure a person's short-term memory. 
-
 
 It consists of several rectangles placed in random locations on the screen which light up, one at a time, in a pattern.
 The goal is to remember the sequence and click the blocks in the correct order.
@@ -26,4 +25,4 @@ A player's score is the longest sequence that they can remember and correctly re
 ![image](https://user-images.githubusercontent.com/50966543/136835404-fb4c326e-e1cb-41fc-bca1-f84ca90f42ed.png)  
 
 ## Dependencies
-This application uses JavaFX for its user interface
+This project uses JavaFX for its user interface. It has been updated to use Maven to make it easier to build and manage the application
